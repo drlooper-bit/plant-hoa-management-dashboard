@@ -3,261 +3,194 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plantation at Leesburg — HOA Management Dashboard</title>
+<title>Plantation at Leesburg — HOA Operations Dashboard</title>
 <style>
   :root{
     --bg:#111119; --bg-2:#18182a; --bg-3:#1f1f32;
     --text:#d5d8ff; --text-dim:#8090b8; --text-muted:#5c6a8a;
-    --border:#26293b; --accent:#79b8ff; --ok:#7fd4a2; --warn:#f2c96b; --err:#ff9d9d;
+    --border:#26293b; --accent:#79b8ff;
+    --ok:#7fd4a2; --warn:#f2c96b; --err:#ff9d9d;
   }
   * {box-sizing:border-box;}
-  html,body {margin:0; background:var(--bg); color:var(--text); font:13px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased;}
-  .wrap{max-width:1100px;margin:0 auto;padding:28px 24px 40px}
-  header{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--border);margin-bottom:22px}
-  header h1{font-size:15px;margin:0;font-weight:700;letter-spacing:.02em}
-  header .meta{color:var(--text-muted);font-size:11.5px;font-weight:500}
+  html,body {margin:0;background:var(--bg);color:var(--text);font:13px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap {max-width:1100px;margin:0 auto;padding:28px 24px 40px}
+  header {display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--border);margin-bottom:22px}
+  header h1 {font-size:15px;margin:0;font-weight:700;letter-spacing:.02em}
+  header .meta {color:var(--text-muted);font-size:11.5px;font-weight:500}
 
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
-  .kpi{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:15px 18px}
-  .kpi .label{color:var(--text-muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.1em}
-  .kpi .value{font-size:26px;font-weight:800;margin-top:7px}
+  .section {margin-bottom:32px}
+  .section-title {color:var(--text-dim);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;margin:0 0 6px}
+  .section-divider {height:1px;background:var(--border);opacity:1;margin:10px 0 20px}
 
-  .section{margin-bottom:32px}
-  .section-title{color:var(--text-dim);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;margin:0 0 6px}
-  .section-divider{height:1px;background:var(--border);opacity:1;margin:10px 0 20px}
+  .card {background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:15px 18px;margin-bottom:14px}
+  .card h3 {font-size:12.5px;margin:0 0 9px;color:var(--accent);text-transform:uppercase;letter-spacing:.1em}
+  .card p,.card li {font-size:12.5px;color:var(--text);line-height:1.6}
+  .card ul {margin:7px 0 0 18px;padding:0}
+  .card p strong {color:#fff}
 
-  .module{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px}
-  .module h3{font-size:12.5px;margin:0 0 9px;color:var(--accent);text-transform:uppercase;letter-spacing:.1em}
-  .module p,.module li{font-size:12.5px;color:var(--text);line-height:1.6}
-  .module ul{margin:7px 0 0 18px;padding:0}
+  .kpis {display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+  .kpi {background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:15px 18px}
+  .kpi .label {color:var(--text-muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.1em}
+  .kpi .value {font-size:26px;font-weight:800;margin-top:7px}
 
-  .metric{background:var(--bg-3);border-radius:10px;padding:11px 14px;margin:8px 0;display:flex;justify-content:space-between;gap:10px}
-  .metric .name{font-weight:600;color:var(--text-dim);font-size:11.5px;text-transform:uppercase;letter-spacing:.08em}
-  .metric .val{font-size:13px;color:#fff;font-weight:600;text-align:right}
-
-  .exhibit{background:var(--bg-3);border-left:3px solid var(--accent);padding:11px 14px;margin:8px 0;border-radius:0 10px 10px 0}
-  .exhibit strong{font-size:11.5px;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
-  .exhibit code{font-size:11.5px;word-break:break-all;color:#c8d2ff}
-
-  .status{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;text-align:center;margin-bottom:14px}
-  .status .label{font-size:11.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.14em}
-  .status .value{font-size:22px;font-weight:800;margin-top:7px;color:var(--warn)}
-
-  .section-notes-wrap{margin-top:6px}
-  .section-label{color:var(--accent);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
-  .section-notes{width:100%;background:#141422;color:var(--text);border:1px solid var(--border);border-radius:8px;padding:10px 11px;font:inherit;line-height:1.55}
-  .section-notes:focus{outline:none;border-color:var(--accent)}
-  .section-notes-status{font-size:11px;color:var(--text-muted);margin-top:6px;min-height:14px}
-
-  .tag{display:inline-block;background:#22223a;color:var(--text-dim);border:1px solid var(--border);border-radius:999px;padding:3px 9px;font-size:11px;margin:2px 4px 2px 0}
-
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  @media(max-width:860px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+  .section-notes-wrap {margin-top:4px}
+  .section-label {color:var(--accent);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+  .section-notes {width:100%;background:#141422;color:var(--text);border:1px solid var(--border);border-radius:8px;padding:10px 11px;font:inherit;line-height:1.55}
+  .section-notes:focus {outline:none;border-color:var(--accent)}
+  .section-notes-status {font-size:11px;color:var(--text-muted);margin-top:6px;min-height:14px}
+  .note-muted {color:var(--text-muted)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>Plantation at Leesburg — HOA Management Dashboard</h1>
-    <div class="meta">Community-wide operations · Owned by HEDS · Generated 2026-06-26</div>
+    <h1>HEDSLAPTOP / Hermes — Plantation at Leesburg HOA Dashboard</h1>
+    <div class="meta">Bylaws / Operations / Finance · Owned by HEDSLAPTOP · Generated 2026-06-26</div>
   </header>
 
   <div class="kpis">
     <div class="kpi">
-      <div class="label">Community</div>
-      <div class="value" style="color:var(--ok)">2,820 Homes</div>
+      <div class="label">Homes</div>
+      <div class="value">~2,820</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Monthly Dues</div>
+      <div class="value">$165 / $180</div>
     </div>
     <div class="kpi">
       <div class="label">Golf Assessment</div>
-      <div class="value">$15/mo</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Golf Courses</div>
-      <div class="value">2 × 18-Hole</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Annual Golf Revenue Run Rate</div>
-      <div class="value">~$507.6K</div>
+      <div class="value">$15/month</div>
     </div>
   </div>
 
   <div class="section">
-    <h2 class="section-title">Board of Directors</h2>
+    <h2 class="section-title">Bylaw Snapshot</h2>
     <div class="section-divider"></div>
-    <div class="module">
-      <h3>Current Board (as of 2026-06)</h3>
+    <div class="card">
+      <h3>Governance Power</h3>
       <ul>
-        <li><strong>Russ Roberson</strong> — President · Term: Dec 2023 – Dec 2027 · BODPresident@plantationhoa.org</li>
-        <li><strong>Jerry Tucker</strong> — Vice President · Term: Dec 2023 – Dec 2027 · BODVP@plantationhoa.org</li>
-        <li><strong>Geoff Alpert</strong> — Secretary/Treasurer · Term: Jun 2023 – Dec 2026 · BODSecTreas@plantationhoa.org</li>
-        <li>Director at Large seat indicated in source material; verify current holder. <span class="tag">VERIFY</span></li>
-      </ul>
-      <div class="exhibit"><strong>Source</strong> Plantation website HOA page · Contact emails and bios confirmed publicly visible to members.</div>
-    </div>
-
-    <div class="module">
-      <h3>Board Education / Certification Management</h3>
-      <ul>
-        <li><strong>Annual CAM License / Continuing Education</strong> — Director requirements under Fla. Stat. § 720.3033; log files show 2025 and 2026 certificates/bios published.
-        <li>Field to track whether each Director has completed 4-hour initial curriculum and annual renewal.
+        <li>Class B votes: Declarant gets 3 votes per lot + 1 per unbuilt plan unit until 95% turnover.</li>
+        <li>Officers are unpaid.</li>
+        <li>Special meetings can be called by President, board majority, or 10% of all Members.</li>
+        <li>Minimum member-meeting notice: 5 days.</li>
       </ul>
     </div>
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">Operations &amp; Maintenance</h2>
-    <div class="section-divider"></div>
-    <div class="grid">
-      <div class="module">
-        <h3>Golf Operations</h3>
-        <div class="metric"><span class="name">Courses</span><span class="val">2 × 18-Hole</span></div>
-        <div class="metric"><span class="name">Assessment</span><span class="val">$15/home/month</span></div>
-        <div class="metric"><span class="name">Monthly Golf Draw</span><span class="val">$42,300</span></div>
-        <div class="metric"><span class="name">Revenue Run Rate</span><span class="val">~$507,600/yr</span></div>
-        <p style="margin-top:10px"><strong>Cranes Roost irrigation outage:</strong> documented failure affecting multiple holes with no completed repair; residents reported staff mowing green instead of operating irrigation. No public repair timeline posted.</p>
-        <div class="exhibit"><strong>Status:</strong> Open · Severity: High (maintenance &amp; revenue impact)</div>
-      </div>
-
-      <div class="module">
-        <h3>Cranes Roost Irrigation Repair</h3>
-        <div class="metric"><span class="name">Incident Date</span><span class="val">≥ 2026-06-10</span></div>
-        <div class="metric"><span class="name">Affected Holes</span><span class="val">9 holes</span></div>
-        <div class="metric"><span class="name">Repair Timeline</span><span class="val">2026-06-15 → 2026-07-30</span></div>
-        <div class="metric"><span class="name">Vendor</span><span class="val">[REDACTED] Landscape Services</span></div>
-        <div class="metric"><span class="name">Repair Estimate</span><span class="val">$48,200</span></div>
-        <p style="margin-top:10px"><strong>Media:</strong> No irrigation-specific media confirmed in public uploads or local media searches.</p>
-      </div>
-
-      <div class="module">
-        <h3>Common Area &amp; Grounds</h3>
-        <ul>
-          <li>General maintenance performed across community common areas.
-          <li>Website compliance concerns include whether required bids/contracts are posted for public download.
-          <li>Monitoring opportunity: confirm posted documentation for current contractors.
-        </ul>
-      </div>
-
-      <div class="module">
-        <h3>Website &amp; Member Communications</h3>
-        <ul>
-          <li>Board maintains a dedicated Facebook page focused on positive-only content; criticism is excluded. Concerns have been raised about member communication balance under fiduciary considerations.
-          <li>Public website main page includes active community slides/carousels and contact information.
-          <li>Documents area is currently gated behind member login.
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">Financial Overview</h2>
-    <div class="section-divider"></div>
-    <div class="grid">
-      <div class="module">
-        <h3>Reserve &amp; Equity</h3>
-        <div class="metric"><span class="name">FY2024 Audited Equity</span><span class="val">$7,767,959.65</span></div>
-        <div class="metric"><span class="name">Equity 2024 → 2026</span><span class="val" style="color:var(--err)">↓ ~$7.72M</span></div>
-        <p>Equity has been documented falling sharply over approximately two years.</p>
-      </div>
-
-      <div class="module">
-        <h3>Audits &amp; Statements</h3>
-        <ul>
-          <li><strong>2023 and 2024 CPA audits incomplete</strong> — auditors withdrew.
-          <li>December 2025 balance sheet reported non-balancing: Assets $1,838,775.84 vs Liabilities &amp; Equity $5,122,035.42.
-          <li>April 2026 consolidated balance sheet/income statement shows normal ~$507,600 revenue run rate.
-        </ul>
-        <div class="exhibit"><strong>Risk:</strong> missing or incomplete audits can limit member access to full financial history.</div>
-      </div>
-
-      <div class="module">
-        <h3>Assessment &amp; Collections</h3>
-        <ul>
-          <li>HOA monthly assessment funds support both general operations and golf assessments.
-          <li>Special assessment history includes contested 2021/2023 special assessments with active litigation noted in the detailed investigation summary.
-          <li>April 2025 Capital Contribution Fee vote failed; revenue gap remains open to reserves.
-          <li>Florida compound-interest prohibition applies to assessment late fees.
-        </ul>
-      </div>
-
-      <div class="module">
-        <h3>Open Financial Items</h3>
-        <ul>
-          <li>Resolve audit backlog for 2023 and 2024.
-          <li>Reconcile and publish ordinary maintenance and reserve transfer schedules.
-          <li>Document contractors/bids for capital work currently missing from public records.
-          <li>Confirm ongoing audit listing/plan and attributable scope/timeframe.
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">Governance &amp; Compliance</h2>
-    <div class="section-divider"></div>
-    <div class="module">
-      <h3>Compliance Status</h3>
-      <div class="status">
-        <div class="label">Overall Compliance Posture</div>
-        <div class="value">Multiple Potential Statutory Concerns</div>
-      </div>
-      <ul>
-        <li><strong>Website Reporting — § 720.303(4)&amp;(8):</strong> residents allege 2026 bids/contracts missing from HOA website; board acknowledges update ongoing.
-        <li><strong>Audit Obligation — § 720.303(7):</strong> incomplete audits for 2023/2024 amid likely revenue-driven mandatory-audit threshold.
-        <li><strong>Record Access — § 720.303(5):</strong> claims of selective/delayed access; statutory minimum damages apply if confirmed.
-        <li><strong>Board Education — § 720.3033:</strong> mandatory curriculum/certification management field remains open for verification.
-        <li><strong>Special Assessment Litigation — § 720.309:</strong> <em>Fredericks/Eisenhower v. Plantation at Leesburg HOA</em> remains open.
-        <li><strong>Digital Portal — HB 1203 / § 720.303(4):</strong> mandatory secure portal standards and downloadable documents need verification.
-        <li><strong>Common-Area Maintenance — Cranes Roost irrigation failure supports fiduciary-duty risk analysis.</strong>
-      </ul>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">Shared Document Library</h2>
-    <div class="section-divider"></div>
-    <div class="module">
-      <h3>Shared Plantation Documents</h3>
-      <p>This dashboard is designed to surface community-wide operational documents, many drawn from existing shared sources. Use this section to note which files are active, which are archived, and which pending updates remain. Many documents are shared between this management dashboard and the separate TownCrier/focused case study dashboard; file references should be managed consistently across both.</p>
-      <div class="exhibit"><strong>Local Known Sources</strong> C:\Users\drloo\Desktop\Plantation_*.txt and C:\Users\drloo\Desktop\plantation-plan\ plus OneDrive HEDS library.</div>
-    </div>
-
-    <div class="module section-notes-wrap">
-      <div class="section-label">DOCUMENT CROSS-REFERENCE LIST</div>
-      <textarea class="section-notes" data-section="Shared Document Library" rows="5" placeholder="List files that exist and should feed both the TownCrier case dashboard and this operations dashboard..."></textarea>
+    <div class="card section-notes-wrap">
+      <div class="section-label">SECTION NOTES</div>
+      <textarea class="section-notes" data-section="Bylaw Snapshot" rows="4" placeholder="Add notes for this section..."></textarea>
       <div class="section-notes-status"></div>
     </div>
   </div>
 
   <div class="section">
-    <h2 class="section-title">Dashboard Notes &amp; Workflow</h2>
+    <h2 class="section-title">Assessment & Reserve Posture</h2>
     <div class="section-divider"></div>
-    <div class="module section-notes-wrap">
+    <div class="card">
+      <h3>Key Facts</h3>
+      <ul>
+        <li>2021 golf acquisition funded by a $1,260/household assessment (Lake County Official Records Book 5815 Page 23).</li>
+        <li>2023 renovation special assessment: $225/lot.</li>
+        <li>2025 dues hike: +$30/month, of which $10/month is locked into reserve recovery.</li>
+        <li>CCF ballot ($990 Capital Contribution Fee) failed — short by 41 votes below 1,411.</li>
+        <li>Reserve standing is weak: reports indicate ~12% reserve and a reported ~$1.9M two-year reserve injection.</li>
+      </ul>
+    </div>
+    <div class="card section-notes-wrap">
       <div class="section-label">SECTION NOTES</div>
-      <textarea class="section-notes" data-section="Dashboard Notes" rows="5" placeholder="Enter notes, new findings, or updates here. Press Ctrl/Cmd + Enter to save."></textarea>
+      <textarea class="section-notes" data-section="Assessment & Reserve Posture" rows="4" placeholder="Add notes for this section..."></textarea>
+      <div class="section-notes-status"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Financial & Operational Exposure</h2>
+    <div class="section-divider"></div>
+    <div class="card">
+      <h3>Known Risk Lines</h3>
+      <ul>
+        <li>Reported internal delinquency: ~$222,000, including ~$110,000 from 57 severely delinquent members.</li>
+        <li>2023 audit completed late via iRO CPA; 2023/2024 audit reliability is a known concern.</li>
+        <li>Golf operations remain under pressure: revenue up ~14% YoY while Brightview contract and maintenance costs persist.</li>
+        <li>Hurricane Milton created an unrepaired drainage loss in the immediate post-storm period.</li>
+      </ul>
+    </div>
+    <div class="card section-notes-wrap">
+      <div class="section-label">SECTION NOTES</div>
+      <textarea class="section-notes" data-section="Financial & Operational Exposure" rows="4" placeholder="Add notes for this section..."></textarea>
+      <div class="section-notes-status"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Litigation & Active Friction</h2>
+    <div class="section-divider"></div>
+    <div class="card">
+      <h3>Open Disputes</h3>
+      <ul>
+        <li>Special assessment suit challenging the 2021 and 2023 assessments.</li>
+        <li>Wolner receivership appeal: 5D2023-2882; receivership fees reached ~$46,000.</li>
+        <li>Wider HOA governance complaints tied to record access, website/posted documents, audits, and board education compliance.</li>
+      </ul>
+    </div>
+    <div class="card section-notes-wrap">
+      <div class="section-label">SECTION NOTES</div>
+      <textarea class="section-notes" data-section="Litigation & Active Friction" rows="4" placeholder="Add notes for this section..."></textarea>
+      <div class="section-notes-status"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">10-Year Asset Direction</h2>
+    <div class="section-divider"></div>
+    <div class="card">
+      <h3>2025–2034 Plan</h3>
+      <ul>
+        <li>The 10-Year Asset Management Plan intends to firewall residential infrastructure spending from golf course infrastructure.</li>
+        <li>Medium-risk reserve target is 2031.</li>
+        <li>Future assessment increases require the standard 1,411-home vote threshold.</li>
+      </ul>
+    </div>
+    <div class="card section-notes-wrap">
+      <div class="section-label">SECTION NOTES</div>
+      <textarea class="section-notes" data-section="10-Year Asset Direction" rows="4" placeholder="Add notes for this section..."></textarea>
+      <div class="section-notes-status"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Governance & Policy Risk</h2>
+    <div class="section-divider"></div>
+    <div class="card">
+      <h3>Board-Level Concerns</h3>
+      <ul>
+        <li>Board remediation target: medium reserve risk tier by 2031 via a ~$1.9M reserve injection.</li>
+        <li>Resident complaint pattern in public PACER/Wolner filings centers on assessments, receivership conduct, and official-records access.</li>
+      </ul>
+    </div>
+    <div class="card section-notes-wrap">
+      <div class="section-label">SECTION NOTES</div>
+      <textarea class="section-notes" data-section="Governance & Policy Risk" rows="4" placeholder="Add notes for this section..."></textarea>
       <div class="section-notes-status"></div>
     </div>
   </div>
 </div>
-
 <script>
 (function () {
-  const STORAGE_KEY = 'hoa_management_dashboard_notes';
+  const STORAGE_KEY = 'plantation_dashboard_section_notes';
   const notes = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  function setStatus(el, text){ el.textContent = text; }
+  function save () { localStorage.setItem(STORAGE_KEY, JSON.stringify(notes)); }
+  function setStatus (el, text) { el.textContent = text; }
   document.querySelectorAll('.section-notes').forEach(function (el) {
     const key = el.getAttribute('data-section');
     if (!key) return;
     if (notes[key]) el.value = notes[key];
-    el.addEventListener('input', function () {
-      notes[key] = el.value;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
-    });
+    el.addEventListener('input', function () { notes[key] = el.value; save(); });
     el.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'enter') {
         notes[key] = el.value;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
-        const statusEl = el.parentElement.querySelector('.section-notes-status');
-        if (statusEl) setStatus(statusEl, 'Saved ' + new Date().toLocaleString());
+        save();
+        const s = el.parentElement.querySelector('.section-notes-status');
+        if (s) setStatus(s, 'Saved ' + new Date().toLocaleString());
       }
     });
   });
