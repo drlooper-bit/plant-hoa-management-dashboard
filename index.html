@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Plantation at Leesburg — HOA Irregularities Hub & Resident Forum</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect">
+<link rel="preconnect" crossorigin>
+<link rel="stylesheet">
 <style>
   :root {
     --bg: #09090e;
@@ -663,9 +663,9 @@
   <!-- KPI Metrics Banner -->
   <div class="kpis">
     <div class="kpi kpi-critical" id="kpi-audits">
-      <div class="label">Suspended CPA Audits</div>
-      <div class="value">2 <span style="font-size: 14px; color: var(--err); font-weight: normal;">(2023, 2024)</span></div>
-      <div class="desc">Audited financials not provided to members.</div>
+      <div class="label">Audit Failures &amp; Suspensions</div>
+      <div class="value">3 Years <span style="font-size: 14px; color: var(--err); font-weight: normal;">(2022-2024)</span></div>
+      <div class="desc">2022 Disclaimer of Opinion + 2023-2024 suspended audits.</div>
     </div>
     <div class="kpi kpi-critical" id="kpi-equity">
       <div class="label">Member Fund Balance</div>
@@ -835,17 +835,17 @@
 const IRREGULARITIES = [
   {
     id: "audit-delays",
-    title: "Suspended 2023 & 2024 CPA Audits",
+    title: "Audit Failures, Disclaimers & Suspensions (2022–2024)",
     category: "governance",
     severity: "critical",
-    source: "plantation-governance-review-2026-06.txt Sec 7",
-    details: "The annual CPA audits for fiscal years 2023 and 2024 remain suspended and uncompleted. Homeowners have not received standard audited financial disclosures for over 18 months, violating standard board practices and statutory requirements.",
-    boardPosition: "The audit was delayed due to ledger transition issues and CPA requests for supplementary documentation. The board reports that the audits are 'in progress' and will be posted upon completion.",
+    source: "Final FS 2022 - V2.txt / plantation-governance-review-2026-06.txt Sec 7",
+    details: "The annual CPA audits have faced severe ongoing failures. For FY2022, the independent auditor was forced to issue a 'Disclaimer of Opinion,' refusing to express an opinion on the financial statements because the board failed to provide enough evidence to properly reconcile intercompany balances, consolidation entries, and inventory (likely tied to the golf course LLC). Subsequently, in late December 2024, the external auditing firm suspended work on both the 2023 and 2024 audits, citing competing client demands. While the board later hired iRO CPA to attempt to audit the complex 2023 books, as of mid-2026, no audits for 2023, 2024, or 2025 have been completed or released, directly violating F.S. 720.",
+    boardPosition: "The board claims that the 2022 disclaimer and subsequent suspensions were due to transition issues, ledger software changes, and competing client demands of the prior firm. They report that audits are 'in progress' under iRO CPA, that preliminary findings show 'no significant concerns,' and that they expect unqualified opinions once finished.",
     statutes: [
       { name: "F.S. 720.303(7)", violation: "Mandatory annual financial report deadline" },
       { name: "HB 1203", violation: "Failure to provide official audit records within statutory timelines" }
     ],
-    prompt: "What is the specific completion date by which the 2023 and 2024 audits will be finished and posted? Who is the CPA firm, and what is the engagement letter date?"
+    prompt: "Why did the 2022 audit result in a Disclaimer of Opinion? What specific intercompany balances and consolidation entries could the auditors not reconcile? What is the verified completion deadline for the 2023 and 2024 audits?"
   },
   {
     id: "phantom-profit",
