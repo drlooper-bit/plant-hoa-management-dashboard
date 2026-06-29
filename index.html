@@ -923,7 +923,7 @@ const IRREGULARITIES = [
     category: "litigation",
     severity: "high",
     source: "Special Assessment Suit / F.S. 720",
-    details: "Active litigation challenges the 2021 ($1,260/household) and 2023 ($225/lot) special assessments. Plaintiffs claim the board failed to post conspicuous 48-hour physical notice specifying the assessment details and failed to hold proper votes. Under Florida law, failure to follow notice rules voids the assessment.",
+    details: "Active litigation challenges the 2021 ($1,162/household cash option, or $1,260 via installments) and 2023 ($225/lot) special assessments. Plaintiffs claim the board failed to post conspicuous 48-hour physical notice specifying the assessment details and failed to hold proper votes. Under Florida law, failure to follow notice rules voids the assessment.",
     boardPosition: "The assessments were discussed at multiple open meetings and approved by board majorities. The funding was critical to purchase and renovate the golf courses.",
     statutes: [
       { name: "F.S. 720.303(2)(c)2", violation: "Mandatory 48-hour physical meeting notices for assessments" },
@@ -965,11 +965,11 @@ const IRREGULARITIES = [
 const INITIAL_COMMENTS = {
   "audit-delays": [
     { author: "Retired Auditor (Long Meadow)", stance: "concerned", text: "As a retired accountant, a suspended audit for multiple straight years is a red alert. If there is nothing to hide, why aren't the ledgers in the hands of the CPA? We cannot get mortgages refi or sell our houses easily with suspended audits on record.", date: "2026-06-25 10:15" },
-    { author: "Mary Jenkins (Ashley Court)", stance: "neutral", text: "I spoke with Dennis at the office and he said the CPA is just waiting on some bank statements from the 2023 ledger transfer. It seems like it's a software translation issue, not fraud.", date: "2026-06-26 14:22" },
+    { author: "Resident (Ashley Court)", stance: "neutral", text: "I spoke with Dennis at the office and he said the CPA is just waiting on some bank statements from the 2023 ledger transfer. It seems like it's a software translation issue, not fraud.", date: "2026-06-26 14:22" },
     { author: "Ed Fredericks (Concerned Residents)", stance: "skeptical", text: "It's not just a software issue. The board answered in writing last November that the audits were completed. Now they say they are suspended. That is a clear contradiction. We deserve transparency.", date: "2026-06-28 09:41" }
   ],
   "phantom-profit": [
-    { author: "Evelyn Ross (Inverness)", stance: "concerned", text: "How does a half-million dollars in profit just show up on a December balance sheet and then vanish in January? That's not a standard closing adjustment, that is moving numbers to make the year-end look profitable before backing it out.", date: "2026-06-26 11:05" },
+    { author: "Homeowner (Inverness)", stance: "concerned", text: "How does a half-million dollars in profit just show up on a December balance sheet and then vanish in January? That's not a standard closing adjustment, that is moving numbers to make the year-end look profitable before backing it out.", date: "2026-06-26 11:05" },
     { author: "Board Supporter (Long Meadow)", stance: "supportive", text: "Let's wait for the audit before accusing anyone of cooking the books. Bookkeeping errors happen, especially with the volume of transactions we have with Steve's grill and the golf course.", date: "2026-06-27 16:30" }
   ],
   "equity-collapse": [
@@ -977,12 +977,12 @@ const INITIAL_COMMENTS = {
     { author: "Ed Fredericks (Concerned Residents)", stance: "skeptical", text: "We need to see the actual bank statements and the signed resolutions authorizing that $194k withdrawal in late 2024. If they withdrew it to cover golf LLC operating deficits, they are using residential reserves to fund the golf course.", date: "2026-06-28 13:12" }
   ],
   "golf-draws": [
-    { author: "Jim Brady (Otter Creek)", stance: "skeptical", text: "The $42,300/mo draw is a massive drain. We are essentially subsidizing the golf course at the expense of our residential reserves. If the golf entity is a separate LLC, why are master funds constantly flowing into it?", date: "2026-06-24 08:30" },
+    { author: "Homeowner (Otter Creek)", stance: "skeptical", text: "The $42,300/mo draw is a massive drain. We are essentially subsidizing the golf course at the expense of our residential reserves. If the golf entity is a separate LLC, why are master funds constantly flowing into it?", date: "2026-06-24 08:30" },
     { author: "Golf Committee Member (Long Meadow)", stance: "supportive", text: "If we let the golf courses decline, our home values will drop by 20%. The $15/month golf assessment is a small price to pay to keep our community green and attractive.", date: "2026-06-27 10:14" },
     { author: "Ed Fredericks (Concerned Residents)", stance: "concerned", text: "The problem is not keeping it green. The problem is that the lawyers hired by the HOA warned that the LLC corporate shield won't hold if we commingle the funds. If the LLC gets sued or goes bankrupt, the whole HOA is on the hook.", date: "2026-06-28 17:02" }
   ],
   "vendor-bids": [
-    { author: "Alice Thorne (Ashley Court)", stance: "concerned", text: "F.S. 720.303(5) is very clear. We have a legal right to see all vendor bids and executed contracts. The fact that the contracts page on the portal has been empty for 18 months is a direct violation of the law. What is the board hiding?", date: "2026-06-25 09:00" },
+    { author: "Homeowner (Ashley Court)", stance: "concerned", text: "F.S. 720.303(5) is very clear. We have a legal right to see all vendor bids and executed contracts. The fact that the contracts page on the portal has been empty for 18 months is a direct violation of the law. What is the board hiding?", date: "2026-06-25 09:00" },
     { author: "Resident (Manor Pool Area)", stance: "neutral", text: "I asked for the Ashley pool renovation contract and was told I could view it physically at the office. They aren't hiding it, but they should put it on the website to comply with HB 1203.", date: "2026-06-26 12:15" }
   ],
   "receivership-fees": [
@@ -997,13 +997,13 @@ const INITIAL_COMMENTS = {
     { author: "Resident (Otter Creek)", stance: "skeptical", text: "The second amended restrictions limit transfers to 10% of total assessments ($507k). Ledger review shows we exceeded that in 2025 to support the golf course. The board cannot just ignore our own covenants when they run out of money.", date: "2026-06-26 09:30" }
   ],
   "social-media": [
-    { author: "Carol B. (Ashley Court)", stance: "concerned", text: "I posted a question about the suspended audits on the community Facebook page, and it was deleted within 10 minutes, and I was blocked. If association staff are doing this during work hours, they are censoring residents using our own money.", date: "2026-06-27 15:40" },
-    { author: "Frank H. (Long Meadow)", stance: "neutral", text: "The Facebook group is privately run by board members as individuals, not as the official HOA. They can moderate it how they want. But it does look bad to delete financial questions.", date: "2026-06-28 16:15" }
+    { author: "Homeowner (Ashley Court)", stance: "concerned", text: "I posted a question about the suspended audits on the community Facebook page, and it was deleted within 10 minutes, and I was blocked. If association staff are doing this during work hours, they are censoring residents using our own money.", date: "2026-06-27 15:40" },
+    { author: "Homeowner (Long Meadow)", stance: "neutral", text: "The Facebook group is privately run by board members as individuals, not as the official HOA. They can moderate it how they want. But it does look bad to delete financial questions.", date: "2026-06-28 16:15" }
   ]
 };
 
 // Storage Key
-const STORAGE_KEY = 'plant_hoa_dashboard_forum_notes_v2';
+const STORAGE_KEY = 'plant_hoa_dashboard_forum_notes_v3';
 
 // Initialize data from LocalStorage or use defaults
 let forumNotes = {};
@@ -1156,7 +1156,7 @@ function renderIrregularities(filter = "all", searchQuery = "") {
         <div class="add-comment-form">
           <div class="form-row">
             <div class="form-group">
-              <label for="name-${item.id}">Resident Name &amp; Address / Neighborhood (e.g. John D. - Ashley Court)</label>
+              <label for="name-${item.id}">Resident Name &amp; Address / Neighborhood (e.g. Resident - Ashley Court)</label>
               <input type="text" class="form-control" id="name-${item.id}" placeholder="Enter name, street address, or neighborhood (can be anonymous)">
             </div>
             <div class="form-group">
