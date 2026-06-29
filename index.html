@@ -668,9 +668,9 @@
       <div class="desc">2022 Disclaimer of Opinion + 2023-2024 suspended audits.</div>
     </div>
     <div class="kpi kpi-critical" id="kpi-equity">
-      <div class="label">Member Fund Balance</div>
-      <div class="value">$7.7M Depleted</div>
-      <div class="desc">HOA emergency reserves dropped from $7.76M to $48K, leaving almost no buffer.</div>
+      <div class="label">Disputed Reserve Balances</div>
+      <div class="value">-$135K Decrease</div>
+      <div class="desc">Reserves decreased by $135K (per bank st.) while board claimed $70K increase.</div>
     </div>
     <div class="kpi kpi-warning" id="kpi-litigation">
       <div class="label">Litigation Risk</div>
@@ -863,17 +863,17 @@ const IRREGULARITIES = [
   },
   {
     id: "equity-collapse",
-    title: "Collapse of Member Fund Balances ($7.76M to $48.6K)",
+    title: "Disputed Reserve Withdrawals & Missing Balances",
     category: "financial",
     severity: "critical",
-    source: "Audited-2024-Consolidated-Income-St.txt / April-2026-Consolidated-Balance-Sheet",
-    details: "Member Fund Balances (operating reserves and capital reserves) serve as the HOA's emergency savings account. This money pays for major infrastructure maintenance (such as pool renovations, road repairs, and roof replacements) and protects homeowners from sudden out-of-pocket bills. In FY2024, the HOA had a healthy $7.76 Million in these savings. By April 2026, the balance was virtually wiped out to just $48,691. This leaves the community with zero financial buffer, meaning any future repairs must be billed directly to homeowners as new special assessments.",
-    boardPosition: "The decline reflects a transition to a new accounting ledger format, the write-down of legacy assets, and the separation of capital project accounts from core operating equity.",
+    source: "Plantation_HOA_Briefing_Residents_v20260614.txt / Q&A documents",
+    details: "Multiple serious disputes exist regarding the handling of HOA reserve funds. In November and December of 2024, the board executed reserve withdrawals totaling $194,000, leaving an unexplained $84,223.59 gap in documentation. Furthermore, residents allege that the $450,000 earmarked for the 2023 Discretionary Reserves was never actually deposited, despite the board answering 'YES' three separate times to public questions. This is reinforced by bank statements showing total reserves actually decreased by $134,985, contradicting board claims of a $70,000 reserve increase.",
+    boardPosition: "The board maintains that reserves were managed appropriately and that it has allocated approximately $1.9 Million to reserves over the past two years to reach a medium-risk posture by 2031. They deny masking reserve withdrawals.",
     statutes: [
-      { name: "F.S. 720.303(6)(a)", violation: "Protection of member assets and reserve integrity" },
-      { name: "Ch. 617.0830", violation: "Fiduciary standard of care for corporate asset preservation" }
+      { name: "F.S. 720.303(6)(a)", violation: "Proper accounting and authorization for reserve withdrawals" },
+      { name: "Ch. 617 Fiduciary Duty", violation: "Fiduciary standard of care for corporate asset preservation" }
     ],
-    prompt: "Where did $7.72 Million in HOA association net member equity/reserves go? Residents need a complete forensic reconciliation showing which accounts were written off or transferred."
+    prompt: "Are there formal board resolutions authorizing the $194,000 reserve withdrawals in late 2024? Where did the $450,000 earmarked for the 2023 Discretionary Reserves go, and why do bank statements show a net decrease in reserves?"
   },
   {
     id: "golf-draws",
@@ -973,8 +973,8 @@ const INITIAL_COMMENTS = {
     { author: "Robert G. (Lot 2004)", stance: "supportive", text: "Let's wait for the audit before accusing anyone of cooking the books. Bookkeeping errors happen, especially with the volume of transactions we have with Steve's grill and the golf course.", date: "2026-06-27 16:30" }
   ],
   "equity-collapse": [
-    { author: "Thomas Miller (Lot 1234)", stance: "concerned", text: "A drop from $7.7 Million to $48 Thousand is terrifying. If we have a major hurricane this season and need to rebuild pool houses or fix roofs, where is the money coming from? We will be hit with a massive special assessment.", date: "2026-06-25 15:44" },
-    { author: "Sarah Connor (Lot 89)", stance: "skeptical", text: "The board keeps saying this is just a 're-classification' of funds. If you write down $7M in assets, that means those assets either didn't exist or were completely devalued. We need the details on what exactly was written off.", date: "2026-06-28 13:12" }
+    { author: "Thomas Miller (Lot 1234)", stance: "concerned", text: "The board stated publicly three times in meeting Q&As that the $450,000 discretionary reserve deposit was made. But our bank statements show reserves went down by nearly $135k over that same period. The numbers simply do not lie.", date: "2026-06-25 15:44" },
+    { author: "Sarah Connor (Lot 89)", stance: "skeptical", text: "We need to see the actual bank statements and the signed resolutions authorizing that $194k withdrawal in late 2024. If they withdrew it to cover golf LLC operating deficits, they are using residential reserves to fund the golf course.", date: "2026-06-28 13:12" }
   ],
   "golf-draws": [
     { author: "Jim Brady (Lot 144)", stance: "skeptical", text: "The $42,300/mo draw is a massive drain. We are essentially subsidizing the golf course at the expense of our residential reserves. If the golf entity is a separate LLC, why are master funds constantly flowing into it?", date: "2026-06-24 08:30" },
