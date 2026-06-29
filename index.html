@@ -668,9 +668,9 @@
       <div class="desc">Audited financials not provided to members.</div>
     </div>
     <div class="kpi kpi-critical" id="kpi-equity">
-      <div class="label">Equity Collapse</div>
+      <div class="label">HOA Net Member Equity</div>
       <div class="value">-99.3%</div>
-      <div class="desc">Equity dropped from $7.76M to $48.6K.</div>
+      <div class="desc">Retained member fund balances dropped from $7.76M to $48.6K.</div>
     </div>
     <div class="kpi kpi-warning" id="kpi-litigation">
       <div class="label">Litigation Risk</div>
@@ -863,17 +863,17 @@ const IRREGULARITIES = [
   },
   {
     id: "equity-collapse",
-    title: "99.3% Equity Collapse ($7.76M to $48.6K)",
+    title: "99.3% Collapse of HOA Net Member Equity ($7.76M to $48.6K)",
     category: "financial",
     severity: "critical",
     source: "Audited-2024-Consolidated-Income-St.txt / April-2026-Consolidated-Balance-Sheet",
-    details: "The audited consolidated financial statement for FY2024 reported Total Association Equity of $7,767,959.65. By the April 2026 Consolidated Balance Sheet, Total Equity collapsed to just $48,691.69. This represents an unprecedented loss of $7.72M in association net assets over a two-year operational period.",
+    details: "The Total Association Equity represents the community's accumulated fund balances (retained earnings, operating reserves, and capital reserves) which act as a financial shield against unexpected expenses or disaster repairs. In the audited FY2024 report, this net asset buffer stood at $7,767,959.65. By the April 2026 consolidated statements, it plummeted to just $48,691.69—a virtual elimination of $7.72 Million in community wealth, leaving the HOA with almost no reserve shield to cover capital repairs without major new assessments on members.",
     boardPosition: "The decline reflects a transition to a new accounting ledger format, the write-down of legacy assets, and the separation of capital project accounts from core operating equity.",
     statutes: [
       { name: "F.S. 720.303(6)(a)", violation: "Protection of member assets and reserve integrity" },
       { name: "Ch. 617.0830", violation: "Fiduciary standard of care for corporate asset preservation" }
     ],
-    prompt: "Where did $7.72 Million in association equity go? Residents need a complete forensic reconciliation showing which accounts were written off or transferred."
+    prompt: "Where did $7.72 Million in HOA association net member equity/reserves go? Residents need a complete forensic reconciliation showing which accounts were written off or transferred."
   },
   {
     id: "golf-draws",
