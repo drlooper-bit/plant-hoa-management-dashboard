@@ -1003,7 +1003,7 @@ const INITIAL_COMMENTS = {
 };
 
 // Storage Key
-const STORAGE_KEY = 'plant_hoa_dashboard_forum_notes_v1';
+const STORAGE_KEY = 'plant_hoa_dashboard_forum_notes_v2';
 
 // Initialize data from LocalStorage or use defaults
 let forumNotes = {};
@@ -1156,8 +1156,8 @@ function renderIrregularities(filter = "all", searchQuery = "") {
         <div class="add-comment-form">
           <div class="form-row">
             <div class="form-group">
-              <label for="name-${item.id}">Resident Name &amp; Lot Number (e.g. John D. - Lot 412)</label>
-              <input type="text" class="form-control" id="name-${item.id}" placeholder="Enter name or lot number (can be anonymous)">
+              <label for="name-${item.id}">Resident Name &amp; Address / Neighborhood (e.g. John D. - Ashley Court)</label>
+              <input type="text" class="form-control" id="name-${item.id}" placeholder="Enter name, street address, or neighborhood (can be anonymous)">
             </div>
             <div class="form-group">
               <label for="stance-${item.id}">Your Perspective / Stance</label>
