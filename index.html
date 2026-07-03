@@ -405,9 +405,30 @@
     flex-direction: column;
     gap: 12px;
     margin-bottom: 20px;
-    max-height: 380px;
-    overflow-y: auto;
     padding-right: 6px;
+  }
+  .comment-archived {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+  }
+  .archive-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.875rem;
   }
   .comment-list::-webkit-scrollbar {
     width: 6px;
@@ -1175,12 +1196,15 @@ function renderIrregularities(filter = "all", searchQuery = "") {
       `;
     }
 
-    // Build Comments/Perspectives HTML
+    // Build Visible + Archived Comments
+    const VISIBLE_LIMIT = 5;
+    const visibleComments = comments.slice(0, VISIBLE_LIMIT);
+    const archivedComments = comments.slice(VISIBLE_LIMIT);
     let commentsListHtml = "";
     if (comments.length === 0) {
       commentsListHtml = `<div class="no-comments" style="text-align: center; padding: 20px; color: var(--text-muted); font-style: italic;">No resident perspectives submitted yet. Be the first to share your information.</div>`;
     } else {
-      commentsListHtml = comments.map(c => `
+      commentsListHtml = visibleComments.map(c => `
         <div class="comment-card">
           <div class="comment-meta">
             <span class="comment-author">${escapeHtml(c.author)}</span>
@@ -1192,6 +1216,24 @@ function renderIrregularities(filter = "all", searchQuery = "") {
           <p class="comment-text">${escapeHtml(c.text)}</p>
         </div>
       `).join('');
+      if (archivedComments.length > 0) {
+        commentsListHtml += `
+          <button type="button" class="archive-toggle" id="archive-toggle-${item.id}" onclick="toggleArchive('${item.id}')">Archived Posts (${archivedComments.length})</button>
+          <div class="comment-archived" id="archive-${item.id}" style="display: none;">
+            ${archivedComments.map(c => `
+              <div class="comment-card">
+                <div class="comment-meta">
+                  <span class="comment-author">${escapeHtml(c.author)}</span>
+                  <div>
+                    <span class="comment-stance stance-${escapeHtml(c.stance)}">${escapeHtml(c.stance)}</span>
+                    <span class="comment-date" style="margin-left: 8px;">${escapeHtml(c.date)}</span>
+                  </div>
+                </div>
+                <p class="comment-text">${escapeHtml(c.text)}</p>
+              </div>
+            `).join('')}
+          </div>`;
+      }
     }
 
     card.innerHTML = `
@@ -1301,6 +1343,20 @@ window.submitComment = function(irregularityId) {
 
   // Re-render comments for this specific card
   renderIrregularities(activeTab, document.getElementById("search-box").value);
+};
+
+// Toggle archived comments
+window.toggleArchive = function(irregularityId) {
+  const archivedDiv = document.getElementById(`archive-${irregularityId}`);
+  const toggleBtn = document.getElementById(`archive-toggle-${irregularityId}`);
+  if (!archivedDiv || !toggleBtn) {
+    return;
+  }
+  const isHidden = archivedDiv.style.display === "none";
+  archivedDiv.style.display = isHidden ? "block" : "none";
+  toggleBtn.textContent = isHidden
+    ? `Archived Posts (${archivedDiv.querySelectorAll('.comment-card').length}) — Hide`
+    : `Archived Posts (${archivedDiv.querySelectorAll('.comment-card').length})`;
 };
 
 // Tabs switching logic
