@@ -691,6 +691,7 @@
     <button class="nav-btn" data-tab="governance">Governance &amp; Compliance</button>
     <button class="nav-btn" data-tab="litigation">Litigation &amp; Radar</button>
     <button class="nav-btn" data-tab="turnaround">Turnaround Plan</button>
+    <button class="nav-btn" data-tab="history">History of The Plantation</button>
   </div>
 
   <!-- Search & Actions Bar -->
@@ -820,6 +821,44 @@
           <li><strong>Delinquency Collections:</strong> Collect the outstanding $222,000 internal delinquency balance without arbitrary legal escalations.</li>
           <li><strong>Vendor Benchmarking:</strong> Scope and review the Brightview contract and Steve's Bar &amp; Grill renewal terms.</li>
         </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB CONTENT: HISTORY -->
+  <div id="history-container" style="display: none;">
+    <h2 style="font-family: var(--font-heading); font-size: 18px; margin: 0 0 8px 0; color: var(--ok);">History of The Plantation</h2>
+    <p style="color: var(--text-dim); margin: 0 0 24px 0;">Chronological verified history of The Plantation at Leesburg from land acquisition to present day.</p>
+
+    <div class="turnaround-grid">
+      <div class="workstream-card">
+        <h3>1985 — Land Acquisition</h3>
+        <p>Lakewood Development Co. acquired approximately 999 acres of land in what is now The Plantation at Leesburg.</p>
+      </div>
+
+      <div class="workstream-card">
+        <h3>1987 — Pringle Development</h3>
+        <p>Pringle Development broke ground and began construction on the community.</p>
+      </div>
+
+      <div class="workstream-card">
+        <h3>1988 — Otter Creek Opens</h3>
+        <p>The 18-hole Otter Creek golf course opened, launching with the <em>"More Golf, More Friends, More Fun"</em> campaign featured in the <em>Orlando Sentinel</em>.</p>
+      </div>
+
+      <div class="workstream-card">
+        <h3>1996 — Cranes Roost Expansion</h3>
+        <p>Cranes Roost opened, expanding the community to 36 holes. The community was remarketed as a <em>"36-hole golf destination."</em></p>
+      </div>
+
+      <div class="workstream-card">
+        <h3>Acquisition Era — Golf Course LLC + Brightview</h3>
+        <p>Residents acquired the golf course through a limited liability company known as <em>"The Plantation at Leesburg Golf Course, LLC."</em> BrightView was retained to maintain the course and greens. Through this structure, golf operations were excluded from HOA dues.</p>
+      </div>
+
+      <div class="workstream-card">
+        <h3>Present Day — 2,820 Homes</h3>
+        <p>The community now encompasses <strong>2,820 single-family homes</strong>, marketed as an <em>"award-winning gated golf community."</em></p>
       </div>
     </div>
   </div>
@@ -1236,26 +1275,36 @@ document.querySelectorAll(".nav-btn").forEach(btn => {
     
     activeTab = this.getAttribute("data-tab");
     
+    const searchBar = document.getElementById("search-container");
     const container = document.getElementById("irregularities-container");
     const radar = document.getElementById("radar-container");
     const turnaround = document.getElementById("turnaround-container");
-    const searchBar = document.getElementById("search-container");
+    const history = document.getElementById("history-container");
 
     if (activeTab === "litigation") {
       container.style.display = "none";
       searchBar.style.display = "none";
       turnaround.style.display = "none";
       radar.style.display = "block";
+      history.style.display = "none";
     } else if (activeTab === "turnaround") {
       container.style.display = "none";
       searchBar.style.display = "none";
       radar.style.display = "none";
       turnaround.style.display = "block";
+      history.style.display = "none";
+    } else if (activeTab === "history") {
+      container.style.display = "none";
+      searchBar.style.display = "none";
+      radar.style.display = "none";
+      turnaround.style.display = "none";
+      history.style.display = "block";
     } else {
       container.style.display = "block";
       searchBar.style.display = "flex";
       radar.style.display = "none";
       turnaround.style.display = "none";
+      history.style.display = "none";
       renderIrregularities(activeTab, document.getElementById("search-box").value);
     }
   });
