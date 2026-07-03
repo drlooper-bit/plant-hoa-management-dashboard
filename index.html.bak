@@ -3,10 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plantation at Leesburg — HOA Irregularities Hub & Resident Forum</title>
-<link rel="preconnect">
-<link rel="preconnect" crossorigin>
-<link rel="stylesheet">
+<title>Concerned REsidents</title>
+<style>
+  #portal-screen {
+    position: fixed; inset: 0;
+    background: linear-gradient(160deg,#05070f,#0a0d19);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999; padding: 32px;
+  }
+  #portal-screen .portal-box {
+    max-width: 380px; width: 100%;
+    background: linear-gradient(180deg,#111327,#0c1020);
+    border: 1px solid #1f2848; border-radius: 18px;
+    padding: 28px; color: #dce4ff;
+    font-family: 'Inter',-apple-system,Segoe UI,sans-serif;
+    box-shadow: 0 30px 80px rgba(0,0,0,.45), 0 0 0 1px #2a3357 inset;
+  }
+  #portal-screen .brand {
+    font-family: 'Outfit','Inter',-apple-system,Segoe UI,sans-serif;
+    font-weight: 800; letter-spacing: -0.01em;
+    background: linear-gradient(135deg,#4da6ff,#7cc5ff);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    font-size: 20px; margin-bottom: 6px;
+  }
+  #portal-screen .locked { color:#8b98b6; font-size: 12px; margin-bottom: 18px; }
+  #portal-screen .secret-input {
+    width:100%; background:#0d1220; color:#e1e6ff; border:1px solid #243053;
+    border-radius: 12px; padding: 14px 14px; font-size: 15px; outline:none;
+  }
+  #portal-screen .secret-input:focus { border-color:#4da6ff; box-shadow: 0 0 0 3px rgba(77,166,255,.15); }
+  #portal-screen .secret-error { color:#ff8e8e; font-size: 12px; margin-top: 8px; min-height: 18px; }
+  #portal-screen .secret-submit {
+    margin-top: 12px; width:100%; padding:12px; border:none; border-radius:12px;
+    background: linear-gradient(135deg,#4da6ff,#3b8de2); color:#001a2c; font-weight:700;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+<div id="portal-screen">
+  <div class="portal-box">
+    <div class="brand">Concerned REsidents</div>
+    <div class="locked">Locked. Enter access code.</div>
+    <input id="portal-secret" class="secret-input" type="password" placeholder="Password" autocomplete="off">
+    <div id="portal-error" class="secret-error"></div>
+    <button id="portal-submit" class="secret-submit">Enter</button>
+  </div>
+</div>
+<script>
+(function() {
+  const SECRET = 'HEDs#7893';
+  const screen = document.getElementById('portal-screen');
+  const input = document.getElementById('portal-secret');
+  const submit = document.getElementById('portal-submit');
+  const error = document.getElementById('portal-error');
+  const storeKey = 'plant_hoa_portal_granted_v1';
+  const destKey = 'plant_hoa_dashboard_forum_notes_v3';
+
+  const granted = () => sessionStorage.getItem(storeKey) === '1';
+
+  if (granted()) { screen.setAttribute('hidden',''); return; }
+
+  function unlock() {
+    if (input.value === SECRET) {
+      sessionStorage.setItem(storeKey, '1');
+      screen.setAttribute('hidden','');
+      error.textContent = '';
+      input.value = '';
+    } else {
+      error.textContent = 'Incorrect password. Try again.';
+    }
+  }
+  submit.addEventListener('click', unlock);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') unlock(); });
+})();
+</script>
 <style>
   :root {
     --bg: #09090e;
@@ -47,6 +118,47 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 32px 24px 60px;
+  }
+
+  @media (min-width: 768px) {
+    .banner-header .banner-inner {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+  }
+  .banner-header .banner-title {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #7cc5ff;
+  }
+  .banner-header .banner-subtitle {
+    font-size: 12px;
+    color: #98a6c5;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .banner-header .banner-right {
+    font-size: 12px;
+    color: #98a6c5;
+    font-weight: 500;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .banner-header .banner-value {
+    color: #7cc5ff;
+    font-weight: 700;
+  }
+  .banner-header .banner-title { color: #7cc5ff; }
+  .banner-header .banner-subtitle,
+  .banner-header .banner-right,
+  .banner-header .banner-sep { color: #98a6c5; }
+  .banner-header .banner-sep {
+    color: #98a6c5;
   }
 
   /* Header styles */
@@ -463,6 +575,34 @@
     font-size: 11px;
     color: var(--text-muted);
   }
+  .archive-btn {
+    margin-left: 8px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    transition: all 0.2s;
+  }
+  .archive-btn:hover {
+    border-color: var(--warn);
+    color: var(--warn);
+  }
+  .comment-card.archived {
+    opacity: 0.55;
+    border-style: dashed;
+    border-color: #2c3348;
+  }
+  .comment-card.archived .comment-text::before {
+    content: 'Archived: ';
+    color: var(--text-muted);
+    font-style: italic;
+  }
   .comment-text {
     margin: 0;
     color: var(--text-dim);
@@ -650,15 +790,30 @@
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <div>
-      <h1>Plantation at Leesburg — HOA Irregularities Hub</h1>
-      <div class="meta">Statutory, Financial &amp; Governance Compliance Review Platform</div>
+  <div class="banner-header">
+    <div class="banner-overlay">
+      <div class="banner-inner">
+        <div>
+          <div class="banner-title">Concerned REsidents Hub</div>
+          <div class="banner-subtitle">Statutory, Financial &amp; Governance Compliance Review Platform</div>
+        </div>
+        <div class="banner-right">
+          <span>Investigator:</span>
+          <span class="banner-value">Plantaion Residents</span>
+          <span class="banner-sep">·</span>
+          <span>Local Time:</span>
+          <span class="banner-value">2026-06-29</span>
+        </div>
+      </div>
     </div>
+<<<<<<< HEAD
     <div class="meta">
       Investigator: <strong>Plantation Residents</strong> · Local Time: <strong>2026-06-29</strong>
     </div>
   </header>
+=======
+  </div>
+>>>>>>> fc36392 (Add HEDS portal password protection and access prompt)
 
   <!-- KPI Metrics Banner -->
   <div class="kpis">
@@ -691,7 +846,6 @@
     <button class="nav-btn" data-tab="governance">Governance &amp; Compliance</button>
     <button class="nav-btn" data-tab="litigation">Litigation &amp; Radar</button>
     <button class="nav-btn" data-tab="turnaround">Turnaround Plan</button>
-    <button class="nav-btn" data-tab="history">History of The Plantation</button>
   </div>
 
   <!-- Search & Actions Bar -->
@@ -823,68 +977,11 @@
         </ul>
       </div>
     </div>
-
-    <div class="workstream-card" style="grid-column: 1 / -1; margin-top: 16px;">
-      <h3 style="color: var(--accent); margin-top: 0;">The Golden Tagline Trap — A Cautionary Tale of Green Fairways and Gray Hair</h3>
-      <div style="color: var(--text-dim); line-height: 1.6;">
-        <p><strong>1988.</strong> A team of real estate marketers standing on a sunny plot of Central Florida dirt scribbled down a tagline that would eventually lock thousands of future retirees into a multi-million-dollar economic puzzle: <em>“More Golf, More Friends, More Fun.”</em> For nearly four decades, that slogan painted an idyllic retirement—a 2,820-home paradise of manicured fairways and cold drinks at Steve’s Bar &amp; Grill. But beneath the turf of the Otter Creek and Cranes Roost courses lay an expensive truth.</p>
-
-        <p><strong>Act I — The Illusion of the Cheap Paradise.</strong> Year after year, HOA dues stayed artificially low. The community’s capital reserve fund silently deteriorated to a terrifying 12% adequacy level. They were driving a luxury car on an empty tank. Then the private golf operator looked at red ink and threatened to walk away.</p>
-
-        <p><strong>Act II — The Golden Ransom.</strong> If those 36 holes went dark or were sold for high-density development, baseline property values for all 2,820 homes would plummet. In October 2021, the HOA levied a mandatory <strong>$1,260 per household special assessment</strong>, raising millions to buy out the private golf operator and take over Steve’s Bar &amp; Grill. They formed a Golf Course LLC—but independent legal reviews later found overlapping master board agreements left residential assets fully exposed. The homeowners had accidentally become owners of a struggling country club.</p>
-
-        <p><strong>Act III — The Bill Comes Due.</strong> By 2023, another <strong>$225 per lot assessment</strong> funded golf-course renovations. On September 5, 2024, an organized group of homeowners sued their own HOA over broken statutory notice protocols; Florida law now required active lawsuits to be disclosed to buyers, slowing sales. A botched receivership over a <strong>$480 delinquency</strong> snowballed into <strong>$46,000 in receiver fees</strong> and national news coverage of HOA overreach.</p>
-
-        <p><strong>Act IV — The Crossroads of 2026.</strong> Monthly dues rose <strong>$30</strong> just to stay operational. Internal bad debt hit <strong>$222,000</strong>, with half tied to 57 severely delinquent accounts. The board proposed a <strong>$990 Capital Contribution Fee</strong> on incoming buyers—but distrust ran so deep it failed by just <strong>41 votes</strong>. The community had voted against its own rescue.</p>
-
-        <p style="margin-bottom: 4px;"><strong>Ending 1 — Heads in the Sand:</strong> Fatigue wins. Low turnout returns the entrenched board. Hurricane Milton cleanup crashes through remaining accounts. A <strong>$2,500 emergency special assessment</strong> hits every home. Delinquencies surge past <strong>$500,000</strong>. Property values drop 20%. The front gate still says <em>“More Golf, More Friends, More Fun”</em> while the fairways grow patchy and the clubhouse roof wears blue tarps.</p>
-
-        <p><strong>Ending 2 — The Grassroots Awakening:</strong> The 41-vote loss becomes the alarm bell. Fifteen Block Captains deploy a statutory, data-driven campaign. A historic December election sweeps in a new board. They execute three revenue plays: a <strong>solar lease</strong> on a 50-acre interior buffer, a <strong>conservation easement</strong> converting a defunct back nine into an eco-park, and <strong>single-account unification</strong> merging HOA and Golf LLC funds. External revenues wipe out bad debt. Reserves surge from 12% to fully funded. Property values climb. By year-end, residents gather at a packed, profitable Steve’s Bar &amp; Grill—having finally delivered, through hard work and engagement, the promise on the front gate from 1988.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB CONTENT: HISTORY -->
-  <div id="history-container" style="display: none;">
-    <h2 style="font-family: var(--font-heading); font-size: 18px; margin: 0 0 8px 0; color: var(--ok);">History of The Plantation</h2>
-    <p style="color: var(--text-dim); margin: 0 0 24px 0;">Chronological verified history of The Plantation at Leesburg from land acquisition to present day.</p>
-
-    <div class="turnaround-grid">
-      <div class="workstream-card">
-        <h3>1985 — Land Acquisition</h3>
-        <p>Lakewood Development Co. acquired approximately 999 acres of land in what is now The Plantation at Leesburg.</p>
-      </div>
-
-      <div class="workstream-card">
-        <h3>1987 — Pringle Development</h3>
-        <p>Pringle Development broke ground and began construction on the community.</p>
-      </div>
-
-      <div class="workstream-card">
-        <h3>1988 — Otter Creek Opens</h3>
-        <p>The 18-hole Otter Creek golf course opened, launching with the <em>"More Golf, More Friends, More Fun"</em> campaign featured in the <em>Orlando Sentinel</em>.</p>
-      </div>
-
-      <div class="workstream-card">
-        <h3>1996 — Cranes Roost Expansion</h3>
-        <p>Cranes Roost opened, expanding the community to 36 holes. The community was remarketed as a <em>"36-hole golf destination."</em></p>
-      </div>
-
-      <div class="workstream-card">
-        <h3>Acquisition Era — Golf Course LLC + Brightview</h3>
-        <p>Residents acquired the golf course through a limited liability company known as <em>"The Plantation at Leesburg Golf Course, LLC."</em> BrightView was retained to maintain the course and greens. Through this structure, golf operations were excluded from HOA dues.</p>
-      </div>
-
-      <div class="workstream-card">
-        <h3>Present Day — 2,820 Homes</h3>
-        <p>The community now encompasses <strong>2,820 single-family homes</strong>, marketed as an <em>"award-winning gated golf community."</em></p>
-      </div>
-    </div>
   </div>
 
   <!-- Footer -->
   <footer>
-    Plantation at Leesburg HOA Irregularities Hub · Structured by Hermes Agent · Generated June 2026
+    Concerned REsidents · Structured by Hermes Agent · Generated June 2026
   </footer>
 </div>
 
@@ -1168,6 +1265,7 @@ function renderIrregularities(filter = "all", searchQuery = "") {
             <span class="comment-author">${escapeHtml(c.author)}</span>
             <div>
               <span class="comment-stance stance-${escapeHtml(c.stance)}">${escapeHtml(c.stance)}</span>
+              <button class="archive-btn" onclick="archiveComment('${item.id}', '${escapeHtml(c.date).replace(/'/g, "\\'")}')" title="Archive this comment">Archive</button>
               <span class="comment-date" style="margin-left: 8px;">${escapeHtml(c.date)}</span>
             </div>
           </div>
@@ -1285,6 +1383,30 @@ window.submitComment = function(irregularityId) {
   renderIrregularities(activeTab, document.getElementById("search-box").value);
 };
 
+// Archive a comment by marking it inactive in site-local archive storage
+window.archiveComment = function(irregularityId, commentDate) {
+  const comments = forumNotes[irregularityId] || [];
+  const normalizedDate = String(commentDate).trim();
+  const targetIndex = comments.findIndex(
+    c => String(c.date || '').trim() === normalizedDate
+  );
+  if (targetIndex === -1) {
+    alert("Unable to locate the selected comment. Please refresh and try again.");
+    return;
+  }
+
+  const source = document.createElement('a');
+  source.href = '#archived';
+  const archiveKey = `plant_hoa_archive_${irregularityId}_${targetIndex}`;
+  try {
+    sessionStorage.setItem(archiveKey, JSON.stringify(comments[targetIndex] || null));
+  } catch (_e) {}
+
+  comments.splice(targetIndex, 1);
+  saveForumData();
+  renderIrregularities(activeTab, document.getElementById("search-box").value);
+};
+
 // Tabs switching logic
 let activeTab = "all";
 document.querySelectorAll(".nav-btn").forEach(btn => {
@@ -1294,36 +1416,26 @@ document.querySelectorAll(".nav-btn").forEach(btn => {
     
     activeTab = this.getAttribute("data-tab");
     
-    const searchBar = document.getElementById("search-container");
     const container = document.getElementById("irregularities-container");
     const radar = document.getElementById("radar-container");
     const turnaround = document.getElementById("turnaround-container");
-    const history = document.getElementById("history-container");
+    const searchBar = document.getElementById("search-container");
 
     if (activeTab === "litigation") {
       container.style.display = "none";
       searchBar.style.display = "none";
       turnaround.style.display = "none";
       radar.style.display = "block";
-      history.style.display = "none";
     } else if (activeTab === "turnaround") {
       container.style.display = "none";
       searchBar.style.display = "none";
       radar.style.display = "none";
       turnaround.style.display = "block";
-      history.style.display = "none";
-    } else if (activeTab === "history") {
-      container.style.display = "none";
-      searchBar.style.display = "none";
-      radar.style.display = "none";
-      turnaround.style.display = "none";
-      history.style.display = "block";
     } else {
       container.style.display = "block";
       searchBar.style.display = "flex";
       radar.style.display = "none";
       turnaround.style.display = "none";
-      history.style.display = "none";
       renderIrregularities(activeTab, document.getElementById("search-box").value);
     }
   });
@@ -1350,4 +1462,9 @@ renderIrregularities("all");
 </script>
 </body>
 </html>
+<<<<<<< HEAD
  
+=======
+
+<!-- WEBSITE AUDIT REVIEW 2026-07-01: zero audit disclosures found on public board communications at plantationatleesburg.com -->
+>>>>>>> fc36392 (Add HEDS portal password protection and access prompt)
