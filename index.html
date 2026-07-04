@@ -32,72 +32,7 @@
     --font-code: 'Fira Code', monospace;
   }
 
-  .door-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: var(--bg);
-}
-.door-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px;
-  width: 100%;
-  max-width: 360px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-}
-.door-card h1 {
-  font-family: var(--font-heading);
-  font-size: 18px;
-  margin: 0 0 8px 0;
-  color: #fff;
-}
-.door-card label {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  font-weight: 600;
-  display: block;
-  margin-bottom: 6px;
-}
-.door-card input {
-  width: 100%;
-  background: var(--bg-input);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 10px 12px;
-  border-radius: 6px;
-  outline: none;
-}
-.door-card input:focus {
-  border-color: var(--accent);
-}
-.door-card button {
-  margin-top: 12px;
-  width: 100%;
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-  padding: 10px;
-  border-radius: 6px;
-  font-weight: 700;
-  cursor: pointer;
-}
-.door-msg {
-  margin-top: 10px;
-  font-size: 12px;
-  color: var(--err);
-  min-height: 18px;
-}
-
-#site-gate {
-  display: block;
-}
-#site-app {
-  display: none;
-}
+  * { box-sizing: border-box; }
   body {
     margin: 0;
     background: var(--bg);
@@ -464,57 +399,6 @@
     font-size: 11px;
     color: var(--text-dim);
   }
-  .archive-link {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    font-size: 11px;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
-  }
-  .archive-link:hover {
-    color: var(--accent);
-  }
-  .global-archive-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 999;
-    padding: 24px;
-    overflow-y: auto;
-  }
-  .global-archive-overlay.open {
-    display: block;
-  }
-  .global-archive-panel {
-    max-width: 960px;
-    margin: 0 auto;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-  }
-  .global-archive-panel h3 {
-    font-family: var(--font-heading);
-    margin: 0 0 16px 0;
-    color: var(--text);
-    font-size: 16px;
-  }
-  .global-archive-close {
-    background: var(--accent);
-    color: var(--bg);
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 700;
-  }
-  .global-archive-empty {
-    color: var(--text-muted);
-    font-style: italic;
-  }
 
   .comment-list {
     display: flex;
@@ -786,27 +670,7 @@
 </style>
 </head>
 <body>
-<div id="site-gate">
-  <div class="door-wrap">
-    <div class="door-card">
-      <h1>HOA Irregularities Hub</h1>
-      <label for="site-password">Enter access password</label>
-      <input type="password" id="site-password" placeholder="Password required">
-      <button onclick="attemptUnlock()">Enter</button>
-      <div class="door-msg" id="door-msg"></div>
-    </div>
-  </div>
-</div>
-<div id="site-app">
-  <div class="global-archive-overlay" id="global-archive-overlay" onclick="if(event.target===this)closeGlobalArchive()">
-    <div class="global-archive-panel">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-        <h3>Archived Resident Perspectives</h3>
-        <button class="global-archive-close" onclick="closeGlobalArchive()">Close</button>
-      </div>
-      <div id="global-archive-content"></div>
-    </div>
-  </div>
+<div class="wrap">
   <header>
     <div>
       <h1>Plantation at Leesburg — HOA Irregularities Hub</h1>
@@ -864,12 +728,6 @@
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
       </svg>
       Export Resident Perspectives
-    </button>
-    <button class="export-btn" onclick="openGlobalArchive()">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
-        <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
-      </svg>
-      Archived Comments
     </button>
   </div>
 
@@ -1068,7 +926,7 @@
     Plantation at Leesburg HOA Irregularities Hub · Structured by Hermes Agent · Generated June 2026
   </footer>
 </div>
-</div>
+
 <script>
 // Raw Irregularities Data Definition
 const IRREGULARITIES = [
@@ -1410,13 +1268,12 @@ function renderIrregularities(filter = "all", searchQuery = "") {
       <div class="forum-section">
         <div class="forum-header">
           <h4>Resident Perspectives &amp; Town Hall Info</h4>
-          <span class="forum-count" id="count-${item.id}">${comments.length} Posts</span>
+          <span class="forum-count">${comments.length} Posts</span>
         </div>
+        
         <div class="comment-list" id="comments-${item.id}">
           ${commentsListHtml}
         </div>
-        <button type="button" class="archive-toggle" style="align-self:flex-start;margin-top:12px;margin-left:10px;" onclick="toggleArchive('${item.id}')">Archived Posts</button>
-        <button type="button" class="export-btn" style="align-self:flex-start;margin-top:12px;" onclick="downloadComments('${item.id}')">Download Comments</button>
 
         <div class="add-comment-form">
           <div class="form-row">
@@ -1505,103 +1362,6 @@ window.toggleArchive = function(irregularityId) {
     ? `Archived Posts (${archivedDiv.querySelectorAll('.comment-card').length}) — Hide`
     : `Archived Posts (${archivedDiv.querySelectorAll('.comment-card').length})`;
 };
-
-// Global archive
-window.openGlobalArchive = function() {
-  const overlay = document.getElementById('global-archive-overlay');
-  const content = document.getElementById('global-archive-content');
-  if (!overlay || !content) return;
-  content.innerHTML = '';
-
-  let html = '';
-  for (const [irregularityId, comments] of Object.entries(forumNotes || {})) {
-    const archived = comments.slice(5);
-    if (!archived.length) continue;
-    const title = (IRREGULARITIES.find(x => x.id === irregularityId) || {}).title || irregularityId;
-    html += `<div style="margin-bottom:18px;border-bottom:1px solid var(--border);padding-bottom:14px;">`;
-    html += `<div style="font-family:var(--font-heading);font-size:14px;color:#fff;margin-bottom:8px;">${escapeHtml(title)}</div>`;
-    archived.forEach(c => {
-      html += `<div class="comment-card">`;
-      html += `<div class="comment-meta">`;
-      html += `<span class="comment-author">${escapeHtml(c.author)}</span>`;
-      html += `<div><span class="comment-stance stance-${escapeHtml(c.stance)}">${escapeHtml(c.stance)}</span>`;
-      html += `<span class="comment-date" style="margin-left:8px;">${escapeHtml(c.date)}</span></div>`;
-      html += `</div>`;
-      html += `<p class="comment-text">${escapeHtml(c.text)}</p>`;
-      html += `</div>`;
-    });
-    html += `</div>`;
-  }
-
-  if (!html) {
-    html = `<div class="global-archive-empty">No archived comments yet.</div>`;
-  }
-  content.innerHTML = html;
-  overlay.classList.add('open');
-};
-
-window.closeGlobalArchive = function() {
-  const overlay = document.getElementById('global-archive-overlay');
-  if (overlay) overlay.classList.remove('open');
-};
-
-function sha256Hex(text) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(text);
-  if (window.crypto && crypto.subtle) {
-    return crypto.subtle.digest('SHA-256', data).then(buf => Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('')).catch(() => btoa(text));
-  }
-  return Promise.resolve(btoa(text));
-}
-
-window.attemptUnlock = function() {
-  const entered = document.getElementById('site-password').value || '';
-  const expectedHash = window.location.hash.replace('#access=', '');
-  const msg = document.getElementById('door-msg');
-  if (!expectedHash) {
-    msg.textContent = 'This page requires an access link with a password token.';
-    return;
-  }
-  sha256Hex(entered).then(hash => {
-    if (hash && expectedHash && hash === expectedHash) {
-      localStorage.setItem('heds_dashboard_unlocked', '1');
-      localStorage.setItem('heds_dashboard_password_hash', hash);
-      document.getElementById('site-gate').style.display = 'none';
-      document.getElementById('site-app').style.display = 'block';
-    } else {
-      msg.textContent = 'Incorrect password.';
-    }
-  });
-};
-
-function tryUnlockFromStorage() {
-  const stored = localStorage.getItem('heds_dashboard_password_hash');
-  const hashFromUrl = window.location.hash.replace('#access=', '');
-  if (!stored || !hashFromUrl || stored !== hashFromUrl) {
-    document.getElementById('site-gate').style.display = 'block';
-    document.getElementById('site-app').style.display = 'none';
-    return;
-  }
-  document.getElementById('site-gate').style.display = 'none';
-  document.getElementById('site-app').style.display = 'block';
-}
-
-(function boot(){
-  const hashFromUrl = window.location.hash.replace('#access=', '');
-  if (!hashFromUrl) {
-    document.getElementById('site-gate').style.display = 'none';
-    document.getElementById('site-app').style.display = 'none';
-    document.getElementById('door-msg').textContent = 'Access link invalid or expired.';
-    return;
-  }
-  const previous = localStorage.getItem('heds_dashboard_password_hash');
-  if (previous === hashFromUrl) {
-    document.getElementById('site-gate').style.display = 'none';
-    document.getElementById('site-app').style.display = 'block';
-    return;
-  }
-  tryUnlockFromStorage();
-})();
 
 // Tabs switching logic
 let activeTab = "all";
