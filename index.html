@@ -951,12 +951,12 @@ window.openGlobalArchive = function() {
   const subjects = Object.keys(forumNotes).sort();
   if (subjects.length === 0) {
     content.innerHTML = '<div class="global-archive-empty">No archived comments across all subjects.</div>';
-    return;
+    return false;
   }
-  for (const sid of subjects) {
-    const comments = forumNotes[sid] || [];
+  for (let sid = 0; sid < subjects.length; sid++) {
+    const comments = forumNotes[subjects[sid]] || [];
     const archived = comments.slice(5);
-    const title = (IRREGULARITIES.find(i => i.id === sid) || {}).title || sid;
+    const title = ((IRREGULARITIES.find(i => i.id === subjects[sid]) || {}).title || subjects[sid]);
     const wrapper = document.createElement("div");
     wrapper.style.marginBottom = "18px";
     wrapper.innerHTML = "<h4 style=\"margin:0 0 8px 0;\">" + title + " (" + archived.length + " archived)</h4>";
@@ -965,17 +965,40 @@ window.openGlobalArchive = function() {
     } else {
       const list = document.createElement("div");
       list.className = "comment-archived";
-      archived.forEach(function(c) {
+      for (let ci = 0; ci < archived.length; ci++) {
+        const c = archived[ci];
         const ea = c.author.replace(/</g,"&lt;").replace(/>/g,"&gt;");
         const et = c.text.replace(/</g,"&lt;").replace(/>/g,"&gt;");
         const es = c.stance.replace(/</g,"&lt;").replace(/>/g,"&gt;");
         const ed = c.date.replace(/</g,"&lt;").replace(/>/g,"&gt;");
-        list.innerHTML += '<div class="comment-card"><div class="comment-meta"><span class="comment-author">' + ea + '</span><div><span class="comment-stance stance-' + es + '">' + es + '</span><span class="comment-date" style="margin-left:8px;">' + ed + '</span></div></div><p class="comment-text">' + et + '</p></div>';
-      });
+        const card = document.createElement("div");
+        card.className = "comment-card";
+        card.innerHTML = '<div class="comment-meta"><span class="comment-author">' + ea + '</span><div><span class="comment-stance stance-' + es + '">' + es + '</span><span class="comment-date" style="margin-left:8px;">' + ed + '</span></div></div><p class="comment-text">' + et + '</p>';
+        if (sessionStorage.getItem("admin") === "true") {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "submit-btn";
+          btn.style.background = "var(--err)";
+          btn.textContent = "Delete";
+          btn.onclick = function() {
+            if (!confirm("Delete this comment?")) return false;
+            const target = forumNotes[subjects[sid]];
+            if (target && target[ci + 5]) {
+              target.splice(ci + 5, 1);
+              saveForumData();
+              window.openGlobalArchive();
+            }
+            return false;
+          };
+          card.appendChild(btn);
+        }
+        list.appendChild(card);
+      }
       wrapper.appendChild(list);
     }
     content.appendChild(wrapper);
   }
+  return false;
 };
 
 window.closeGlobalArchive = function() {
