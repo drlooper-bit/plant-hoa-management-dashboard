@@ -676,38 +676,10 @@
     fill: currentColor;
   }
 
-  /* Password gate */
-  #site-gate { display: block; }
-  #site-app { display: none; }
-  /* Global archive overlay */
-  .global-archive-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none;
-    align-items: center; justify-content: center; z-index: 1000; padding: 24px;
-  }
-  .global-archive-overlay.open { display: flex; }
-  .global-archive-panel {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
-    width: 100%; max-width: 980px; max-height: 80vh; overflow: auto; padding: 22px; color: var(--text);
-  }
-  .global-archive-empty {
-    color: var(--text-muted); font-style: italic; text-align: center; padding: 30px 10px;
-  }
-
 </style>
 </head>
 <body>
-<div id="site-gate">
-  <div class="door-wrap">
-    <div class="door-card">
-      <h1>HOA Irregularities Hub</h1>
-      <label for="site-password">Access password</label>
-      <input type="password" id="site-password" placeholder="Enter password">
-      <button id="site-unlock-btn" class="submit-btn">Enter</button>
-      <div id="door-msg"></div>
-    </div>
-  </div>
-</div>
-<div id="site-app" style="display: none;"><div class="wrap">
+<div id="site-app"><div class="wrap">
   <header>
     <div>
       <h1>Plantation at Leesburg — HOA Irregularities Hub</h1>
@@ -970,23 +942,6 @@
 
 <script>
 
-const SITE_PASSWORD = "HEDs#7893";
-let siteUnlocked = false;
-
-function attemptUnlock() {
-  const pw = document.getElementById("site-password").value;
-  const msg = document.getElementById("door-msg");
-  if (pw === SITE_PASSWORD) {
-    siteUnlocked = true;
-    document.getElementById("site-gate").style.display = "none";
-    document.getElementById("site-app").style.display = "block";
-    renderIrregularities("all");
-    msg.textContent = "";
-  } else {
-    msg.textContent = "Invalid password.";
-  }
-}
-
 window.openGlobalArchive = function() {
   const overlay = document.getElementById("global-archive-overlay");
   const content = document.getElementById("global-archive-content");
@@ -1032,14 +987,6 @@ window.closeGlobalArchive = function() {
 document.addEventListener("DOMContentLoaded", function() {
   var closeBtn = document.getElementById("close-global-archive-btn");
   if (closeBtn) closeBtn.addEventListener("click", window.closeGlobalArchive);
-  var unlockBtn = document.getElementById("site-unlock-btn");
-  if (unlockBtn) unlockBtn.addEventListener("click", attemptUnlock);
-  var pwInput = document.getElementById("site-password");
-  if (pwInput) {
-    pwInput.addEventListener("keydown", function(e) {
-      if (e.key === "Enter") { e.preventDefault(); attemptUnlock(); }
-    });
-  }
   var archiveBtn = document.getElementById("global-archive-btn");
   if (archiveBtn) archiveBtn.addEventListener("click", window.openGlobalArchive);
   var adminToggle = document.getElementById("admin-toggle");
@@ -1048,7 +995,6 @@ document.addEventListener("DOMContentLoaded", function() {
       if (typeof toggleAdminMode === "function") toggleAdminMode(this.checked);
     });
   }
-  if (siteUnlocked) renderIrregularities("all");
 });
 
 const IRREGULARITIES = [
