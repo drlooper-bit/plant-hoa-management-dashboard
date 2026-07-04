@@ -667,10 +667,39 @@
     stroke: currentColor;
     fill: currentColor;
   }
+
+  /* Password gate */
+  #site-gate { display: block; }
+  #site-app { display: none; }
+  /* Global archive overlay */
+  .global-archive-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none;
+    align-items: center; justify-content: center; z-index: 1000; padding: 24px;
+  }
+  .global-archive-overlay.open { display: flex; }
+  .global-archive-panel {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+    width: 100%; max-width: 980px; max-height: 80vh; overflow: auto; padding: 22px; color: var(--text);
+  }
+  .global-archive-empty {
+    color: var(--text-muted); font-style: italic; text-align: center; padding: 30px 10px;
+  }
+
 </style>
 </head>
 <body>
-<div class="wrap">
+<div id="site-gate">
+  <div class="door-wrap">
+    <div class="door-card">
+      <h1>HOA Irregularities Hub</h1>
+      <label for="site-password">Access password</label>
+      <input type="password" id="site-password" placeholder="Enter password">
+      <button id="site-unlock-btn" class="submit-btn">Enter</button>
+      <div id="door-msg"></div>
+    </div>
+  </div>
+</div>
+<div id="site-app" style="display: none;"><div class="wrap">
   <header>
     <div>
       <h1>Plantation at Leesburg — HOA Irregularities Hub</h1>
@@ -678,6 +707,9 @@
     </div>
     <div class="meta">
       Investigator: <strong>Plantation Residents</strong> · Local Time: <strong>2026-06-29</strong>
+    </div>
+<div style="margin-top:8px;">
+      <label><input type="checkbox" id="admin-toggle"> Admin mode</label>
     </div>
   </header>
 
@@ -728,6 +760,12 @@
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
       </svg>
       Export Resident Perspectives
+    </button>
+  <button class="export-btn" id="global-archive-btn">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      Open Global Archive
     </button>
   </div>
 
@@ -928,7 +966,88 @@
 </div>
 
 <script>
-// Raw Irregularities Data Definition
+
+const SITE_PASSWORD = "HEDs#7893";
+let siteUnlocked = false;
+
+function attemptUnlock() {
+  const pw = document.getElementById("site-password").value;
+  const msg = document.getElementById("door-msg");
+  if (pw === SITE_PASSWORD) {
+    siteUnlocked = true;
+    document.getElementById("site-gate").style.display = "none";
+    document.getElementById("site-app").style.display = "block";
+    renderIrregularities("all");
+    msg.textContent = "";
+  } else {
+    msg.textContent = "Invalid password.";
+  }
+}
+
+window.openGlobalArchive = function() {
+  const overlay = document.getElementById("global-archive-overlay");
+  const content = document.getElementById("global-archive-content");
+  if (!overlay || !content) return;
+  overlay.classList.add("open");
+  content.innerHTML = "";
+  const subjects = Object.keys(forumNotes).sort();
+  if (subjects.length === 0) {
+    content.innerHTML = '<div class="global-archive-empty">No archived comments across all subjects.</div>';
+    return;
+  }
+  for (const sid of subjects) {
+    const comments = forumNotes[sid] || [];
+    const archived = comments.slice(5);
+    const title = (IRREGULARITIES.find(i => i.id === sid) || {}).title || sid;
+    const wrapper = document.createElement("div");
+    wrapper.style.marginBottom = "18px";
+    wrapper.innerHTML = "<h4 style=\"margin:0 0 8px 0;\">" + title + " (" + archived.length + " archived)</h4>";
+    if (archived.length === 0) {
+      wrapper.innerHTML += '<div class="global-archive-empty">No archived posts.</div>';
+    } else {
+      const list = document.createElement("div");
+      list.className = "comment-archived";
+      archived.forEach(function(c) {
+        const ea = c.author.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        const et = c.text.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        const es = c.stance.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        const ed = c.date.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        list.innerHTML += '<div class="comment-card"><div class="comment-meta"><span class="comment-author">' + ea + '</span><div><span class="comment-stance stance-' + es + '">' + es + '</span><span class="comment-date" style="margin-left:8px;">' + ed + '</span></div></div><p class="comment-text">' + et + '</p></div>';
+      });
+      wrapper.appendChild(list);
+    }
+    content.appendChild(wrapper);
+  }
+};
+
+window.closeGlobalArchive = function() {
+  const overlay = document.getElementById("global-archive-overlay");
+  if (!overlay) return;
+  overlay.classList.remove("open");
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+  var closeBtn = document.getElementById("close-global-archive-btn");
+  if (closeBtn) closeBtn.addEventListener("click", window.closeGlobalArchive);
+  var unlockBtn = document.getElementById("site-unlock-btn");
+  if (unlockBtn) unlockBtn.addEventListener("click", attemptUnlock);
+  var pwInput = document.getElementById("site-password");
+  if (pwInput) {
+    pwInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") { e.preventDefault(); attemptUnlock(); }
+    });
+  }
+  var archiveBtn = document.getElementById("global-archive-btn");
+  if (archiveBtn) archiveBtn.addEventListener("click", window.openGlobalArchive);
+  var adminToggle = document.getElementById("admin-toggle");
+  if (adminToggle) {
+    adminToggle.addEventListener("change", function() {
+      if (typeof toggleAdminMode === "function") toggleAdminMode(this.checked);
+    });
+  }
+  if (siteUnlocked) renderIrregularities("all");
+});
+
 const IRREGULARITIES = [
   {
     id: "audit-delays",
@@ -1143,6 +1262,7 @@ function escapeHtml(text) {
 
 // Render dynamic irregularities cards
 function renderIrregularities(filter = "all", searchQuery = "") {
+  const VISIBLE_CAP = 5;
   const container = document.getElementById("irregularities-container");
   container.innerHTML = "";
 
@@ -1426,6 +1546,19 @@ document.getElementById("export-data-btn").addEventListener("click", function() 
 // Initial Render
 renderIrregularities("all");
 </script>
+</div>
+</div>
+  <!-- Global Archive Overlay -->
+  <div id="global-archive-overlay" class="global-archive-overlay">
+    <div class="global-archive-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h3 style="margin:0;">Global Archive</h3>
+        <button id="close-global-archive-btn" class="submit-btn">Close</button>
+      </div>
+      <div id="global-archive-content"></div>
+    </div>
+  </div>
+
 </body>
 </html>
  
