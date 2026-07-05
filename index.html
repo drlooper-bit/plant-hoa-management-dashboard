@@ -680,14 +680,16 @@
 </head>
 <body>
 <div id="site-app"><div class="wrap">
-  <header style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+  <header>
     <div>
       <h1>Plantation at Leesburg — HOA Irregularities Hub</h1>
       <div class="meta">Statutory, Financial &amp; Governance Compliance Review Platform</div>
     </div>
-    <div class="meta" style="text-align:right;">
-      Hit Counter<br>
-      <strong id="hit-counter">—</strong>
+    <div class="meta">
+      Investigator: <strong>Plantation Residents</strong> · Local Time: <strong>2026-06-29</strong>
+    </div>
+<div style="margin-top:8px;">
+      <label><input type="checkbox" id="admin-toggle"> Admin mode</label>
     </div>
   </header>
 
@@ -1083,23 +1085,11 @@ document.addEventListener("DOMContentLoaded", function() {
   if (closeBtn) closeBtn.addEventListener("click", window.closeGlobalArchive);
   var archiveBtn = document.getElementById("global-archive-btn");
   if (archiveBtn) archiveBtn.addEventListener("click", window.openGlobalArchive);
-
-  var counterEl = document.getElementById("hit-counter");
-  if (counterEl) {
-    try {
-      var today = new Date().toISOString().slice(0,10);
-      var entry = JSON.parse(localStorage.getItem("hitCounters") || "{}");
-      if (!entry.date || entry.date !== today) {
-        entry.date = today;
-        entry.count = 1;
-      } else {
-        entry.count = (entry.count || 0) + 1;
-      }
-      localStorage.setItem("hitCounters", JSON.stringify(entry));
-      counterEl.textContent = "Today: " + entry.count + " · Since clear: " + (entry.running || (entry.running = entry.count));
-    } catch (e) {
-      counterEl.textContent = "Active";
-    }
+  var adminToggle = document.getElementById("admin-toggle");
+  if (adminToggle) {
+    adminToggle.addEventListener("change", function() {
+      if (typeof toggleAdminMode === "function") toggleAdminMode(this.checked);
+    });
   }
 });
 
