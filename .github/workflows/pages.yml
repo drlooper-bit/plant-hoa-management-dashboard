@@ -1,21 +1,25 @@
 name: Deploy to GitHub Pages
+run-name: ${{ github.event.pull_request.title || github.ref_name }}
 
-on:
+"on":
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
-
-permissions:
-  contents: write
 
 jobs:
   deploy:
+    environment: github-pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/setup-pages@v4
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          keep_files: false
+          path: .
+      - id: deploy
+        uses: actions/deploy-pages@v4
