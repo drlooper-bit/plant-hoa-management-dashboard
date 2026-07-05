@@ -688,9 +688,6 @@
     <div class="meta">
       Investigator: <strong>Plantation Residents</strong> · Local Time: <strong>2026-06-29</strong>
     </div>
-<div style="margin-top:8px;">
-      <label><input type="checkbox" id="admin-toggle"> Admin mode</label>
-    </div>
   </header>
 
   <!-- KPI Metrics Banner -->
@@ -1008,16 +1005,6 @@ C. Combined Total<br>
 </div>
 
 <script>
-
-document.addEventListener("DOMContentLoaded", function() {
-  var unlockBtn = document.getElementById("site-unlock-btn");
-  var adminToggle = document.getElementById("admin-toggle");
-  if (adminToggle) {
-    adminToggle.addEventListener("change", function() {
-      if (typeof toggleAdminMode === "function") toggleAdminMode(this.checked);
-    });
-  }
-});
 
 const IRREGULARITIES = [
   {
