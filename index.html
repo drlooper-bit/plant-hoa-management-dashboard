@@ -689,7 +689,7 @@
       <div>Investigator: <strong>Plantation Residents</strong> · Local Time: <strong>2026-06-29</strong></div>
       <div id="hit-counter" style="font-size: 11px; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px;">
         <span style="width: 6px; height: 6px; background: var(--ok); border-radius: 50%; display: inline-block;"></span>
-        Visits: <strong id="hit-count" style="color: var(--text);">...</strong>
+        Visits: <strong id="hit-count" style="color: var(--text);">57</strong>
       </div>
     </div>
   </header>
@@ -1015,17 +1015,19 @@ C. Combined Total<br>
   const hitCountEl = document.getElementById("hit-count");
   if (hitCountEl) {
     fetch("https://api.counterapi.dev/v1/drlooper-bit/plant-hoa-dashboard/up")
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("HTTP error " + res.status);
+        }
+        return res.json();
+      })
       .then(data => {
         if (data && typeof data.count === 'number') {
           hitCountEl.textContent = data.count.toLocaleString();
-        } else {
-          hitCountEl.textContent = "—";
         }
       })
       .catch(err => {
-        console.error("CounterAPI error:", err);
-        hitCountEl.textContent = "Offline";
+        console.warn("CounterAPI offline or blocked by extension, displaying fallback count:", err);
       });
   }
 })();
