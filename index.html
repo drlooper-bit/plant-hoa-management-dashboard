@@ -719,12 +719,12 @@
 
   <!-- Navigation tabs -->
   <div class="nav-bar">
-    <button class="nav-btn active" data-tab="all">All Irregularities</button>
+    <button class="nav-btn" data-tab="all">All Irregularities</button>
     <button class="nav-btn" data-tab="financial">Financial Anomalies</button>
     <button class="nav-btn" data-tab="governance">Governance &amp; Compliance</button>
     <button class="nav-btn" data-tab="litigation">Litigation &amp; Radar</button>
     <button class="nav-btn" data-tab="turnaround">Turnaround Plan</button>
-    <button class="nav-btn" data-tab="history">History of The Plantation</button>
+    <button class="nav-btn active" data-tab="history">History of The Plantation</button>
   </div>
 
   <!-- Search & Actions Bar -->
@@ -1457,7 +1457,7 @@ window.toggleArchive = function(irregularityId) {
 };
 
 // Tabs switching logic
-let activeTab = "all";
+let activeTab = "history";
 document.querySelectorAll(".nav-btn").forEach(btn => {
   btn.addEventListener("click", function() {
     document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
