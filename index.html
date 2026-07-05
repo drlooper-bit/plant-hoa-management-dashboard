@@ -719,12 +719,12 @@
 
   <!-- Navigation tabs -->
   <div class="nav-bar">
-    <button class="nav-btn" data-tab="all">All Irregularities</button>
+    <button class="nav-btn active" data-tab="all">All Irregularities</button>
     <button class="nav-btn" data-tab="financial">Financial Anomalies</button>
     <button class="nav-btn" data-tab="governance">Governance &amp; Compliance</button>
     <button class="nav-btn" data-tab="litigation">Litigation &amp; Radar</button>
     <button class="nav-btn" data-tab="turnaround">Turnaround Plan</button>
-    <button class="nav-btn active" data-tab="history">History of The Plantation</button>
+    <button class="nav-btn" data-tab="history">History of The Plantation</button>
   </div>
 
   <!-- Search & Actions Bar -->
@@ -1457,48 +1457,34 @@ window.toggleArchive = function(irregularityId) {
 };
 
 // Tabs switching logic
-let activeTab = "history";
+let activeTab = "all";
+function applyTabState(tab) {
+  const searchBar = document.getElementById("search-container");
+  const container = document.getElementById("irregularities-container");
+  const radar = document.getElementById("radar-container");
+  const turnaround = document.getElementById("turnaround-container");
+  const history = document.getElementById("history-container");
+
+  if (tab === "litigation") {
+    container.style.display = "none"; searchBar.style.display = "none"; turnaround.style.display = "none"; radar.style.display = "block"; history.style.display = "none";
+  } else if (tab === "turnaround") {
+    container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "block"; history.style.display = "none";
+  } else if (tab === "history") {
+    container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "none"; history.style.display = "block";
+  } else {
+    container.style.display = "block"; searchBar.style.display = "flex"; radar.style.display = "none"; turnaround.style.display = "none"; history.style.display = "none";
+    renderIrregularities(tab, document.getElementById("search-box").value);
+  }
+}
 document.querySelectorAll(".nav-btn").forEach(btn => {
   btn.addEventListener("click", function() {
     document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
     this.classList.add("active");
-    
     activeTab = this.getAttribute("data-tab");
-    
-    const searchBar = document.getElementById("search-container");
-    const container = document.getElementById("irregularities-container");
-    const radar = document.getElementById("radar-container");
-    const turnaround = document.getElementById("turnaround-container");
-    const history = document.getElementById("history-container");
-
-    if (activeTab === "litigation") {
-      container.style.display = "none";
-      searchBar.style.display = "none";
-      turnaround.style.display = "none";
-      radar.style.display = "block";
-      history.style.display = "none";
-    } else if (activeTab === "turnaround") {
-      container.style.display = "none";
-      searchBar.style.display = "none";
-      radar.style.display = "none";
-      turnaround.style.display = "block";
-      history.style.display = "none";
-    } else if (activeTab === "history") {
-      container.style.display = "none";
-      searchBar.style.display = "none";
-      radar.style.display = "none";
-      turnaround.style.display = "none";
-      history.style.display = "block";
-    } else {
-      container.style.display = "block";
-      searchBar.style.display = "flex";
-      radar.style.display = "none";
-      turnaround.style.display = "none";
-      history.style.display = "none";
-      renderIrregularities(activeTab, document.getElementById("search-box").value);
-    }
+    applyTabState(activeTab);
   });
 });
+applyTabState(activeTab);
 
 // Search input logic
 document.getElementById("search-box").addEventListener("input", function() {
