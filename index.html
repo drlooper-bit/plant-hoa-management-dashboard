@@ -1010,11 +1010,38 @@ C. Combined Total<br>
 
 <script>
 
-// Fetch and display hit count
+// Fetch and display hit count (new visitors only)
 (function() {
   const hitCountEl = document.getElementById("hit-count");
   if (hitCountEl) {
-    fetch("https://api.counterapi.dev/v1/drlooper-bit/plant-hoa-dashboard/up")
+    const storageKey = "has_visited_plant_hoa_dashboard";
+    let hasVisited = false;
+
+    // Check localStorage
+    try {
+      if (localStorage.getItem(storageKey)) {
+        hasVisited = true;
+      }
+    } catch (e) {
+      console.warn("localStorage accessibility error:", e);
+    }
+
+    // Check Cookie fallback
+    if (!hasVisited) {
+      try {
+        if (document.cookie.split(';').some((item) => item.trim().startsWith(storageKey + '='))) {
+          hasVisited = true;
+        }
+      } catch (e) {
+        console.warn("Cookie accessibility error:", e);
+      }
+    }
+
+    const url = hasVisited
+      ? "https://api.counterapi.dev/v1/drlooper-bit/plant-hoa-dashboard"
+      : "https://api.counterapi.dev/v1/drlooper-bit/plant-hoa-dashboard/up";
+
+    fetch(url)
       .then(res => {
         if (!res.ok) {
           throw new Error("HTTP error " + res.status);
@@ -1024,6 +1051,16 @@ C. Combined Total<br>
       .then(data => {
         if (data && typeof data.count === 'number') {
           hitCountEl.textContent = data.count.toLocaleString();
+          if (!hasVisited) {
+            try {
+              localStorage.setItem(storageKey, "true");
+            } catch (e) {}
+            try {
+              const expires = new Date();
+              expires.setFullYear(expires.getFullYear() + 1);
+              document.cookie = `${storageKey}=true; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+            } catch (e) {}
+          }
         }
       })
       .catch(err => {
