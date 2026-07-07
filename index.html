@@ -689,7 +689,7 @@
       <div>Investigator: <strong>Plantation Residents</strong> · Local Time: <strong>2026-06-29</strong></div>
       <div id="hit-counter" style="font-size: 11px; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px;">
         <span style="width: 6px; height: 6px; background: var(--ok); border-radius: 50%; display: inline-block;"></span>
-        Visits: <strong id="hit-count" style="color: var(--text);">71</strong>
+        Visits: <strong id="hit-count" style="color: var(--text);">182</strong>
       </div>
     </div>
   </header>
@@ -1007,7 +1007,16 @@ C. Combined Total<br>
         return res.json();
       })
       .then(data => {
-        let count = parseInt(String(data).replace(/"/g, '')) || 71;
+        const cleaned = String(data).replace(/"/g, '').trim();
+        const parsed = parseInt(cleaned);
+        
+        if (isNaN(parsed)) {
+          console.warn("KeyValue returned non-numeric data, using static fallback.");
+          hitCountEl.textContent = "182";
+          return;
+        }
+
+        let count = parsed;
 
         if (!hasVisited) {
           const newCount = count + 1;
@@ -1040,7 +1049,8 @@ C. Combined Total<br>
         }
       })
       .catch(err => {
-        console.warn("KeyValue API offline or blocked:", err);
+        console.warn("KeyValue API offline or blocked, using static fallback:", err);
+        hitCountEl.textContent = "182";
       });
   }
 })();
