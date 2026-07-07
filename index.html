@@ -873,12 +873,13 @@ C. Combined Total<br>
 * Final Dedicated Golf Fee: Rounded to $35.50/month per home.<br>
 * Net Increase: Hikes dedicated golf fees from $15.00 to $35.50/month (an increase of $20.50/month).</p>
 
-          <p><strong>4. Recommended Recovery Pathway (Private &amp; Compliant)</strong><br>
-1. Complete Audits &amp; Website Compliance (Immediate): Publish backlogged 2023/2024 CPA audits and missing vendor contracts to comply with Fla. Stat. §720.303 and restore trust.<br>
-2. Enforce Strict Account Separation (Months 1–3): Maintain complete separation between the master HOA and the Golf LLC ledgers. Cap transfers at $507,600/year to respect the covenant's 10% limit and protect residential assets from corporate liability.<br>
-3. Conduct Member Vote to Close Otter Creek (Months 3–6): Draft and pass an amendment to the Declaration of Covenants to close the Otter Creek course, securing required member approval to avoid breach of covenant lawsuits.<br>
-4. Convert Otter Creek to Private Resident Park (Months 6–18): Shut down Otter Creek play and re-landscape it as a private trails area using volunteer labor. Redirect the freed maintenance cash to service/retire the master HOA's Fustos and Thompson promissory notes.</p>
+          <p><strong>4. Recommended Recovery Pathway (Option D: Third-Party Lease)</strong><br>
+          1. Complete Audits &amp; Website Compliance (Immediate): Publish backlogged 2023/2024 CPA audits and missing vendor contracts to comply with Fla. Stat. §720.303 and restore trust.<br>
+          2. Draft Professional RFP &amp; Select Operator (Months 1–3): Draft a professional request for proposal (RFP) to lease operations of both courses to a professional third-party management firm (e.g., Troon, KemperSports) to handle all staffing, scheduling, and turf upkeep.<br>
+          3. Conduct Member Vote for Irrigation Capital Loan (Months 3–6): Structure and conduct a community vote to approve a $1.56M bank loan to replace the failing Cranes Roost irrigation system, which is a mandatory condition for commercial operators to lease the courses.<br>
+          4. Transition Operations &amp; Capture Surplus (Months 6–12): Execute the lease agreement, transition all golf operations and maintenance to the third-party operator, and redirect the resulting $287,600/year surplus under the golf assessment to build capital reserves and service the new loan.</p>
         </div>
+        <div id="golf-recovery-comments-container"></div>
       </div>
     </div>
 
@@ -1245,6 +1246,11 @@ const IRREGULARITIES = [
 
 // Prepopulated comments database to show diverse resident perspectives
 const INITIAL_COMMENTS = {
+  "golf-recovery-plan": [
+    { author: "Resident (Otter Creek)", stance: "supportive", text: "Option A is the only sensible choice. Otter Creek has flooded for years, and trying to keep all 36 holes open is financially impossible. We must consolidate and protect the reserves.", date: "2026-06-29 11:30" },
+    { author: "Avid Golfer (Long Meadow)", stance: "skeptical", text: "If we close Otter Creek, we lose our 36-hole destination status. It will lower the property values of homes backing onto Otter Creek. We should look at Option D first.", date: "2026-06-30 14:15" },
+    { author: "Resident (Ashley Court)", stance: "concerned", text: "Option E would raise our overall monthly dues by 11.4%. That's a huge burden on residents on fixed incomes just to support a hobby that only 20% of the community uses.", date: "2026-07-01 09:20" }
+  ],
   "audit-delays": [
     { author: "Retired Auditor (Long Meadow)", stance: "concerned", text: "As a retired accountant, a suspended audit for multiple straight years is a red alert. If there is nothing to hide, why aren't the ledgers in the hands of the CPA? We cannot get mortgages refi or sell our houses easily with suspended audits on record.", date: "2026-06-25 10:15" },
     { author: "Resident (Ashley Court)", stance: "neutral", text: "I spoke with Dennis at the office and he said the CPA is just waiting on some bank statements from the 2023 ledger transfer. It seems like it's a software translation issue, not fraud.", date: "2026-06-26 14:22" },
@@ -1551,10 +1557,97 @@ window.submitComment = function(irregularityId) {
   textInput.value = "";
 
   // Re-render comments for this specific card
-  renderIrregularities(activeTab, document.getElementById("search-box").value);
+  if (irregularityId === "golf-recovery-plan") {
+    renderGolfRecoveryComments();
+  } else {
+    renderIrregularities(activeTab, document.getElementById("search-box").value);
+  }
 };
 
 // Toggle archived comments
+// Render comments for the static Golf Recovery Plan card
+function renderGolfRecoveryComments() {
+  const irregularityId = "golf-recovery-plan";
+  const comments = forumNotes[irregularityId] || [];
+  const container = document.getElementById("golf-recovery-comments-container");
+  if (!container) return;
+
+  const VISIBLE_LIMIT = 5;
+  const visibleComments = comments.slice(0, VISIBLE_LIMIT);
+  const archivedComments = comments.slice(VISIBLE_LIMIT);
+
+  let commentsHtml = "";
+  if (comments.length === 0) {
+    commentsHtml = `<div class="no-comments" style="text-align: center; padding: 20px; color: var(--text-muted); font-style: italic;">No resident perspectives submitted yet. Be the first to share your information.</div>`;
+  } else {
+    commentsHtml = visibleComments.map(c => `
+      <div class="comment-card" style="margin-bottom: 12px;">
+        <div class="comment-meta">
+          <span class="comment-author">${escapeHtml(c.author)}</span>
+          <div>
+            <span class="comment-stance stance-${escapeHtml(c.stance)}">${escapeHtml(c.stance)}</span>
+            <span class="comment-date" style="margin-left: 8px;">${escapeHtml(c.date)}</span>
+          </div>
+        </div>
+        <p class="comment-text">${escapeHtml(c.text)}</p>
+      </div>
+    `).join('');
+
+    if (archivedComments.length > 0) {
+      commentsHtml += `
+        <button type="button" class="archive-toggle" id="archive-toggle-${irregularityId}" onclick="toggleArchive('${irregularityId}')" style="margin-bottom: 12px;">Archived Posts (${archivedComments.length})</button>
+        <div class="comment-archived" id="archive-${irregularityId}" style="display: none; margin-bottom: 12px;">
+          ${archivedComments.map(c => `
+            <div class="comment-card" style="margin-bottom: 12px;">
+              <div class="comment-meta">
+                <span class="comment-author">${escapeHtml(c.author)}</span>
+                <div>
+                  <span class="comment-stance stance-${escapeHtml(c.stance)}">${escapeHtml(c.stance)}</span>
+                  <span class="comment-date" style="margin-left: 8px;">${escapeHtml(c.date)}</span>
+                </div>
+              </div>
+              <p class="comment-text">${escapeHtml(c.text)}</p>
+            </div>
+          `).join('')}
+        </div>`;
+    }
+  }
+
+  container.innerHTML = `
+    <div class="forum-section" style="margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px;">
+      <div class="forum-header" style="margin-bottom: 16px;">
+        <h4 style="font-family: var(--font-heading); font-size: 13.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text); margin: 0;">Resident Perspectives &amp; Notes</h4>
+        <span class="forum-count" style="background: var(--border); padding: 2px 8px; border-radius: 12px; font-size: 11px; color: var(--text-dim);">${comments.length} Posts</span>
+      </div>
+      <div class="comment-list" id="comments-${irregularityId}">
+        ${commentsHtml}
+      </div>
+      <div class="add-comment-form" style="margin-top: 16px;">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name-${irregularityId}">Resident Name/Affiliation</label>
+            <input type="text" class="form-control" id="name-${irregularityId}" placeholder="e.g. John Doe (Village of Somerset)">
+          </div>
+          <div class="form-group">
+            <label for="stance-${irregularityId}">Stance</label>
+            <select class="form-control" id="stance-${irregularityId}">
+              <option value="neutral">Neutral Inquirer</option>
+              <option value="concerned">Concerned Citizen</option>
+              <option value="skeptical">Skeptical Watchdog</option>
+              <option value="supportive">Supportive of Board</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 8px;">
+          <label for="text-${irregularityId}">Your Perspective, Statement or Supplementary Information</label>
+          <textarea class="form-control" id="text-${irregularityId}" rows="3" placeholder="Provide your perspective, share facts, or ask follow-up questions regarding this turnaround option..."></textarea>
+        </div>
+        <button type="button" class="submit-btn" onclick="submitComment('${irregularityId}')" style="margin-top: 8px;">Submit Perspective</button>
+      </div>
+    </div>
+  `;
+}
+
 window.toggleArchive = function(irregularityId) {
   const archivedDiv = document.getElementById(`archive-${irregularityId}`);
   const toggleBtn = document.getElementById(`archive-toggle-${irregularityId}`);
@@ -1583,6 +1676,7 @@ function applyTabState(tab) {
     renderIrregularities(tab, document.getElementById("search-box").value);
   } else if (tab === "turnaround") {
     container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "block"; history.style.display = "none"; exploratory.style.display = "none";
+    renderGolfRecoveryComments();
   } else if (tab === "history") {
     container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "none"; history.style.display = "block"; exploratory.style.display = "none";
   } else if (tab === "exploratory") {
