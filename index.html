@@ -726,6 +726,7 @@
     <button class="nav-btn" data-tab="litigation">Litigation &amp; Radar</button>
     <button class="nav-btn" data-tab="turnaround">Turnaround Plan</button>
     <button class="nav-btn" data-tab="history">History of The Plantation</button>
+    <button class="nav-btn" data-tab="exploratory">Exploratory Only</button>
   </div>
 
   <!-- Search & Actions Bar -->
@@ -999,6 +1000,28 @@ C. Combined Total<br>
           <li><strong>The Facts:</strong> The community consists of exactly 2,820 single-family homes.</li>
           <li><strong>The Advertising:</strong> Despite internal financial discussions regarding the upkeep of the courses, external advertising remains unchanged from the developer days. Real estate agents and brokerages continue to heavily market The Plantation at Leesburg to outside buyers as an <strong>&ldquo;award-winning gated golf community.&rdquo;</strong> The original 1988 promise of &ldquo;More Golf&rdquo; is still used to sell homes today, even as the current residents manage the ongoing operational and financial realities of maintaining two 18-hole courses.</li>
         </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB CONTENT: EXPLORATORY ONLY -->
+  <div id="exploratory-container" style="display: none;" class="turnaround-grid">
+    <div class="workstream-card" style="grid-column: 1 / -1;">
+      <h3 style="color: var(--accent); margin-top: 0; display: flex; align-items: center; gap: 8px;">
+        ⚖️ Legal Disclaimer &amp; Terms of Use
+      </h3>
+      <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;">Last Updated: July 2026</div>
+      
+      <div style="color: var(--text-dim); line-height: 1.6; font-size: 13px; display: flex; flex-direction: column; gap: 14px;">
+        <p><strong>Non-Affiliation Disclaimer:</strong> This website is an independent, resident-run platform established solely for the purpose of community information, discussion, and transparency. This site is not affiliated with, authorized by, sponsored by, or in any way officially connected to the Board of Directors of the Plantation at Leesburg Homeowners Association, Inc., its management company, or any of its subsidiaries or affiliates. The official website for the HOA is located at <a href="https://www.plantationatleesburg.com" target="_blank" style="color: var(--accent); text-decoration: none;">https://www.plantationatleesburg.com</a>.</p>
+        
+        <p><strong>Information Purposes Only:</strong> All content, analysis, data, litigation summaries, and financial reviews provided on this website are for general informational, educational, and resident-advocacy purposes only. Nothing on this site constitutes professional legal, financial, accounting, or real estate advice.</p>
+        
+        <p><strong>No Representation of Accuracy:</strong> While the information presented on this platform is compiled in good faith from public records, court filings, official HOA board slide decks, and resident reports, the publisher makes no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, or suitability of the information. Any reliance you place on such information is strictly at your own risk.</p>
+        
+        <p><strong>Factual Demarcation:</strong> Factual assertions regarding ongoing disputes are categorized clearly. Items marked as [ALLEGED] are opinions or claims under review by resident groups and are not verified facts. Items marked as [OFFICIAL] represent extracts of records published by the board. Items marked as [COURT] represent public court filings. Users are urged to verify all figures and filings independently via the Lake County Clerk of Court database or official HOA records before drawing conclusions.</p>
+        
+        <p><strong>No Endorsement or Liability:</strong> Under no circumstances shall the publishers or hosts of this site be liable for any loss, damage, or legal action arising out of, or in connection with, the use of this website. Homeowners are advised to consult a licensed Florida attorney before taking any legal action, joining any petition, or altering assessment payments in connection with the matters discussed herein.</p>
       </div>
     </div>
   </div>
@@ -1532,15 +1555,18 @@ function applyTabState(tab) {
   const radar = document.getElementById("radar-container");
   const turnaround = document.getElementById("turnaround-container");
   const history = document.getElementById("history-container");
+  const exploratory = document.getElementById("exploratory-container");
 
   if (tab === "litigation") {
-    container.style.display = "none"; searchBar.style.display = "none"; turnaround.style.display = "none"; radar.style.display = "block"; history.style.display = "none";
+    container.style.display = "none"; searchBar.style.display = "none"; turnaround.style.display = "none"; radar.style.display = "block"; history.style.display = "none"; exploratory.style.display = "none";
   } else if (tab === "turnaround") {
-    container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "block"; history.style.display = "none";
+    container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "block"; history.style.display = "none"; exploratory.style.display = "none";
   } else if (tab === "history") {
-    container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "none"; history.style.display = "block";
+    container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "none"; history.style.display = "block"; exploratory.style.display = "none";
+  } else if (tab === "exploratory") {
+    container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "none"; history.style.display = "none"; exploratory.style.display = "block";
   } else {
-    container.style.display = "block"; searchBar.style.display = "flex"; radar.style.display = "none"; turnaround.style.display = "none"; history.style.display = "none";
+    container.style.display = "block"; searchBar.style.display = "flex"; radar.style.display = "none"; turnaround.style.display = "none"; history.style.display = "none"; exploratory.style.display = "none";
     renderIrregularities(tab, document.getElementById("search-box").value);
   }
 }
