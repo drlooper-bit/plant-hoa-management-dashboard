@@ -754,120 +754,6 @@
   <div id="radar-container" style="display: none;" class="radar-section">
     <h2 style="font-family: var(--font-heading); font-size: 18px; margin: 0 0 8px 0; color: var(--accent);">Appellate Case Law Radar</h2>
     <p style="color: var(--text-dim); margin: 0 0 24px 0;">Binding Florida appellate case law and circuit court precedents relevant to active HOA disputes. Read cases to understand how courts handle these issues.</p>
-    
-    <!-- Card 1: Wolner Precedents -->
-    <div class="irregularity-card">
-      <div class="card-header">
-        <div class="title-area">
-          <h2>Wolner Receivership Battle Precedents</h2>
-          <span class="source-tag">Source: <strong>Florida 5th DCA &amp; Circuit Precedents</strong></span>
-        </div>
-        <span class="badge badge-high">high</span>
-      </div>
-
-      <div class="card-body">
-        <div class="details-col">
-          <h3>Forensic Context</h3>
-          <p>In <em>Plantation of Leesburg HOA v. Wolner</em>, receiver fees reached ~$46,000 to collect an underlying $480 assessment delinquency from a hospitalized resident. Florida courts heavily scrutinize receiver appointments, proportionality of collection fees, and homestead rights.</p>
-          
-          <h3>Florida Legal Standard</h3>
-          <p style="font-style: italic; color: var(--text-dim);">Courts will vacate receiver appointments where the underlying debt is trivial, the process lacks proper notice, or corporate actions represent bad faith. Homestead protections under the Florida Constitution prohibit forced sales or assessments that circumvent standard protections.</p>
-        </div>
-        
-        <div class="statutes-col">
-          <h4>Precedent Framework</h4>
-          <div class="statute-badge">
-            <code>F.S. § 720.3085</code>
-            <span>Collection Rules</span>
-          </div>
-          <div class="statute-badge">
-            <code>F.S. § 720.311</code>
-            <span>Alternative Dispute Resolution</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="prompt-box">
-        <h4>Precedent Inquiry Prompt</h4>
-        <p>What changes will the board make to its collection policies in light of the Wolner appeal to prevent similar fee escalations?</p>
-      </div>
-    </div>
-
-    <!-- Card 2: Special Assessment Posting -->
-    <div class="irregularity-card">
-      <div class="card-header">
-        <div class="title-area">
-          <h2>Special Assessment Posting &amp; Notice</h2>
-          <span class="source-tag">Source: <strong>F.S. § 720.309 / 5th DCA Rulings</strong></span>
-        </div>
-        <span class="badge badge-critical">critical</span>
-      </div>
-
-      <div class="card-body">
-        <div class="details-col">
-          <h3>Forensic Context</h3>
-          <p>The 2021 ($1,260/household) and 2023 ($225/lot) special assessments are under suit. Plaintiffs allege procedural failures: lack of physical 48-hour board-meeting postings specifying assessments and failure to reach quorums.</p>
-          
-          <h3>Florida Legal Standard</h3>
-          <p style="font-style: italic; color: var(--text-dim);">Strict compliance is mandatory for special assessments. Rulings state that failure to physically post notice of meetings with assessment details at least 48 hours in advance renders the assessment a legal nullity. Re-votes do not retroactively cure past invalid assessments.</p>
-        </div>
-        
-        <div class="statutes-col">
-          <h4>Precedent Framework</h4>
-          <div class="statute-badge">
-            <code>F.S. § 720.303(2)(c)2</code>
-            <span>Physical Posting</span>
-          </div>
-          <div class="statute-badge">
-            <code>F.S. § 720.309</code>
-            <span>Assessment Quorums</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="prompt-box">
-        <h4>Precedent Inquiry Prompt</h4>
-        <p>How does the board verify that physical, conspicuous notices were posted 48 hours in advance for the 2021 and 2023 assessment meetings?</p>
-      </div>
-    </div>
-
-    <!-- Card 3: Golf LLC Separateness -->
-    <div class="irregularity-card">
-      <div class="card-header">
-        <div class="title-area">
-          <h2>Golf Course LLC Separateness &amp; Veil-Piercing</h2>
-          <span class="source-tag">Source: <strong>Dania Jai-Alai Palace, Inc. v. SY. Assocs.</strong></span>
-        </div>
-        <span class="badge badge-critical">critical</span>
-      </div>
-
-      <div class="card-body">
-        <div class="details-col">
-          <h3>Forensic Context</h3>
-          <p>The board maintains that residential master funds are shielded because golf course debt resides in a separate LLC. However, the HOA has funded consistent $42,300/month Special Activity draws from residential assessments to the LLC.</p>
-          
-          <h3>Florida Legal Standard</h3>
-          <p style="font-style: italic; color: var(--text-dim);">Under Florida corporate law, the "corporate shield" is pierced if the parent entity exercises complete dominion, commingles assets, shares directors with zero conflict procedures, or uses the subsidiary as a mere shell. If pierced, the HOA master funds are fully exposed to golf liabilities.</p>
-        </div>
-        
-        <div class="statutes-col">
-          <h4>Precedent Framework</h4>
-          <div class="statute-badge">
-            <code>Veil Piercing</code>
-            <span>Alter-Ego &amp; Commingling</span>
-          </div>
-          <div class="statute-badge">
-            <code>F.S. § 617.0830</code>
-            <span>Fiduciary Loyalty</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="prompt-box">
-        <h4>Precedent Inquiry Prompt</h4>
-        <p>What structural accounting firewalls are in place to prevent the commercial liabilities of the Golf LLC from exposing master residential reserves?</p>
-      </div>
-    </div>
   </div>
 
   <!-- TAB CONTENT: TURNAROUND PLAN -->
@@ -1318,6 +1204,48 @@ const IRREGULARITIES = [
       { name: "Ch. 617 Fiduciary Duty", violation: "Use of corporate funds for political or selective messaging" }
     ],
     prompt: "Are association funds or staff hours used to run or moderate the board's Facebook page? Why are resident questions regarding finances being deleted?"
+  },
+  {
+    id: "precedent-wolner",
+    title: "Wolner Receivership Battle Precedents",
+    category: "litigation",
+    severity: "high",
+    source: "Florida 5th DCA & Circuit Precedents",
+    details: "In *Plantation of Leesburg HOA v. Wolner*, receiver fees reached ~\$46,000 to collect an underlying \$480 assessment delinquency from a hospitalized resident. Florida courts heavily scrutinize receiver appointments, proportionality of collection fees, and homestead rights.",
+    boardPosition: "Courts will vacate receiver appointments where the underlying debt is trivial, the process lacks proper notice, or corporate actions represent bad faith. Homestead protections under the Florida Constitution prohibit forced sales or assessments that circumvent standard protections.",
+    statutes: [
+      { name: "F.S. § 720.3085", violation: "Collection Rules" },
+      { name: "F.S. § 720.311", violation: "Alternative Dispute Resolution" }
+    ],
+    prompt: "What changes will the board make to its collection policies in light of the Wolner appeal to prevent similar fee escalations?"
+  },
+  {
+    id: "precedent-notice",
+    title: "Special Assessment Posting & Notice",
+    category: "litigation",
+    severity: "critical",
+    source: "F.S. § 720.309 / 5th DCA Rulings",
+    details: "The 2021 (\$1,260/household) and 2023 (\$225/lot) special assessments are under suit. Plaintiffs allege procedural failures: lack of physical 48-hour board-meeting postings specifying assessments and failure to reach quorums.",
+    boardPosition: "Strict compliance is mandatory for special assessments. Rulings state that failure to physically post notice of meetings with assessment details at least 48 hours in advance renders the assessment a legal nullity. Re-votes do not retroactively cure past invalid assessments.",
+    statutes: [
+      { name: "F.S. § 720.303(2)(c)2", violation: "Physical Posting" },
+      { name: "F.S. § 720.309", violation: "Assessment Quorums" }
+    ],
+    prompt: "How does the board verify that physical, conspicuous notices were posted 48 hours in advance for the 2021 and 2023 assessment meetings?"
+  },
+  {
+    id: "precedent-veil",
+    title: "Golf Course LLC Separateness & Veil-Piercing",
+    category: "litigation",
+    severity: "critical",
+    source: "Dania Jai-Alai Palace, Inc. v. SY. Assocs.",
+    details: "The board maintains that residential master funds are shielded because golf course debt resides in a separate LLC. However, the HOA has funded consistent \$42,300/month Special Activity draws from residential assessments to the LLC.",
+    boardPosition: "Under Florida corporate law, the 'corporate shield' is pierced if the parent entity exercises complete dominion, commingles assets, shares directors with zero conflict procedures, or uses the subsidiary as a mere shell. If pierced, the HOA master funds are fully exposed to golf liabilities.",
+    statutes: [
+      { name: "Veil Piercing", violation: "Alter-Ego & Commingling" },
+      { name: "F.S. § 617.0830", violation: "Fiduciary Loyalty" }
+    ],
+    prompt: "What structural accounting firewalls are in place to prevent the commercial liabilities of the Golf LLC from exposing master residential reserves?"
   }
 ];
 
@@ -1346,23 +1274,40 @@ const INITIAL_COMMENTS = {
     { author: "Resident (Manor Pool Area)", stance: "neutral", text: "I asked for the Ashley pool renovation contract and was told I could view it physically at the office. They aren't hiding it, but they should put it on the website to comply with HB 1203.", date: "2026-06-26 12:15" }
   ],
   "receivership-fees": [
-    { author: "Resident (Hermitage)", stance: "concerned", text: "Charging a sick, hospitalized resident $46,000 in fees on a $480 debt is cruel and legally stupid. It exposes the entire community to lawsuits. The board should have used standard mediation, not a predatory receivership.", date: "2026-06-24 14:02" },
+    { author: "Resident (Hermitage)", stance: "concerned", text: "Charging a sick, hospitalized resident \$46,000 in fees on a \$480 debt is cruel and legally stupid. It exposes the entire community to lawsuits. The board should have used standard mediation, not a predatory receivership.", date: "2026-06-24 14:02" },
     { author: "Resident (Long Meadow)", stance: "concerned", text: "Florida courts have thrown out receivership actions where fees are disproportionate. If Wolner wins their appeal, the HOA will have to pay back those fees, which means *we* pay for the board's mistakes.", date: "2026-06-28 11:24" }
   ],
   "special-assessments": [
     { author: "Ed Fredericks (Concerned Residents)", stance: "skeptical", text: "We didn't get physical 48-hour notices for the meetings where the 2021 golf assessment was finalized. That is a direct violation of F.S. 720. If the lawsuit succeeds, the HOA will have to refund millions. This is a ticking financial time bomb.", date: "2026-06-25 18:20" },
     { author: "Board Supporter (Long Meadow)", stance: "supportive", text: "The special assessment was necessary to buy the golf course from the developer. If we didn't buy it, a commercial builder could have bought the land and built cheap apartments. The board acted in our best interest.", date: "2026-06-26 19:10" },
     { author: "Resident (Ashley Court)", stance: "concerned", text: "The financial disclosures for the assessment were redacted in the mailing we received. How can we vote responsibly if we cannot see the actual numbers?", date: "2026-06-27 08:45" },
-    { author: "Resident (Hermitage)", stance: "skeptical", text: "Special assessments in excess of $1,500 should require a full membership vote, not a proxy quorum. The board used a skewed turnout to pass this.", date: "2026-06-27 14:30" },
+    { author: "Resident (Hermitage)", stance: "skeptical", text: "Special assessments in excess of \$1,500 should require a full membership vote, not a proxy quorum. The board used a skewed turnout to pass this.", date: "2026-06-27 14:30" },
     { author: "Resident (Otter Creek)", stance: "neutral", text: "Can someone point me to the exact budget document that triggered the special assessment? I want to review it independently.", date: "2026-06-28 09:15" },
     { author: "Resident (Manor Pool Area)", stance: "concerned", text: "Our property values did not rise as projected after the golf course purchase. We are paying for an asset that is actively dragging values down.", date: "2026-06-28 16:50" }
   ],
   "transfer-cap": [
-    { author: "Resident (Otter Creek)", stance: "skeptical", text: "The second amended restrictions limit transfers to 10% of total assessments ($507k). Ledger review shows we exceeded that in 2025 to support the golf course. The board cannot just ignore our own covenants when they run out of money.", date: "2026-06-26 09:30" }
+    { author: "Resident (Otter Creek)", stance: "skeptical", text: "The second amended restrictions limit transfers to 10% of total assessments (\$507k). Ledger review shows we exceeded that in 2025 to support the golf course. The board cannot just ignore our own covenants when they run out of money.", date: "2026-06-26 09:30" }
   ],
   "social-media": [
     { author: "Homeowner (Ashley Court)", stance: "concerned", text: "I posted a question about the suspended audits on the community Facebook page, and it was deleted within 10 minutes, and I was blocked. If association staff are doing this during work hours, they are censoring residents using our own money.", date: "2026-06-27 15:40" },
     { author: "Homeowner (Long Meadow)", stance: "neutral", text: "The Facebook group is privately run by board members as individuals, not as the official HOA. They can moderate it how they want. But it does look bad to delete financial questions.", date: "2026-06-28 16:15" }
+  ],
+  "precedent-wolner": [
+    { author: "Resident (Hermitage)", stance: "concerned", text: "Charging a sick, hospitalized resident \$46,000 in fees on a \$480 debt is cruel and legally stupid. It exposes the entire community to lawsuits. The board should have used standard mediation, not a predatory receivership.", date: "2026-06-24 14:02" },
+    { author: "Resident (Long Meadow)", stance: "concerned", text: "Florida courts have thrown out receivership actions where fees are disproportionate. If Wolner wins their appeal, the HOA will have to pay back those fees, which means *we* pay for the board's mistakes.", date: "2026-06-28 11:24" }
+  ],
+  "precedent-notice": [
+    { author: "Ed Fredericks (Concerned Residents)", stance: "skeptical", text: "We didn't get physical 48-hour notices for the meetings where the 2021 golf assessment was finalized. That is a direct violation of F.S. 720. If the lawsuit succeeds, the HOA will have to refund millions. This is a ticking financial time bomb.", date: "2026-06-25 18:20" },
+    { author: "Board Supporter (Long Meadow)", stance: "supportive", text: "The special assessment was necessary to buy the golf course from the developer. If we didn't buy it, a commercial builder could have bought the land and built cheap apartments. The board acted in our best interest.", date: "2026-06-26 19:10" },
+    { author: "Resident (Ashley Court)", stance: "concerned", text: "The financial disclosures for the assessment were redacted in the mailing we received. How can we vote responsibly if we cannot see the actual numbers?", date: "2026-06-27 08:45" },
+    { author: "Resident (Hermitage)", stance: "skeptical", text: "Special assessments in excess of \$1,500 should require a full membership vote, not a proxy quorum. The board used a skewed turnout to pass this.", date: "2026-06-27 14:30" },
+    { author: "Resident (Otter Creek)", stance: "neutral", text: "Can someone point me to the exact budget document that triggered the special assessment? I want to review it independently.", date: "2026-06-28 09:15" },
+    { author: "Resident (Manor Pool Area)", stance: "concerned", text: "Our property values did not rise as projected after the golf course purchase. We are paying for an asset that is actively dragging values down.", date: "2026-06-28 16:50" }
+  ],
+  "precedent-veil": [
+    { author: "Homeowner (Otter Creek)", stance: "skeptical", text: "The \$42,300/mo draw is a massive drain. We are essentially subsidizing the golf course at the expense of our residential reserves. If the golf entity is a separate LLC, why are master funds constantly flowing into it?", date: "2026-06-24 08:30" },
+    { author: "Golf Committee Member (Long Meadow)", stance: "supportive", text: "If we let the golf courses decline, our home values will drop by 20%. The \$15/month golf assessment is a small price to pay to keep our community green and attractive.", date: "2026-06-27 10:14" },
+    { author: "Ed Fredericks (Concerned Residents)", stance: "concerned", text: "The problem is not keeping it green. The problem is that the lawyers hired by the HOA warned that the LLC corporate shield won't hold if we commingle the funds. If the LLC gets sued or goes bankrupt, the whole HOA is on the hook.", date: "2026-06-28 17:02" }
   ]
 };
 
@@ -1453,7 +1398,7 @@ function renderIrregularities(filter = "all", searchQuery = "") {
     if (item.statutes && item.statutes.length > 0) {
       statutesHtml = `
         <div class="statutes-col">
-          <h4>Compliance Framework</h4>
+          <h4>${item.category === "litigation" ? "Precedent Framework" : "Compliance Framework"}</h4>
           ${item.statutes.map(st => `
             <div class="statute-badge">
               <code>${escapeHtml(st.name)}</code>
@@ -1515,17 +1460,17 @@ function renderIrregularities(filter = "all", searchQuery = "") {
 
       <div class="card-body">
         <div class="details-col">
-          <h3>The Irregularity</h3>
+          <h3>${item.category === "litigation" ? "Forensic Context" : "The Irregularity"}</h3>
           <p>${escapeHtml(item.details)}</p>
           
-          <h3>Official Board Explanation</h3>
+          <h3>${item.category === "litigation" ? "Florida Legal Standard" : "Official Board Explanation"}</h3>
           <p style="font-style: italic; color: var(--text-dim);">${escapeHtml(item.boardPosition)}</p>
         </div>
         ${statutesHtml}
       </div>
 
       <div class="prompt-box">
-        <h4>Irregularity Inquiry Prompt</h4>
+        <h4>${item.category === "litigation" ? "Precedent Inquiry Prompt" : "Irregularity Inquiry Prompt"}</h4>
         <p>${escapeHtml(item.prompt)}</p>
       </div>
 
@@ -1640,7 +1585,8 @@ function applyTabState(tab) {
   const exploratory = document.getElementById("exploratory-container");
 
   if (tab === "litigation") {
-    container.style.display = "none"; searchBar.style.display = "none"; turnaround.style.display = "none"; radar.style.display = "block"; history.style.display = "none"; exploratory.style.display = "none";
+    container.style.display = "block"; searchBar.style.display = "flex"; turnaround.style.display = "none"; radar.style.display = "block"; history.style.display = "none"; exploratory.style.display = "none";
+    renderIrregularities(tab, document.getElementById("search-box").value);
   } else if (tab === "turnaround") {
     container.style.display = "none"; searchBar.style.display = "none"; radar.style.display = "none"; turnaround.style.display = "block"; history.style.display = "none"; exploratory.style.display = "none";
   } else if (tab === "history") {
