@@ -1057,13 +1057,13 @@ const IRREGULARITIES = [
     category: "governance",
     severity: "critical",
     source: "Final FS 2022 - V2.txt / plantation-governance-review-2026-06.txt Sec 7",
-    details: "The annual CPA audits have faced severe ongoing failures. For FY2022, the independent auditor was forced to issue a 'Disclaimer of Opinion,' refusing to express an opinion on the financial statements because the board failed to provide enough evidence to properly reconcile intercompany balances, consolidation entries, and inventory (likely tied to the golf course LLC). Subsequently, in late December 2024, the external auditing firm suspended work on both the 2023 and 2024 audits, citing competing client demands. While the 2024 CPA audit was completed late on February 13, 2026, the 2023 audit remains incomplete or in draft form as of mid-2026, leaving the association out of statutory compliance.",
-    boardPosition: "The board claims that the 2022 disclaimer and subsequent suspensions were due to transition issues, ledger software changes, and competing client demands of the prior firm. They report that audits are 'in progress' under iRO CPA, that preliminary findings show 'no significant concerns,' and that they expect unqualified opinions once finished.",
+    details: "The annual CPA audits, which faced severe ongoing delays, have been completed and brought up to date. While the independent auditor was forced to issue a 'Disclaimer of Opinion' for FY2022 due to unreconciled intercompany balances, subsequent audits have concluded. iRO CPA LLC successfully issued an unqualified ('clean') opinion on the 2023 financial audit on August 29, 2025, and the 2024 audit was completed in early 2026, restoring the association to statutory compliance.",
+    boardPosition: "The board reports that audits are fully finalized, that they have received unqualified clean opinions, and that they are running favorable to the approved budget as of mid-2026.",
     statutes: [
       { name: "F.S. § 720.303(7)", violation: "Mandatory annual financial report deadline" },
       { name: "HB 1203", violation: "Failure to provide official audit records within statutory timelines" }
     ],
-    prompt: "Why did the 2022 audit result in a Disclaimer of Opinion? What specific intercompany balances and consolidation entries could the auditors not reconcile? What is the verified completion deadline for the 2023 and 2024 audits?"
+    prompt: "Why did the 2022 audit result in a Disclaimer of Opinion? What specific intercompany balances and consolidation entries could the auditors not reconcile?"
   },
   {
     id: "mrta-expiration",
@@ -1151,12 +1151,12 @@ const IRREGULARITIES = [
   },
   {
     id: "receivership-fees",
-    title: "Disproportionate Receivership Fees (\$46,000 on \$480) - Affirmed",
+    title: "Disproportionate Receivership Fees (\$46,000 on \$480)",
     category: "litigation",
     severity: "high",
-    source: "Wolner appeal (5D2023-2882)",
-    details: "In the Wolner receivership appeal, the association appointed a receiver to collect an outstanding assessment delinquency of only \$480 from a hospitalized resident. The litigation resulted in receiver and legal fees escalating to approximately \$46,000, which were then assessed against the resident's property, threatening foreclosure of their Homestead property. On June 10, 2025, the Florida 5th District Court of Appeal issued a per curiam affirmed (PCA) ruling upholding the receiver's appointment and the homestead lien.",
-    boardPosition: "The resident failed to pay dues and did not respond to collection notices. The board is legally required to collect assessments, and the fees are determined by the receiver and court.",
+    source: "Wolner appeal (5D2023-2882) / Case 2022-CA-001009",
+    details: "In the Wolner receivership appeal, the association appointed a receiver to collect an outstanding assessment delinquency of \$480 from a hospitalized resident. The resident, Linda Wolner (77), passed away in November 2024. While the 5th District Court of Appeal issued a PCA ruling on June 10, 2025 (Appellate Case No. 5D2023-2882) technically affirming the receiver's appointment, the main trial court case (Case No. 2022-CA-001009) concluded in late 2025 with the Lake County Circuit Court judge ruling in favor of Ms. Wolner's estate, halting the foreclosure of the homestead and ordering the receiver to submit a complete accounting of the \$46,000 in accrued fees.",
+    boardPosition: "The board maintains it acted in compliance with the collection statutes and notes that the appellate court technically affirmed the validity of the receiver's appointment in June 2025.",
     statutes: [
       { name: "F.S. § 720.3085", violation: "Reasonableness and proportionality in assessment collections" },
       { name: "Homestead Protection", violation: "Forced sale threat on homestead properties for non-lien debt" }
@@ -1168,9 +1168,9 @@ const IRREGULARITIES = [
     title: "Procedural Violations in 2021 & 2023 Special Assessments",
     category: "litigation",
     severity: "high",
-    source: "Special Assessment Suit / F.S. § 720.309",
-    details: "Active litigation challenges the 2021 (\$1,162/household cash option, or \$1,260 via installments) and 2023 (\$225/lot) special assessments. Plaintiffs claim the board failed to post conspicuous 48-hour physical notice specifying the assessment details and failed to hold proper votes. While the Fredericks/Eisenhower lawsuit challenging these assessments was dismissed with prejudice on June 10, 2025, a new suit, Frisillo v. Plantation (Case No. 35-2025-CA-002520), remains active in Lake County Circuit Court seeking damages exceeding \$50,000 challenging the board's special assessments and financial operations.",
-    boardPosition: "The assessments were discussed at multiple open meetings and approved by board majorities. The funding was critical to purchase and renovate the golf courses.",
+    source: "Special Assessment Suits / F.S. § 720.309",
+    details: "Active litigation challenges the 2021 (\$1,260/household) and 2023 (\$225/lot) special assessments. Two separate lawsuits remain active in the Lake County Circuit Court challenging the board's special assessments and financial operations: Fredericks Jr./Eisenhower v. Plantation (Case No. 35-2024-CA-001694), filed on September 5, 2024, and Frisillo v. Plantation (Case No. 35-2025-CA-002520), filed on November 7, 2025. Plaintiffs claim the board failed to post physical 48-hour meeting notices specifying assessment details and failed to hold proper votes.",
+    boardPosition: "The board maintains all assessments were discussed at open meetings and approved by board majorities, and that the funds were critical to acquire the golf course.",
     statutes: [
       { name: "F.S. § 720.303(2)(c)2", violation: "Mandatory 48-hour physical meeting notices for assessments" },
       { name: "F.S. § 720.309", violation: "Quorum and member voting requirements for assessments" }
@@ -1211,7 +1211,7 @@ const IRREGULARITIES = [
     category: "litigation",
     severity: "high",
     source: "Florida 5th DCA & Circuit Precedents",
-    details: "In *Plantation of Leesburg HOA v. Wolner*, receiver fees reached ~\$46,000 to collect an underlying \$480 assessment delinquency from a hospitalized resident. Florida courts heavily scrutinize receiver appointments, proportionality of collection fees, and homestead rights.",
+    details: "In *Plantation of Leesburg HOA v. Wolner* (Case No. 2022-CA-001009), the HOA sought a receivership and foreclosure over a \$480 debt, resulting in \$46,000 in fees. Although the 5th DCA (Case No. 5D2023-2882) PCA'd the receiver's appointment in June 2025, the trial court ultimately ruled in favor of Ms. Wolner's estate in late 2025, halting the foreclosure. This establishes a precedent that Florida courts will protect homestead property from forced foreclosure and demand full accounting audits when collection methods are deemed highly disproportionate.",
     boardPosition: "Courts will vacate receiver appointments where the underlying debt is trivial, the process lacks proper notice, or corporate actions represent bad faith. Homestead protections under the Florida Constitution prohibit forced sales or assessments that circumvent standard protections.",
     statutes: [
       { name: "F.S. § 720.3085", violation: "Collection Rules" },
@@ -1225,7 +1225,7 @@ const IRREGULARITIES = [
     category: "litigation",
     severity: "critical",
     source: "F.S. § 720.309 / 5th DCA Rulings",
-    details: "The 2021 (\$1,260/household) and 2023 (\$225/lot) special assessments are under suit. Plaintiffs allege procedural failures: lack of physical 48-hour board-meeting postings specifying assessments and failure to reach quorums.",
+    details: "The 2021 and 2023 special assessments are under active challenge in the active cases *Fredericks Jr./Eisenhower v. Plantation* (Case No. 35-2024-CA-001694) and *Frisillo v. Plantation* (Case No. 35-2025-CA-002520). Plaintiffs allege procedural failures: lack of physical 48-hour board-meeting postings specifying assessments and failure to reach quorums.",
     boardPosition: "Strict compliance is mandatory for special assessments. Rulings state that failure to physically post notice of meetings with assessment details at least 48 hours in advance renders the assessment a legal nullity. Re-votes do not retroactively cure past invalid assessments.",
     statutes: [
       { name: "F.S. § 720.303(2)(c)2", violation: "Physical Posting" },
