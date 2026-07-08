@@ -735,7 +735,6 @@
   }
   .notes-content.open {
     padding: 20px;
-    max-height: 1200px;
     border-top-width: 1px;
   }
   .notes-content h4 {
@@ -2216,10 +2215,24 @@ window.toggleNotesAccordion = function(element) {
     content.style.maxHeight = content.scrollHeight + "px";
     arrow.style.transform = "rotate(180deg)";
     arrow.style.color = "var(--accent)";
+    
+    const handler = function() {
+      if (content.classList.contains('open')) {
+        content.style.maxHeight = "none";
+      }
+      content.removeEventListener('transitionend', handler);
+    };
+    content.addEventListener('transitionend', handler);
   } else {
-    content.style.maxHeight = null;
-    arrow.style.transform = "rotate(0deg)";
-    arrow.style.color = "var(--text-muted)";
+    if (content.style.maxHeight === "none") {
+      content.style.maxHeight = content.scrollHeight + "px";
+      content.offsetHeight; // Force reflow
+    }
+    setTimeout(() => {
+      content.style.maxHeight = null;
+      arrow.style.transform = "rotate(0deg)";
+      arrow.style.color = "var(--text-muted)";
+    }, 10);
   }
 };
 
