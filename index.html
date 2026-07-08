@@ -686,10 +686,13 @@
       <div class="meta">Statutory, Financial &amp; Governance Compliance Review Platform</div>
     </div>
     <div class="meta" style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
-      <div>Investigator: <strong>Plantation Residents</strong> · Local Time: <strong>2026-06-29</strong></div>
-      <div id="hit-counter" style="font-size: 11px; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px;">
-        <span style="width: 6px; height: 6px; background: var(--ok); border-radius: 50%; display: inline-block;"></span>
-        Visits: <strong id="hit-count" style="color: var(--text);">182</strong>
+      <div>Investigator: <strong>Plantation Residents</strong> · Site Start Date: <strong>2026-06-29</strong></div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div>Last Updated: <strong style="color: var(--accent);">2026-07-08</strong></div>
+        <div id="hit-counter" style="font-size: 11px; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px;">
+          <span style="width: 6px; height: 6px; background: var(--ok); border-radius: 50%; display: inline-block;"></span>
+          Visits: <strong id="hit-count" style="color: var(--text);">182</strong>
+        </div>
       </div>
     </div>
   </header>
@@ -1536,6 +1539,58 @@ const IRREGULARITIES = [
       { name: "F.S. § 617.0830", violation: "Fiduciary Loyalty" }
     ],
     prompt: "What structural accounting firewalls are in place to prevent the commercial liabilities of the Golf LLC from exposing master residential reserves?"
+  },
+  {
+    id: "audit-equity-verification",
+    title: "Audited FY2024 Equity & Solvency Verification",
+    category: "financial",
+    severity: "high",
+    source: "Audited 2024 Balance Sheet / 12-31-2024 Audit",
+    details: "Forensic audit of the official FY2024 financial statement verifies that the HOA's audited equity at the end of 2024 was \$2,449,563.40 (derived from Total Assets of \$5,453,461.79 and Total Liabilities of \$3,003,898.39). Total reserve cash stood at \$1,353,526.22, with \$1,634,875.90 in board-designated discretionary reserves. This refutes allegations of a 99% reserve collapse or that equity fell to \$48,000.",
+    boardPosition: "The board maintains that its reserve recovery plan and financial management have successfully placed the community in a stable, medium-risk solvency tier.",
+    statutes: [
+      { name: "F.S. § 720.303(6)", violation: "Requirement to prepare and maintain audited financial statements" }
+    ],
+    prompt: "How does the verified FY2024 audited equity of \$2,449,563.40 reconcile with early resident projections suggesting a reserve collapse?"
+  },
+  {
+    id: "golf-draw-verification",
+    title: "Verification of Golf Course Draws & Transfer Cap",
+    category: "financial",
+    severity: "medium",
+    source: "General Ledger Account 400832 / towncryer-hypothesis-determination.md",
+    details: "Forensic ledger review verifies that the monthly draw from the master association to the Golf Course LLC was exactly \$42,300/month (totaling \$507,600/year). This matches the approved \$15/home/month allocation for golf operations and strictly complies with the CCR 10% annual transfer cap. Allegations of an 'excess draw' of \$92,300/month or \$136,522 in operating irregularities are refuted.",
+    boardPosition: "The board maintains that all golf course funding draws were strictly budgetary allocations in full compliance with the CCR 10% transfer cap to preserve community assets.",
+    statutes: [
+      { name: "F.S. § 720.305", violation: "Strict compliance with association covenants and transfer restrictions" }
+    ],
+    prompt: "Do the monthly ledger entries show any variance from the authorized \$42,300/month draw amount during the FY2025 period?"
+  },
+  {
+    id: "spa-loss-reconciliation",
+    title: "SPA Loss Reconciliation & Cash Diversion",
+    category: "financial",
+    severity: "high",
+    source: "SPA-Reconciliation.pdf (Dec 5, 2025)",
+    details: "The SPA Reconciliation document confirms that \$129,995 in special assessment net income was allocated to cover the Golf Course LLC operating loss of \$129,995. This reconciliation formally links the special assessment revenue to the offset of golf course operational deficits.",
+    boardPosition: "The board reports that special assessment funds were properly accounted for and utilized to sustain the golf course amenities during course restoration.",
+    statutes: [
+      { name: "F.S. § 720.308", violation: "Proper allocation and reporting of assessment funds for separate entities" }
+    ],
+    prompt: "What specific board resolutions or disclosures authorized the use of \$129,995 in SPA net income to offset Golf Course LLC operating losses?"
+  },
+  {
+    id: "spa-delinquency-strike",
+    title: "October 2024 Special Assessment Delinquency Strike",
+    category: "financial",
+    severity: "high",
+    source: "December 2024 Board Meeting Minutes / January 2025 Q&A",
+    details: "Official board records confirm that 730 homes went delinquent on the October 2024 special assessment of \$175, resulting in an unpaid cash shortfall of \$127,750. This represents a delinquency rate of approximately 25% across the 2,820 homes in the community, reflecting significant resident friction and payment resistance.",
+    boardPosition: "The board continues to pursue collections and legal actions for all delinquent assessment accounts to recover the unpaid shortfall.",
+    statutes: [
+      { name: "F.S. § 720.3085", violation: "Due process and statutory compliance in assessment collection and liens" }
+    ],
+    prompt: "What collection strategies and timeline does the board have in place to recover the \$127,750 shortfall from the 730 delinquent homes?"
   }
 ];
 
