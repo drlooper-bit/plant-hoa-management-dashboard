@@ -665,7 +665,6 @@
     color: var(--text-muted);
     font-size: 11.5px;
   }
-  
   /* SVG icon styling */
   .icon {
     display: inline-block;
@@ -675,6 +674,100 @@
     stroke: currentColor;
     fill: currentColor;
   }
+
+  /* Meeting Notes Accordion */
+  .meeting-notes-header {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+  }
+  .meeting-notes-header h2 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    margin: 0;
+    color: var(--accent);
+  }
+  .notes-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .notes-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .notes-item:hover {
+    border-color: var(--border-hover);
+  }
+  .notes-trigger {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 14px;
+    user-select: none;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    color: var(--text);
+  }
+  .notes-trigger .arrow {
+    transition: transform 0.2s;
+    color: var(--text-muted);
+  }
+  .notes-content {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease-out, padding 0.25s ease-out;
+    border-top: 0 solid var(--border);
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .notes-content.open {
+    padding: 20px;
+    max-height: 1200px;
+    border-top-width: 1px;
+  }
+  .notes-content h4 {
+    margin: 12px 0 6px 0;
+    color: #fff;
+    font-size: 13px;
+  }
+  .notes-content h4:first-of-type {
+    margin-top: 0;
+  }
+  .notes-content ul {
+    margin: 0 0 12px 0;
+    padding-left: 18px;
+  }
+  .notes-content li {
+    margin-bottom: 6px;
+  }
+  .notes-content p {
+    margin: 0 0 12px 0;
+  }
+  .notes-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: 10px;
+    letter-spacing: 0.05em;
+  }
+  .notes-badge-approved { background: rgba(121,210,166,0.12); color: var(--ok); border: 1px solid rgba(121,210,166,0.2); }
+  .notes-badge-opposed { background: rgba(255,128,128,0.12); color: var(--err); border: 1px solid rgba(255,128,128,0.2); }
 
 </style>
 </head>
@@ -945,281 +1038,194 @@ C. Combined Total<br>
 
     <!-- TAB CONTENT: HOA MEETINGS & NOTES -->
   <div id="meetings-container" style="display: none;">
-    <!-- Centered Container for PDF Pages -->
     <div style="max-width: 850px; margin: 0 auto; padding: 20px 10px;">
       
-      <!-- PAGE 1 OF PDF -->
-      <div class="pdf-page" style="background: #ffffff; color: #000000; padding: 60px 70px 50px 70px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-bottom: 30px; border-radius: 4px; font-family: 'Times New Roman', Times, serif; font-size: 14.5px; line-height: 1.5; min-height: 1050px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #d3d3d3; box-sizing: border-box;">
-        <div>
-          <!-- Logo Block -->
-          <div style="text-align: center; margin-bottom: 24px;">
-            <!-- Stylized Tree Logo -->
-            <svg viewBox="0 0 100 65" width="90" height="60" style="margin: 0 auto 6px auto; display: block;">
-              <!-- Oak Tree Crown -->
-              <path d="M50 5 C35 5 25 15 25 25 C15 25 10 32 10 40 C10 48 18 52 28 52 C30 52 35 52 40 52 C45 52 55 52 60 52 C65 52 70 52 72 52 C82 52 90 48 90 40 C90 32 85 25 75 25 C75 15 65 5 50 5 Z" fill="#2d6a4f"/>
-              <!-- Trunk & Branches -->
-              <path d="M48 35 L45 52 L55 52 L52 35 Z" fill="#5c3d2e"/>
-              <path d="M45 42 L38 38 L40 36 L46 40 Z" fill="#5c3d2e"/>
-              <path d="M55 42 L62 38 L60 36 L54 40 Z" fill="#5c3d2e"/>
-              <!-- Grass Base -->
-              <ellipse cx="50" cy="53" rx="35" ry="3" fill="#2d6a4f"/>
-            </svg>
-            <div style="font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; letter-spacing: 0.12em; text-transform: uppercase; color: #000000; margin: 0 0 2px 0;">The Plantation</div>
-            <div style="font-family: Arial, sans-serif; font-size: 9px; font-weight: bold; letter-spacing: 0.15em; text-transform: uppercase; color: #555555; margin: 0;">At Leesburg</div>
-          </div>
-
-          <!-- Titles -->
-          <div style="text-align: center; margin-bottom: 24px;">
-            <h4 style="font-family: 'Times New Roman', Times, serif; font-size: 15px; font-weight: bold; text-transform: uppercase; margin: 0 0 4px 0; color: #000000; letter-spacing: 0.02em;">Plantation at Leesburg</h4>
-            <h4 style="font-family: 'Times New Roman', Times, serif; font-size: 15px; font-weight: bold; text-transform: uppercase; margin: 0 0 16px 0; color: #000000; letter-spacing: 0.02em;">Homeowners Association, Inc.</h4>
-            <h3 style="font-family: 'Times New Roman', Times, serif; font-size: 16px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #000000; display: inline-block; padding-bottom: 1px; margin: 0 0 20px 0; color: #000000; letter-spacing: 0.04em;">Board of Directors Meeting Notice</h3>
-          </div>
-
-          <!-- Body Text -->
-          <p style="text-align: justify; text-indent: 0px; margin: 0 0 20px 0; color: #000000; font-size: 14.5px;">
-            The Board of Directors of The Plantation at Leesburg Homeowners Association, Inc. has called a HOA Board Meeting on Wednesday, July 8<sup>th</sup>, 2026, at 10:00 AM at The Manor, 5028 Plantation Blvd., Leesburg, FL 34748 for the purposes of HOA Board Activities and such other business as may lawfully be conducted. The meeting will take place on the date, time, and location noted herein. As a member of the Association, you are invited to attend this meeting.
-          </p>
-
-          <!-- Grid Meta Block -->
-          <div style="display: grid; grid-template-columns: 100px 1fr; gap: 4px 10px; margin-bottom: 24px; color: #000000; font-size: 14.5px;">
-            <div style="font-weight: bold;">DATE:</div>
-            <div>Wednesday, July 8<sup>th</sup>, 2026</div>
-            <div style="font-weight: bold;">TIME:</div>
-            <div>10:00 AM</div>
-            <div style="font-weight: bold; vertical-align: top;">PLACE:</div>
-            <div>The Manor<br>5028 Plantation Blvd., Leesburg, FL 34748</div>
-            <div style="font-weight: bold;">PURPOSE:</div>
-            <div>HOA Board Activities</div>
-            <div style="font-weight: bold;">AGENDA:</div>
-            <div style="font-weight: bold;">The following agenda is issued in accordance with Florida Statute 720.303.2</div>
-          </div>
-
-          <!-- Agenda Outline -->
-          <div style="color: #000000; font-size: 14.5px;">
-            <!-- Item I -->
-            <div style="display: flex; margin-bottom: 10px;">
-              <div style="width: 35px; font-weight: bold;">I.</div>
-              <div>
-                <span style="font-weight: bold; text-transform: uppercase;">Call the Meeting to Order</span>
-                <div style="display: flex; margin-top: 6px; padding-left: 20px;">
-                  <div style="width: 25px;">A.</div>
-                  <div>Pledge of Allegiance</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 25px;">B.</div>
-                  <div>Proof of Meeting Notice</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 25px;">C.</div>
-                  <div>Determination of Quorum</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item II -->
-            <div style="display: flex; margin-bottom: 10px;">
-              <div style="width: 35px; font-weight: bold;">II.</div>
-              <div style="font-weight: bold; text-transform: uppercase;">Adoption of Agenda</div>
-            </div>
-
-            <!-- Item III -->
-            <div style="display: flex; margin-bottom: 10px;">
-              <div style="width: 35px; font-weight: bold;">III.</div>
-              <div>
-                <span style="font-weight: bold; text-transform: uppercase;">Approval of Previous Minutes</span>
-                <div style="display: flex; margin-top: 6px; padding-left: 20px;">
-                  <div style="width: 25px;">A.</div>
-                  <div>Open Board Meeting Minutes of May 20, 2026</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item IV Part 1 -->
-            <div style="display: flex; margin-bottom: 4px;">
-              <div style="width: 35px; font-weight: bold;">IV.</div>
-              <div>
-                <span style="font-weight: bold; text-transform: uppercase;">Report of the Board of Directors</span>
-                <div style="display: flex; margin-top: 6px; padding-left: 20px;">
-                  <div style="width: 25px;">A.</div>
-                  <div>2026 Plantation at Leesburg Top-Line Strategy</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 25px;">B.</div>
-                  <div>
-                    <span>Presidential Awards</span>
-                    <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                      <div style="width: 20px;">a.</div>
-                      <div>Dan Lyall</div>
-                    </div>
-                  </div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 25px;">C.</div>
-                  <div>Presidential Advisory Board</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 25px;">D.</div>
-                  <div>Bar / Restaurant Update</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 25px;">E.</div>
-                  <div>HOA Member Q &amp; A (3-minute time limit)</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 25px;">F.</div>
-                  <div>New Compliance Specialist</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Page footer -->
-        <div style="text-align: right; border-top: 1px solid #eeeeee; padding-top: 10px; font-size: 12px; color: #555555; font-family: Arial, sans-serif; letter-spacing: 0.1em; margin-top: 20px;">
-          1 | Page
-        </div>
+      <div class="meeting-notes-header">
+        <h2>July 8, 2026 Board Meeting Notes by Category</h2>
       </div>
 
-
-      <!-- PAGE 2 OF PDF -->
-      <div class="pdf-page" style="background: #ffffff; color: #000000; padding: 60px 70px 50px 70px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); margin-bottom: 30px; border-radius: 4px; font-family: 'Times New Roman', Times, serif; font-size: 14.5px; line-height: 1.5; min-height: 1050px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #d3d3d3; box-sizing: border-box;">
-        <div>
-          <!-- Agenda Outline continuation (IV.G onwards) -->
-          <div style="color: #000000; font-size: 14.5px; padding-left: 35px;">
-            <div style="display: flex; margin-top: 4px;">
-              <div style="width: 25px;">G.</div>
-              <div>
-                <span>Safety Committee Update</span>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">a.</div>
-                  <div>AARP Safe Driver Training Classes</div>
-                </div>
-              </div>
-            </div>
-            <div style="display: flex; margin-top: 6px;">
-              <div style="width: 25px; font-weight: bold; color: #bf0603;">H.</div>
-              <div style="font-weight: bold; color: #bf0603;">Capital Contribution Assessment [VOTE]</div>
-            </div>
-            <div style="display: flex; margin-top: 6px;">
-              <div style="width: 25px;">I.</div>
-              <div>
-                <span>HOA Manager Report / Maintenance Director Updates</span>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">a.</div>
-                  <div>St. John's Water Authority District Order of May 11, 2026: Water Shortage Update</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">b.</div>
-                  <div>Sawgrass Lake Pump Station Update</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">c.</div>
-                  <div>Ashley Roof / Ceiling Update</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">d.</div>
-                  <div>Ashley Parking Lot Update</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">e.</div>
-                  <div>Manor Roof Update</div>
-                </div>
-              </div>
-            </div>
-            <div style="display: flex; margin-top: 6px;">
-              <div style="width: 25px; font-weight: bold; color: #bf0603;">J.</div>
-              <div>
-                <span style="font-weight: bold; color: #bf0603;">Reserve Fund Votes</span>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">a.</div>
-                  <div>Hermitage Pickleball</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">b.</div>
-                  <div>Manor Pool Lights</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">c.</div>
-                  <div>Restaurant Renovation</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">d.</div>
-                  <div>Otter Creek Bridge</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">e.</div>
-                  <div>IT Hardware</div>
-                </div>
-              </div>
-            </div>
-            <div style="display: flex; margin-top: 6px;">
-              <div style="width: 25px;">K.</div>
-              <div>Plantation at Leesburg Golf Courses</div>
-            </div>
-            <div style="display: flex; margin-top: 6px;">
-              <div style="width: 25px;">L.</div>
-              <div>
-                <span>Financials</span>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">i.</div>
-                  <div>2026 Home Sales YTD</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">ii.</div>
-                  <div>June 2026 Preliminary Outcomes</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">iii.</div>
-                  <div>Overdue Debt</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">iv.</div>
-                  <div>SPA</div>
-                </div>
-                <div style="display: flex; margin-top: 4px; padding-left: 20px;">
-                  <div style="width: 20px;">v.</div>
-                  <div>2025 Audit Update</div>
-                </div>
-              </div>
-            </div>
-            <div style="display: flex; margin-top: 6px;">
-              <div style="width: 25px;">M.</div>
-              <div>America 250<sup>th</sup> Anniversary Celebration Recap [Scott Cramer]</div>
-            </div>
-            <div style="display: flex; margin-top: 6px;">
-              <div style="width: 25px;">N.</div>
-              <div>Plantation at Leesburg No Solicitation Policy: Best Practices</div>
-            </div>
-            <div style="display: flex; margin-top: 6px;">
-              <div style="width: 25px;">O.</div>
-              <div>Clearing the Air</div>
-            </div>
-            <div style="display: flex; margin-top: 6px;">
-              <div style="width: 25px;">P.</div>
-              <div>Resident Participation Guidelines</div>
-            </div>
+      <div class="notes-accordion">
+        
+        <!-- Accordion Item 1: Meeting Administration -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>1. Meeting Administration &amp; Governance</span>
+            <span class="arrow">▼</span>
           </div>
-
-          <!-- Items V, VI, VII -->
-          <div style="color: #000000; font-size: 14.5px; margin-top: 10px;">
-            <div style="display: flex; margin-bottom: 10px;">
-              <div style="width: 35px; font-weight: bold;">V.</div>
-              <div style="font-weight: bold; text-transform: uppercase;">New Business</div>
-            </div>
-            <div style="display: flex; margin-bottom: 10px;">
-              <div style="width: 35px; font-weight: bold;">VI.</div>
-              <div style="font-weight: bold; text-transform: uppercase;">Questions / Comments <span style="font-weight: normal; font-size: 13.5px; text-transform: none;">(3-minute time limit)</span></div>
-            </div>
-            <div style="display: flex; margin-bottom: 10px;">
-              <div style="width: 35px; font-weight: bold;">VII.</div>
-              <div style="font-weight: bold; text-transform: uppercase;">Adjourn</div>
-            </div>
+          <div class="notes-content">
+            <h4>Meeting Call to Order</h4>
+            <p>The Board of Directors meeting was called to order at 10:00 AM. All 5 board members (Russ, Jeff, Nancy Shea, Jerry Tucker, Gary) were present, establishing a quorum.</p>
+            <h4>Pledge of Allegiance &amp; Proof of Notice</h4>
+            <p>The Pledge of Allegiance was performed, and the proof of meeting notice (posted 48 hours in advance) was tabled and verified.</p>
+            <h4>Agenda Corrections</h4>
+            <p>A double-sided printing error was corrected by reprinting and distributing the updated agendas. A missing page from the "first perspectives" packet was also reprinted and handed out to attendees.</p>
+            <h4>Minutes Approval</h4>
+            <p>The open board meeting minutes from May 20, 2026, were approved unanimously (5-0), motioned by Jerry and seconded by Gary.</p>
+            <h4>President's Address on Trust and Empathy</h4>
+            <p>President Russ spoke about trust being earned through actions rather than words, pointing to financial corrections and the successful expansion of reserves (over \$600,000 added in 2 years). He emphasized running the retirement community with empathy for members facing life changes (such as dementia or loss of a spouse).</p>
+            <h4>Strategic Plan Update</h4>
+            <p>Nancy Shea reported that the 1-3-5-10 planning committee will update the community strategic plan (extending goals through 2027) later this year.</p>
           </div>
         </div>
 
-        <!-- Page footer -->
-        <div style="text-align: right; border-top: 1px solid #eeeeee; padding-top: 10px; font-size: 12px; color: #555555; font-family: Arial, sans-serif; letter-spacing: 0.1em; margin-top: 20px;">
-          2 | Page
+        <!-- Accordion Item 2: Staffing, Safety & Compliance -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>2. Staffing, Safety &amp; Compliance</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="notes-content">
+            <h4>Presidential Awards</h4>
+            <p>Dan Lyle presented the President's Award to resident <strong>Edmund</strong> for his outstanding contributions to the community, including his active role on the softball team.</p>
+            <h4>New Compliance Specialist</h4>
+            <p>Karen announced that <strong>Brittany</strong> (formerly working at the front desk) has been promoted internally to the Compliance Specialist position. Compliance/covenant issues should be routed to Brittany first, while ARC (Architectural Review Committee) improvement requests remain routed through Karen.</p>
+            <h4>Safety Committee Update</h4>
+            <p>Garrett reported that the Safety Committee has developed cost-effective training programs. A certified instructor will teach AED, CPR, Basic First Aid, and "Stop the Bleed" classes to the community starting in August, with details to follow later in the summer.</p>
+          </div>
         </div>
+
+        <!-- Accordion Item 3: Capital Contribution Assessment (CCA) -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>3. Capital Contribution Assessment (CCA) Vote <span class="notes-badge notes-badge-approved">5-0 Approved</span></span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="notes-content">
+            <h4>CCA Vote Motion</h4>
+            <p>The board voted unanimously (5-0) to hold a third community-wide vote on the Capital Contribution Assessment (CCA), to close as a single-issue election no later than **October 30, 2026**.</p>
+            <h4>Assessment Details</h4>
+            <p>The CCA is a one-time fee paid exclusively by new home buyers at closing (equivalent to 6 months of annual assessments, estimated at \$990 based on past dockets) to build the HOA capital reserves. Current homeowners are exempt. If passed originally, it would have generated approximately \$297,000 to date.</p>
+            <h4>Historical Context</h4>
+            <p>Previous votes failed narrowly by 41 and 29 votes. Over 1,000 homeowners did not vote in the last election. The board plans to benchmark other communities to organize voter turnout strategies. Dues comparison shows the current \$180 dues are highly competitive.</p>
+          </div>
+        </div>
+
+        <!-- Accordion Item 4: Water & Infrastructure Updates -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>4. Water &amp; Infrastructure Updates</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="notes-content">
+            <h4>Water Shortage Restrictions</h4>
+            <p>The St. John's Water Management Authority water restrictions remain in place due to low water levels. The golf course is restricted to watering 3 days a week.</p>
+            <h4>Sawgrass Lake Pump Station</h4>
+            <p>Two new 260 HP pumps are on order and an intake filter cage is expected in approximately 2 weeks. However, the pumps cannot operate until Sawgrass Lake (33 acres) rises 2 to 3 feet to push water into the pump; currently, water is barely a foot above the suction bottom.</p>
+            <h4>Lightning Damage Recovery</h4>
+            <p>Significant lightning strikes over a recent weekend damaged IT equipment in the administration building, Ashley Hall, and caused minor superficial damage to the geothermal systems. Commercial surge arresters on primary disconnects prevented much more severe damage. Damaged firewalls were replaced at no cost by the HOA's current IT provider (LTC Technologies).</p>
+          </div>
+        </div>
+
+        <!-- Accordion Item 5: Facilities Maintenance -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>5. Facilities Maintenance</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="notes-content">
+            <h4>Roofing &amp; Gutters</h4>
+            <p>Tyler reported that the Ashley Hall and Admin building roofs/gutters have been replaced. The Manor roof project is scheduled for **July 28th to 31st** (4-day project), which will require restricted access to building areas during work.</p>
+            <h4>Parking Lot Resurfacing</h4>
+            <p>Phase 1 of the Ashley Hall parking lot resurfacing is almost complete. Prep work was delayed due to a contractor equipment malfunction, but workers are returning July 17th. Re-sealing and restriping remain scheduled for **July 27th and 28th**.</p>
+          </div>
+        </div>
+
+        <!-- Accordion Item 6: Golf Course Operations & Finances -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>6. Golf Course Operations &amp; Finances</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="notes-content">
+            <h4>Rounds &amp; Memberships</h4>
+            <p>YTD rounds are down by only 150, despite losing 1,000 rounds in February (bad weather) and 400 in June (greens aeration). The Plantation Club reached its goal of selling 700 memberships by July (currently at 847, representing 17% of the community).</p>
+            <h4>Putting Green &amp; Landscape Maintenance</h4>
+            <p>BrightView Golf Maintenance is completely scraping, fumigating, and replanting the clubhouse putting green due to poor turf conditions. Canopy trimming is underway to increase sunlight, and BrightView is root-pruning oak trees within 150 feet of the green to stop root encroachment.</p>
+            <h4>LSSC Partnership &amp; Events</h4>
+            <p>A partnership check was received from Lake Sumter State College (LSSC), making the course the home course for their golf team (practicing at range and playing in afternoons). The recent Patriot Cup had 112 players, and the upcoming August 66 Challenge (2-person event, alternate/best ball/scramble) is scheduled.</p>
+            <h4>Golf Course Loans &amp; Cash Flow</h4>
+            <p>The HOA is paying off the **Thompson Loan** this month (July 2026), and the remaining two loans are fully funded for payoff in 2027 and 2028. Golf course financials are positive \$30,000 YTD. July expected revenue is \$190,000 (including player enhancement fees).</p>
+          </div>
+        </div>
+
+        <!-- Accordion Item 7: HOA Financials & Collections -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>7. HOA Financials &amp; Collections</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="notes-content">
+            <h4>2025 Audit Status</h4>
+            <p>The 2025 audit is proceeding smoothly. Draft financial statements are expected by mid-July 2026, and final reports by the end of July. A clean unqualified opinion is expected for the third consecutive year.</p>
+            <h4>HOA Financial Outcomes</h4>
+            <p>YTD HOA financials are \$21,000 favorable to budget (and June monthly positive by \$2,000). High legal expenses in June may cause a monthly deficit, but the overall YTD position remains positive by over \$60,000.</p>
+            <h4>Delinquency &amp; Past-Due Dues</h4>
+            <p>Total past-due dues stand at **\$114,000** (down from \$384,000 in December 2023, representing \$270,000 collected).
+            <ul>
+              <li>378 homeowners are past due (down from 417).</li>
+              <li>38 homeowners owe >\$500 (average \$1,741; 21 of these owe >\$1,000 totaling \$54,000).</li>
+              <li>340 homeowners owe &lt;\$500 (average \$107, mainly auto-pay errors).</li>
+              <li>90 accounts are in collections (\$4,000 attorney recovery yesterday). Two properties in receivership.</li>
+              <li>Spa delinquencies stand at \$17,000 (110 homeowners).</li>
+            </ul>
+            </p>
+          </div>
+        </div>
+
+        <!-- Accordion Item 8: Restaurant & Bar Transition -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>8. Restaurant &amp; Bar Transition</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="notes-content">
+            <h4>Transition Timeline</h4>
+            <p>Steve’s last day of food service is **July 18th**. Packing/closure will occur on **July 19th and 20th**. The restaurant will temporarily close while the board transitions the food service license with state agencies.</p>
+            <h4>Interim Capabilities</h4>
+            <p>Staff member Nick has a ServSafe license, enabling the HOA to host limited food/beverage service directly in the interim if needed.</p>
+            <h4>Management Model &amp; Negotiations</h4>
+            <p>The board is negotiating with experienced multi-unit operators. The HOA will pay a small monthly fee and split the monthly profits, which will be reinvested into restaurant capital improvements.</p>
+            <h4>Steve's Debt Transparency</h4>
+            <p>The board explained that disclosure of Steve's overdue debt and unpaid sales tax was to explain why the liquor license could not be transferred, and they apologized for any privacy concerns.</p>
+          </div>
+        </div>
+
+        <!-- Accordion Item 9: Reserve Fund Votes -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>9. Reserve Fund Votes</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="notes-content">
+            <h4>Hermitage Pickleball Court Repairs <span class="notes-badge notes-badge-approved">4-1 Approved</span></h4>
+            <p>Tripping hazards exist on courts 1, 2, and 4 due to roots and organic material. The board approved up to **\$12,000** for repairs and fungicide treatment. Gary opposed, preferring a complete redo next year.</p>
+            <h4>Manor Pool Lights <span class="notes-badge notes-badge-approved">5-0 Approved</span></h4>
+            <p>Updating pool lights to comply with county codes for night swimming. Approved up to **\$20,000** from reserves.</p>
+            <h4>Manor Pool Pump <span class="notes-badge notes-badge-approved">5-0 Approved</span></h4>
+            <p>Replacing the failing 14-year-old geothermal well pump. Approved up to **\$10,000** from reserves.</p>
+            <h4>Restaurant Renovations <span class="notes-badge notes-badge-approved">5-0 Approved</span></h4>
+            <p>Pre-occupancy repairs (dishwasher, painting, POS). Approved up to **\$15,000** from reserves (adding to \$24,121.57 spent out of rent YTD).</p>
+            <h4>Otter Creek Bridge Replacement <span class="notes-badge notes-badge-approved">5-0 Approved</span></h4>
+            <p>Rotted load-bearing glulam beams. Approved up to **\$95,000** from reserves pending the engineering report. Bids: new bridge \$68,000, installation \$57k–\$100k, crane \$15,000. Under oversight of Jerry Tucker and Gary.</p>
+            <h4>IT Hardware Upgrades <span class="notes-badge notes-badge-approved">5-0 Approved</span></h4>
+            <p>Equipment and firewall licensing from LTC Technologies. Approved **\$11,899** from reserves.</p>
+          </div>
+        </div>
+
+        <!-- Accordion Item 10: Security & Solicitation Enforcement -->
+        <div class="notes-item">
+          <div class="notes-trigger" onclick="toggleNotesAccordion(this)">
+            <span>10. Security &amp; Solicitation Enforcement</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="notes-content">
+            <h4>Statewide Solicitation Issue</h4>
+            <p>Jerry Tucker reported that door-to-door solicitors from "Statewide" (van of 7 youth) gain entry under the pretense of golf course/restaurant public access.</p>
+            <h4>Confrontation &amp; Police Action</h4>
+            <p>Jerry confronted the solicitors, resulting in a minor accident damaging his truck and their van. Despite police warning, the group resumed soliciting in Long Valley. Local sheriff response times (up to 1.75 hours) allow solicitors to escape. Residents are warned not to do business with Statewide.</p>
+          </div>
+        </div>
+
       </div>
 
       <!-- Discussions Section -->
@@ -2185,6 +2191,23 @@ document.getElementById("search-box").addEventListener("input", function() {
 });
 
 
+
+window.toggleNotesAccordion = function(element) {
+  const content = element.nextElementSibling;
+  const arrow = element.querySelector('.arrow');
+  
+  content.classList.toggle('open');
+  
+  if (content.classList.contains('open')) {
+    content.style.maxHeight = content.scrollHeight + "px";
+    arrow.style.transform = "rotate(180deg)";
+    arrow.style.color = "var(--accent)";
+  } else {
+    content.style.maxHeight = null;
+    arrow.style.transform = "rotate(0deg)";
+    arrow.style.color = "var(--text-muted)";
+  }
+};
 
 // Initial Render
 renderIrregularities("all");
