@@ -1346,12 +1346,12 @@ C. Combined Total<br>
 const IRREGULARITIES = [
   {
     id: "audit-delays",
-    title: "Audit Failures, Disclaimers & Suspensions (2022–2024)",
+    title: "Audit Failures, Disclaimers & Suspensions (2022–2025)",
     category: "governance",
     severity: "critical",
     source: "Final FS 2022 - V2.txt / plantation-governance-review-2026-06.txt Sec 7",
-    details: "The annual CPA audits, which faced severe ongoing delays, have been completed and brought up to date. While the independent auditor was forced to issue a 'Disclaimer of Opinion' for FY2022 due to unreconciled intercompany balances, subsequent audits have concluded. iRO CPA LLC successfully issued an unqualified ('clean') opinion on the 2023 financial audit on August 29, 2025, and the 2024 audit was completed in early 2026, restoring the association to statutory compliance.",
-    boardPosition: "The board reports that audits are fully finalized, that they have received unqualified clean opinions, and that they are running favorable to the approved budget as of mid-2026.",
+    details: "The annual CPA audits, which faced severe ongoing delays, have been completed and brought up to date through 2024. While the independent auditor was forced to issue a 'Disclaimer of Opinion' for FY2022 due to unreconciled intercompany balances, subsequent audits have concluded. iRO CPA LLC successfully issued an unqualified ('clean') opinion on the 2023 financial audit on August 29, 2025, and the 2024 audit was completed in early 2026, restoring the association to statutory compliance. The 2025 audit is currently in progress, with a draft expected by mid-July 2026 and final issued by the end of July.",
+    boardPosition: "The board reports that audits are fully finalized through 2024 with unqualified clean opinions, and the 2025 audit is proceeding smoothly with an unqualified clean opinion expected by the end of July 2026 (marking the third consecutive year of clean audits).",
     statutes: [
       { name: "F.S. § 720.303(7)", violation: "Mandatory annual financial report deadline" },
       { name: "HB 1203", violation: "Failure to provide official audit records within statutory timelines" }
@@ -1379,7 +1379,7 @@ const IRREGULARITIES = [
     severity: "critical",
     source: "Balance-Sheet-12-25.txt",
     details: "The December 2025 year-end balance sheet fails to balance. Total Assets are reported as \$1,838,775.84, while Total Liabilities & Equity are reported as \$5,122,035.42, showing a massive discrepancy of \$3,283,259.58. Releasing unbalanced financial statements to the membership indicates a critical failure of internal accounting controls.",
-    boardPosition: "The board claims the discrepancy represents a closing system adjustment reflecting projected reserve transfers.",
+    boardPosition: "The board claims the discrepancy represents a closing system adjustment reflecting projected reserve transfers. Note that the 2025 audit is expected to resolve this and issue a clean unqualified opinion.",
     statutes: [
       { name: "F.S. § 720.303(6)", violation: "Requirement to maintain accurate, transparent bookkeeping" },
       { name: "Ch. 617 Corporate Duties", violation: "Fiduciary duty to present true, balanced corporate records" }
@@ -1402,12 +1402,12 @@ const IRREGULARITIES = [
   },
   {
     id: "equity-collapse",
-    title: "Disputed Reserve Withdrawals & Missing Balances",
+    title: "Disputed Reserve Withdrawals & Reserve Capital Votes",
     category: "financial",
     severity: "critical",
     source: "Plantation_HOA_Briefing_Residents_v20260614.txt / Q&A documents",
-    details: "Multiple serious disputes exist regarding the handling of HOA reserve funds. In November and December of 2024, the board executed reserve withdrawals totaling \$194,000, leaving an unexplained \$84,223.59 gap in documentation. Furthermore, residents allege that the \$450,000 earmarked for the 2023 Discretionary Reserves was never actually deposited, despite the board answering 'YES' three separate times to public questions. This is reinforced by bank statements showing total reserves actually decreased by \$134,985, contradicting board claims of a \$70,000 reserve increase.",
-    boardPosition: "The board maintains that reserves were managed appropriately and that it has allocated approximately \$1.9 Million to reserves over the past two years to reach a medium-risk posture by 2031. They deny masking reserve withdrawals.",
+    details: "Multiple serious disputes exist regarding the handling of HOA reserve funds. In November and December of 2024, the board executed reserve withdrawals totaling \$194,000, leaving an unexplained \$84,223.59 gap in documentation. Furthermore, residents allege that the \$450,000 earmarked for the 2023 Discretionary Reserves was never actually deposited, despite the board answering 'YES' three separate times to public questions. This is reinforced by bank statements showing total reserves actually decreased by \$134,985, contradicting board claims of a \$70,000 reserve increase. At the July 8, 2026 board meeting, the board approved up to \$152,000 in new reserve expenditures (Hermitage Pickleball, Manor Pool Lights, Manor Pool Pump, Restaurant Renovations, Otter Creek Bridge, and IT Hardware), which continues to draw down these reserve funds.",
+    boardPosition: "The board maintains that reserves were managed appropriately and that it has allocated approximately \$600,000 to reserves over the past two years to cover major capital projects (such as the Manor roof). They state that the \$152,000 in new capital projects approved on July 8, 2026, represents necessary infrastructure maintenance funded through standard reserve planning.",
     statutes: [
       { name: "F.S. § 720.303(6)(a)", violation: "Proper accounting and authorization for reserve withdrawals" },
       { name: "Ch. 617 Fiduciary Duty", violation: "Fiduciary standard of care for corporate asset preservation" }
@@ -1591,6 +1591,46 @@ const IRREGULARITIES = [
       { name: "F.S. § 720.3085", violation: "Due process and statutory compliance in assessment collection and liens" }
     ],
     prompt: "What collection strategies and timeline does the board have in place to recover the \$127,750 shortfall from the 730 delinquent homes?"
+  },
+  {
+    id: "hoa-delinquency-recovery",
+    title: "[Added: July 8, 2026] HOA Delinquency & Past-Due Debt Reduction",
+    category: "financial",
+    severity: "medium",
+    source: "June 2026 Board Meeting Disclosures / Past Due Dues Reports",
+    details: "As of June 30, 2026, the total outstanding HOA past-due dues stood at \$114,000—a significant decrease of \$270,000 from the \$384,000 peak reported in December 2023. The delinquency roll includes 378 past-due accounts (down from 417), with 38 homeowners owing more than \$500 (average \$1,741 each, 21 of whom owe over \$1,000 totaling \$54,000). The remaining 340 past-due accounts owe an average of \$107, typically representing minor auto-pay oversight. There are currently 90 accounts in active legal collections, and two properties in receivership.",
+    boardPosition: "The board reports significant success in collecting unpaid dues, retrieving over \$270,000 in past-due balances since late 2023. They continue to pursue standard collections, legal recoveries, and receivership actions on high-balance accounts.",
+    statutes: [
+      { name: "F.S. § 720.3085", violation: "Due process in assessment collections and liens" }
+    ],
+    prompt: "What is the timeline and criteria for transitioning high-balance delinquencies into legal collection or receivership status?"
+  },
+  {
+    id: "cca-membership-vote",
+    title: "[Added: July 8, 2026] Third Membership Vote on Capital Contribution Assessment",
+    category: "governance",
+    severity: "high",
+    source: "July 8, 2026 Board Meeting Resolution / F.S. § 720.306",
+    details: "The board has approved a motion (5-0) to hold a third community-wide vote on the Capital Contribution Assessment (CCA), to close by October 30, 2026, as a single-issue election. The CCA would charge a one-time fee to new home buyers at closing (equivalent to 6 months of assessments, estimated at \$990 based on past dockets) to build HOA capital reserves. Previous votes failed narrowly by 41 and 29 votes. Projections suggest that had the fee been implemented originally, it would have generated \$297,000 to date.",
+    boardPosition: "The board maintains that the CCA is critical for the long-term health of reserves without placing a financial burden on current residents. They point out that strong reserves support property values and reduce the likelihood of special assessments.",
+    statutes: [
+      { name: "F.S. § 720.306", violation: "Requirements for association meetings and member voting" },
+      { name: "Bylaws & Covenants", violation: "Covenant amendment procedures for fee structures" }
+    ],
+    prompt: "How will the board encourage voter turnout to exceed the previous elections, and what are the budget contingency plans if the CCA fails a third time?"
+  },
+  {
+    id: "otter-creek-bridge",
+    title: "[Added: July 8, 2026] Otter Creek Bridge Structural Decay & CapEx",
+    category: "financial",
+    severity: "high",
+    source: "July 8, 2026 Reserve Vote / Universal Engineering Orlando Inspection",
+    details: "A structural assessment by Universal Engineering (Orlando) confirmed that the two primary glulam load-bearing beams of the Otter Creek Bridge are rotted and separating. To prevent total failure, the board approved up to \$95,000 from the reserve fund to replace the bridge, pending the final engineering report. Bids for a new bridge are \$68,000, installation bids range from \$57,000 to \$100,000, and Edge Crane (Eustis) bid \$15,000. Lead times from Alabama and Georgia fabricators are 21 to 23 weeks, making immediate funding allocation necessary to avoid delays into next year. Two board members (Jerry Tucker and Gary) must approve the final contracts.",
+    boardPosition: "The board maintains that replacing the bridge is an urgent safety issue to maintain access and golf course routing. They authorized the funding ahead of the September meeting to secure the 21-23 week manufacturing slot.",
+    statutes: [
+      { name: "F.S. § 720.303(6)", violation: "Proper stewardship and maintenance of common areas" }
+    ],
+    prompt: "Will the final engineering assessment consider repair and shoring options instead of complete replacement, and how will the \$95,000 expenditure impact reserve health?"
   }
 ];
 
