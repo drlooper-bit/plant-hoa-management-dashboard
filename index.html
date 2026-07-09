@@ -1351,7 +1351,21 @@ C. Combined Total<br>
 
 const IRREGULARITIES = [
   {
-    id: "audit-delays",
+    id: "steves-liquor-license",
+    title: "Steve’s Bar & Grill Alcohol Service Without Verified Lessee Liquor License",
+    category: "litigation",
+    severity: "high",
+    source: "Florida ABT license record / attached screenshot / Plantation at Leesburg official website (steves-bar-and-grill)",
+    details: "Publicly available Florida alcoholic-beverage license records show THE PLANTATION AT LEESBURG GOLF CLUB (DBA) and THE PLANTATION AT LEESBURG GOLF COURSE LLC as the licensee/primary holder for license BEV4502663 at 4720 Plantation Blvd, Leesburg, FL 34748. There is no record showing Steve’s Bar & Grill as a licensee, registrant, or lessee of that license. The restaurant operates from the same licensed location and publicly serves alcohol while the Golf Club/Course LLC remains the named ABT licensee. This raises a direct legal question whether alcohol may lawfully be served by a separately branded restaurant without its own licensee status or a verified lessee/operator arrangement on record.",
+    boardPosition: "",
+    statutes: [
+      { name: "F.S. § 565.02 / Florida ABT", violation: "Unlicensed alcoholic beverage service / operating without licensee status" },
+      { name: "F.S. § 720.303", violation: "Statutory disclosure and compliance obligations" }
+    ],
+    prompt: "Is there a legally valid lessee/operator agreement placing Steve’s Bar & Grill under the Plantation’s liquor license? If not, who authorized alcohol service at a separate commercial restaurant without a license in its own name or verified lessee status?"
+  },
+  {
+    id: "hoa-board-directors-2025",
     title: "Audit Failures, Disclaimers & Suspensions (2022–2025)",
     category: "governance",
     severity: "critical",
@@ -1638,20 +1652,6 @@ const IRREGULARITIES = [
     ],
     prompt: "Will the final engineering assessment consider repair and shoring options instead of complete replacement, and how will the $95,000 expenditure impact reserve health?"
   },
-  {
-    id: "steves-liquor-license",
-    title: "Steve’s Bar & Grill Alcohol Service Without Verified Lessee Liquor License",
-    category: "litigation",
-    severity: "high",
-    source: "Florida ABT license record / attached screenshot / Plantation at Leesburg official website (steves-bar-and-grill)",
-    details: "Publicly available Florida alcoholic-beverage license records show THE PLANTATION AT LEESBURG GOLF CLUB (DBA) and THE PLANTATION AT LEESBURG GOLF COURSE LLC as the licensee/primary holder for license BEV4502663 at 4720 Plantation Blvd, Leesburg, FL 34748. There is no record showing Steve’s Bar & Grill as a licensee, registrant, or lessee of that license. The restaurant operates from the same licensed location and publicly serves alcohol while the Golf Club/Course LLC remains the named ABT licensee. This raises a direct legal question whether alcohol may lawfully be served by a separately branded restaurant without its own licensee status or a verified lessee/operator arrangement on record.",
-    boardPosition: "",
-    statutes: [
-      { name: "F.S. § 565.02 / Florida ABT", violation: "Unlicensed alcoholic beverage service / operating without licensee status" },
-      { name: "F.S. § 720.303", violation: "Statutory disclosure and compliance obligations" }
-    ],
-    prompt: "Is there a legally valid lessee/operator agreement placing Steve’s Bar & Grill under the Plantation’s liquor license? If not, who authorized alcohol service at a separate commercial restaurant without a license in its own name or verified lessee status?"
-  }
 ];
 
 // Prepopulated comments database to show diverse resident perspectives
