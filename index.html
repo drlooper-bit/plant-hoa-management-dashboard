@@ -1206,7 +1206,7 @@ C. Combined Total<br>
             <h4>Restaurant Renovations <span class="notes-badge notes-badge-approved">5-0 Approved</span></h4>
             <p>Pre-occupancy repairs (dishwasher, painting, POS). Approved up to **\$15,000** from reserves (adding to \$24,121.57 spent out of rent YTD).</p>
             <h4>Otter Creek Bridge Replacement <span class="notes-badge notes-badge-approved">5-0 Approved</span></h4>
-            <p>Rotted load-bearing glulam beams. Approved up to **\$95,000** from reserves pending the engineering report. Bids: new bridge \$68,000, installation \$57k–\$100k, crane \$15,000. Under oversight of Jerry Tucker and Gary.</p>
+            <p>Rotted load-bearing glulam beams. Approved up to **$95,000** from reserves pending the engineering report. Bids: new bridge \$68,000, installation \$57k–\$100k, crane \$15,000. Under oversight of Jerry Tucker and Gary.</p>
             <h4>IT Hardware Upgrades <span class="notes-badge notes-badge-approved">5-0 Approved</span></h4>
             <p>Equipment and firewall licensing from LTC Technologies. Approved **\$11,899** from reserves.</p>
           </div>
@@ -1631,12 +1631,26 @@ const IRREGULARITIES = [
     category: "financial",
     severity: "high",
     source: "July 8, 2026 Reserve Vote / Universal Engineering Orlando Inspection",
-    details: "A structural assessment by Universal Engineering (Orlando) confirmed that the two primary glulam load-bearing beams of the Otter Creek Bridge are rotted and separating. To prevent total failure, the board approved up to \$95,000 from the reserve fund to replace the bridge, pending the final engineering report. Bids for a new bridge are \$68,000, installation bids range from \$57,000 to \$100,000, and Edge Crane (Eustis) bid \$15,000. Lead times from Alabama and Georgia fabricators are 21 to 23 weeks, making immediate funding allocation necessary to avoid delays into next year. Two board members (Jerry Tucker and Gary) must approve the final contracts.",
+    details: "A structural assessment by Universal Engineering (Orlando) confirmed that the two primary glulam load-bearing beams of the Otter Creek Bridge are rotted and separating. To prevent total failure, the board approved up to $95,000 from the reserve fund to replace the bridge, pending the final engineering report. Bids for a new bridge are \$68,000, installation bids range from \$57,000 to \$100,000, and Edge Crane (Eustis) bid \$15,000. Lead times from Alabama and Georgia fabricators are 21 to 23 weeks, making immediate funding allocation necessary to avoid delays into next year. Two board members (Jerry Tucker and Gary) must approve the final contracts.",
     boardPosition: "The board maintains that replacing the bridge is an urgent safety issue to maintain access and golf course routing. They authorized the funding ahead of the September meeting to secure the 21-23 week manufacturing slot.",
     statutes: [
       { name: "F.S. § 720.303(6)", violation: "Proper stewardship and maintenance of common areas" }
     ],
-    prompt: "Will the final engineering assessment consider repair and shoring options instead of complete replacement, and how will the \$95,000 expenditure impact reserve health?"
+    prompt: "Will the final engineering assessment consider repair and shoring options instead of complete replacement, and how will the $95,000 expenditure impact reserve health?"
+  },
+  {
+    id: "steves-liquor-license",
+    title: "Steve’s Bar & Grill Alcohol Service Without Verified Lessee Liquor License",
+    category: "litigation",
+    severity: "high",
+    source: "Florida ABT license record / attached screenshot / Plantation at Leesburg official website (steves-bar-and-grill)",
+    details: "Publicly available Florida alcoholic-beverage license records show THE PLANTATION AT LEESBURG GOLF CLUB (DBA) and THE PLANTATION AT LEESBURG GOLF COURSE LLC as the licensee/primary holder for license BEV4502663 at 4720 Plantation Blvd, Leesburg, FL 34748. There is no record showing Steve’s Bar & Grill as a licensee, registrant, or lessee of that license. The restaurant operates from the same licensed location and publicly serves alcohol while the Golf Club/Course LLC remains the named ABT licensee. This raises a direct legal question whether alcohol may lawfully be served by a separately branded restaurant without its own licensee status or a verified lessee/operator arrangement on record.",
+    boardPosition: "",
+    statutes: [
+      { name: "F.S. § 565.02 / Florida ABT", violation: "Unlicensed alcoholic beverage service / operating without licensee status" },
+      { name: "F.S. § 720.303", violation: "Statutory disclosure and compliance obligations" }
+    ],
+    prompt: "Is there a legally valid lessee/operator agreement placing Steve’s Bar & Grill under the Plantation’s liquor license? If not, who authorized alcohol service at a separate commercial restaurant without a license in its own name or verified lessee status?"
   }
 ];
 
