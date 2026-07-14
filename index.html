@@ -1663,6 +1663,9 @@ const IRREGULARITIES = [
 
 // Prepopulated comments database to show diverse resident perspectives
 const INITIAL_COMMENTS = {
+  "cca-membership-vote": [
+    { author: "Resident (Long Meadow)", stance: "concerned", text: "The Capital Contribution Assessment appears to be another attempt to create a new revenue stream rather than addressing the real issue: proper management of existing money and assets. Homeowners are already dealing with reduced property appeal caused by deteriorating golf courses and amenities. Adding a new transfer-related fee only creates more baggage for sellers, gives buyers another reason to negotiate the price down or demand concessions, and does nothing to prove that current funds and community assets are being managed responsibly. Before asking residents or future buyers for more money, the HOA should demonstrate better stewardship of the resources it already controls.", date: "2026-07-14 11:13" }
+  ],
   "hoa-meeting-july-8-2026": [
     { author: "Resident (Ashley Court)", stance: "concerned", text: "Wait, there's a vote on a Capital Contribution Assessment (Item IV.H) and Reserve Fund Votes (Item IV.J)? What are the details of these votes? Why haven't the board published any briefing papers?", date: "2026-07-07 10:15" },
     { author: "Resident (Otter Creek)", stance: "skeptical", text: "Reserve Fund Votes for Hermitage Pickleball and Restaurant Renovation are on the table. We need to make sure this money isn't diverted to Golf Course LLC losses.", date: "2026-07-07 12:30" }
@@ -1733,7 +1736,7 @@ const INITIAL_COMMENTS = {
 };
 
 // Storage Key
-const STORAGE_KEY = 'plant_hoa_dashboard_forum_notes_v3';
+const STORAGE_KEY = 'plant_hoa_dashboard_forum_notes_v4';
 
 // Initialize data from LocalStorage or use defaults
 let forumNotes = {};
