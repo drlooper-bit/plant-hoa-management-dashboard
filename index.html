@@ -1354,6 +1354,48 @@ C. Combined Total<br>
 
 const IRREGULARITIES = [
   {
+    id: "precedent-notice",
+    title: "Special Assessment Posting & Notice",
+    category: "litigation",
+    severity: "critical",
+    source: "F.S. § 720.309 / 5th DCA Rulings",
+    details: "The 2021 and 2023 special assessments are under active challenge in the active cases *Fredericks Jr./Eisenhower v. Plantation* (Case No. 35-2024-CA-001694) and *Frisillo v. Plantation* (Case No. 35-2025-CA-002520). Plaintiffs allege procedural failures: lack of physical 48-hour board-meeting postings specifying assessments and failure to reach quorums. Documented meeting procedures for the June 24, 2021 vote show the board required a simple majority of total membership (1,411 votes) to amend covenants, but only a simple majority of those attending to approve the $1.75M assessment (non-voters not counted), which plaintiffs challenge as a statutory violation of F.S. § 720.309.",
+    boardPosition: "Strict compliance is mandatory for special assessments. Rulings state that failure to physically post notice of meetings with assessment details at least 48 hours in advance renders the assessment a legal nullity. Re-votes do not retroactively cure past invalid assessments.",
+    statutes: [
+      { name: "F.S. § 720.303(2)(c)2", violation: "Physical Posting" },
+      { name: "F.S. § 720.309", violation: "Assessment Quorums" }
+    ],
+    prompt: "How does the board verify that physical, conspicuous notices were posted 48 hours in advance for the 2021 and 2023 assessment meetings?"
+  },
+  {
+    id: "special-assessments",
+    title: "Procedural Violations in 2021 & 2023 Special Assessments",
+    category: "litigation",
+    severity: "high",
+    source: "Special Assessment Suits / F.S. § 720.309",
+    details: "Active litigation challenges the 2021 (\$1,260/household, or \$15/month for 7 years via a \$1,750,000 promissory note at 4.25% interest) and 2023 (\$225/lot) special assessments. Two separate lawsuits remain active in the Lake County Circuit Court challenging the board's special assessments and financial operations: Fredericks Jr./Eisenhower v. Plantation (Case No. 35-2024-CA-001694), filed on September 5, 2024, and Frisillo v. Plantation (Case No. 35-2025-CA-002520), filed on November 7, 2025. Plaintiffs claim the board failed to post physical 48-hour meeting notices specifying assessment details and circumvented voting thresholds via split covenant amendment (1,411 total membership majority) and assessment voting (meeting majority) requirements.",
+    boardPosition: "The board maintains all assessments were discussed at open meetings and approved by board majorities, and that the funds were critical to acquire the golf course.",
+    statutes: [
+      { name: "F.S. § 720.303(2)(c)2", violation: "Mandatory 48-hour physical meeting notices for assessments" },
+      { name: "F.S. § 720.309", violation: "Quorum and member voting requirements for assessments" }
+    ],
+    prompt: "If the court voids the 2021 or 2023 assessments, what is the plan to refund collected funds? Will this trigger a massive deficit?"
+  },
+  {
+    id: "golf-draws",
+    title: "Golf Course LLC Contra-Revenue Draws (\$42,300/mo)",
+    category: "financial",
+    severity: "high",
+    source: "golf-course-llc.txt / PLA_Financials_extracted",
+    details: "A Special Activity draw of \$42,300/month is transferred from residential assessments to the Golf Course LLC. The transfers are classified under Account 400832 (Special Activity Income) as a contra-revenue item. Total FY2024 transfers reached \$695,271.77. The board asserts this LLC structure firewalls residential funds. However, the board's May 2021 letters reveal an intentional strategy to draft 'shared maintenance agreements' (e.g. for roads, cart paths, security gates) specifically designed to shift commercial golf facility operations expenses to residential master reserves, supporting resident alter-ego/veil-piercing arguments.",
+    boardPosition: "The golf courses are community assets. The \$42,300/month draw is fully authorized by the budget and represents necessary maintenance costs to protect property values.",
+    statutes: [
+      { name: "F.S. § 720.308", violation: "Funding of separate entities using master assessments" },
+      { name: "Dania Jai-Alai Rule", violation: "Corporate shield invalidity if funds are commingled" }
+    ],
+    prompt: "If the Golf Course LLC loses in court or defaults, what legal guarantees prevent the golf course's liabilities from draining residential master funds?"
+  },
+  {
     id: "steves-liquor-license",
     title: "Steve’s Bar & Grill Alcohol Service Without Verified Lessee Liquor License",
     category: "litigation",
@@ -1437,20 +1479,7 @@ const IRREGULARITIES = [
     ],
     prompt: "Are there formal board resolutions authorizing the \$194,000 reserve withdrawals in late 2024? Where did the \$450,000 earmarked for the 2023 Discretionary Reserves go, and why do bank statements show a net decrease in reserves?"
   },
-  {
-    id: "golf-draws",
-    title: "Golf Course LLC Contra-Revenue Draws (\$42,300/mo)",
-    category: "financial",
-    severity: "high",
-    source: "golf-course-llc.txt / PLA_Financials_extracted",
-    details: "A Special Activity draw of \$42,300/month is transferred from residential assessments to the Golf Course LLC. The transfers are classified under Account 400832 (Special Activity Income) as a contra-revenue item. Total FY2024 transfers reached \$695,271.77. The board asserts this LLC structure firewalls residential funds. However, the board's May 2021 letters reveal an intentional strategy to draft 'shared maintenance agreements' (e.g. for roads, cart paths, security gates) specifically designed to shift commercial golf facility operations expenses to residential master reserves, supporting resident alter-ego/veil-piercing arguments.",
-    boardPosition: "The golf courses are community assets. The \$42,300/month draw is fully authorized by the budget and represents necessary maintenance costs to protect property values.",
-    statutes: [
-      { name: "F.S. § 720.308", violation: "Funding of separate entities using master assessments" },
-      { name: "Dania Jai-Alai Rule", violation: "Corporate shield invalidity if funds are commingled" }
-    ],
-    prompt: "If the Golf Course LLC loses in court or defaults, what legal guarantees prevent the golf course's liabilities from draining residential master funds?"
-  },
+
   {
     id: "vendor-bids",
     title: "Concealment of 2026 Vendor Bids & Contracts",
@@ -1479,20 +1508,7 @@ const IRREGULARITIES = [
     ],
     prompt: "Is the board reviewing its collection policies to prevent \$480 debts from turning into \$46,000 receiver lawsuits? How will this impact community litigation liability?"
   },
-  {
-    id: "special-assessments",
-    title: "Procedural Violations in 2021 & 2023 Special Assessments",
-    category: "litigation",
-    severity: "high",
-    source: "Special Assessment Suits / F.S. § 720.309",
-    details: "Active litigation challenges the 2021 (\$1,260/household, or \$15/month for 7 years via a \$1,750,000 promissory note at 4.25% interest) and 2023 (\$225/lot) special assessments. Two separate lawsuits remain active in the Lake County Circuit Court challenging the board's special assessments and financial operations: Fredericks Jr./Eisenhower v. Plantation (Case No. 35-2024-CA-001694), filed on September 5, 2024, and Frisillo v. Plantation (Case No. 35-2025-CA-002520), filed on November 7, 2025. Plaintiffs claim the board failed to post physical 48-hour meeting notices specifying assessment details and circumvented voting thresholds via split covenant amendment (1,411 total membership majority) and assessment voting (meeting majority) requirements.",
-    boardPosition: "The board maintains all assessments were discussed at open meetings and approved by board majorities, and that the funds were critical to acquire the golf course.",
-    statutes: [
-      { name: "F.S. § 720.303(2)(c)2", violation: "Mandatory 48-hour physical meeting notices for assessments" },
-      { name: "F.S. § 720.309", violation: "Quorum and member voting requirements for assessments" }
-    ],
-    prompt: "If the court voids the 2021 or 2023 assessments, what is the plan to refund collected funds? Will this trigger a massive deficit?"
-  },
+
   {
     id: "transfer-cap",
     title: "CCR 10% Annual Transfer Cap Compliance",
@@ -1535,20 +1551,7 @@ const IRREGULARITIES = [
     ],
     prompt: "What changes will the board make to its collection policies in light of the Wolner appeal to prevent similar fee escalations?"
   },
-  {
-    id: "precedent-notice",
-    title: "Special Assessment Posting & Notice",
-    category: "litigation",
-    severity: "critical",
-    source: "F.S. § 720.309 / 5th DCA Rulings",
-    details: "The 2021 and 2023 special assessments are under active challenge in the active cases *Fredericks Jr./Eisenhower v. Plantation* (Case No. 35-2024-CA-001694) and *Frisillo v. Plantation* (Case No. 35-2025-CA-002520). Plaintiffs allege procedural failures: lack of physical 48-hour board-meeting postings specifying assessments and failure to reach quorums. Documented meeting procedures for the June 24, 2021 vote show the board required a simple majority of total membership (1,411 votes) to amend covenants, but only a simple majority of those attending to approve the $1.75M assessment (non-voters not counted), which plaintiffs challenge as a statutory violation of F.S. § 720.309.",
-    boardPosition: "Strict compliance is mandatory for special assessments. Rulings state that failure to physically post notice of meetings with assessment details at least 48 hours in advance renders the assessment a legal nullity. Re-votes do not retroactively cure past invalid assessments.",
-    statutes: [
-      { name: "F.S. § 720.303(2)(c)2", violation: "Physical Posting" },
-      { name: "F.S. § 720.309", violation: "Assessment Quorums" }
-    ],
-    prompt: "How does the board verify that physical, conspicuous notices were posted 48 hours in advance for the 2021 and 2023 assessment meetings?"
-  },
+
   {
     id: "precedent-veil",
     title: "Golf Course LLC Separateness & Veil-Piercing",
