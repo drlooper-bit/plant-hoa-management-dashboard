@@ -1368,6 +1368,58 @@ const IRREGULARITIES = [
     prompt: "How does the board plan to eliminate the -\$127,402.00 golf course operational deficit without using residential master funds? What caused the \$948,211.60 asset contraction since the FY2024 audit?"
   },
   {
+    id: "spa-revenue-gap-2026",
+    title: "[Added: July 15, 2026] January-March 2026 SPA Revenue Recognition Gap",
+    category: "financial",
+    severity: "critical",
+    source: "Plantation_HOA_TownCrier_Allegations_Supplement.txt Post 1 & 6",
+    details: "Financial reports show that no Special Activity (SPA 2021) revenue was recognized for January-March 2026, despite the HOA continuing to collect unbilled special assessments from residents. The destination of these collected funds remains undocumented.",
+    boardPosition: "The board maintains that all collected assessments are fully accounted for in the operating and reserve ledgers.",
+    statutes: [
+      { name: "F.S. § 720.303(6)", violation: "Proper recognition and segregation of assessment revenues" }
+    ],
+    prompt: "Why was no SPA 2021 revenue recognized for the Q1 2026 period, and where were the collected assessments deposited?"
+  },
+  {
+    id: "cranes-roost-irrigation-repair",
+    title: "[Added: July 15, 2026] Cranes Roost Golf Course Irrigation System Repair",
+    category: "financial",
+    severity: "high",
+    source: "plantation-governance-review-2026-06.txt Sec 10-11",
+    details: "The board has not published an official timeline or cost estimate for the Cranes Roost golf course irrigation system repair. Timeline and cost figures shown in earlier drafts are unverified placeholders. The maintenance vendor is BrightView Golf.",
+    boardPosition: "The board is working with BrightView Golf to finalize plans for necessary repairs to maintain the community's assets.",
+    statutes: [
+      { name: "F.S. § 720.303(6)", violation: "Reporting and reserve planning for major capital repairs" }
+    ],
+    prompt: "When will the board publish a verified timeline and cost estimate for the Cranes Roost irrigation system repair?"
+  },
+  {
+    id: "golf-cash-flow-projection",
+    title: "[Added: July 15, 2026] 2025 Golf Course Cash Flow Projection Validation",
+    category: "financial",
+    severity: "high",
+    source: "plantation-governance-review-2026-06.txt Sec 2-3 / Allegations Supplement",
+    details: "The board's October 2024 projection anticipated ~$229,000 in positive cash flow from golf operations in 2025. Verification is required to determine if this projection was accurate and to establish the verified EBITDA for 2025 vs. 2024.",
+    boardPosition: "The board maintains that the golf course is a key asset that supports home values and that financial projections were based on the best information available at the time.",
+    statutes: [
+      { name: "F.S. § 720.303", violation: "Accurate financial forecasting and disclosure to members" }
+    ],
+    prompt: "What was the actual verified EBITDA for golf operations in 2025, and did it meet the projected ~$229,000 positive cash flow?"
+  },
+  {
+    id: "audit-methodology-change",
+    title: "[Added: July 15, 2026] Audit Methodology Change Justification",
+    category: "financial",
+    severity: "medium",
+    source: "Plantation_HOA_TownCrier_Allegations_Supplement.txt Post 1",
+    details: "The board changed the Special Activity revenue recognition methodology from 2024 to 2025, which residents allege resulted in an artificially inflated profitability figure of ~$516,487. It is unclear if this methodology change was formally approved by the independent CPA firm.",
+    boardPosition: "The board states that accounting adjustments were made in accordance with standard practice to accurately reflect reserve allocations.",
+    statutes: [
+      { name: "F.S. § 720.303(6)", violation: "Consistent application of accounting principles in audited statements" }
+    ],
+    prompt: "What is the detailed justification for changing the SPA revenue recognition methodology, and did the independent CPA firm approve it?"
+  },
+  {
     id: "cca-membership-vote",
     title: "[Added: July 8, 2026] Third Membership Vote on Capital Contribution Assessment",
     category: "governance",
@@ -1387,7 +1439,7 @@ const IRREGULARITIES = [
     category: "litigation",
     severity: "critical",
     source: "F.S. § 720.309 / 5th DCA Rulings",
-    details: "The 2021 and 2023 special assessments are under active challenge in the active cases *Fredericks Jr./Eisenhower v. Plantation* (Case No. 35-2024-CA-001694) and *Frisillo v. Plantation* (Case No. 35-2025-CA-002520). Plaintiffs allege procedural failures: lack of physical 48-hour board-meeting postings specifying assessments and failure to reach quorums. Documented meeting procedures for the June 24, 2021 vote show the board required a simple majority of total membership (1,411 votes) to amend covenants, but only a simple majority of those attending to approve the $1.75M assessment (non-voters not counted), which plaintiffs challenge as a statutory violation of F.S. § 720.309.",
+    details: "The 2021 and 2023 special assessments are under active challenge in the active cases *Fredericks Jr./Eisenhower v. Plantation* (Case No. 35-2024-CA-001694) and *Frisillo v. Plantation* (Case No. 35-2025-CA-002520). The Frisillo plaintiffs are Heron Run residents with a prior October 2023 ARC lot line fence dispute (seeking >\$50k). Plaintiffs allege procedural failures: lack of physical 48-hour board-meeting postings specifying assessments and failure to reach quorums. Documented meeting procedures for the June 24, 2021 vote show the board required a simple majority of total membership (1,411 votes) to amend covenants, but only a simple majority of those attending to approve the $1.75M assessment (non-voters not counted), which plaintiffs challenge as a statutory violation of F.S. § 720.309.",
     boardPosition: "Strict compliance is mandatory for special assessments. Rulings state that failure to physically post notice of meetings with assessment details at least 48 hours in advance renders the assessment a legal nullity. Re-votes do not retroactively cure past invalid assessments.",
     statutes: [
       { name: "F.S. § 720.303(2)(c)2", violation: "Physical Posting" },
@@ -1401,7 +1453,7 @@ const IRREGULARITIES = [
     category: "litigation",
     severity: "high",
     source: "Special Assessment Suits / F.S. § 720.309",
-    details: "Active litigation challenges the 2021 (\$1,260/household, or \$15/month for 7 years via a \$1,750,000 promissory note at 4.25% interest) and 2023 (\$225/lot) special assessments. Two separate lawsuits remain active in the Lake County Circuit Court challenging the board's special assessments and financial operations: Fredericks Jr./Eisenhower v. Plantation (Case No. 35-2024-CA-001694), filed on September 5, 2024, and Frisillo v. Plantation (Case No. 35-2025-CA-002520), filed on November 7, 2025. Plaintiffs claim the board failed to post physical 48-hour meeting notices specifying assessment details and circumvented voting thresholds via split covenant amendment (1,411 total membership majority) and assessment voting (meeting majority) requirements.",
+    details: "Active litigation challenges the 2021 (\$1,260/household, or \$15/month for 7 years via a \$1,750,000 promissory note at 4.25% interest) and 2023 (\$225/lot) special assessments. Two separate lawsuits remain active in the Lake County Circuit Court challenging the board's special assessments and financial operations: Fredericks Jr./Eisenhower v. Plantation (Case No. 35-2024-CA-001694), filed on September 5, 2024, and Frisillo v. Plantation (Case No. 35-2025-CA-002520), filed on November 7, 2025 (seeking >\$50k). The Frisillo plaintiffs are Heron Run residents with a prior October 2023 ARC lot line fence dispute. Plaintiffs claim the board failed to post physical 48-hour meeting notices specifying assessment details and circumvented voting thresholds via split covenant amendment (1,411 total membership majority) and assessment voting (meeting majority) requirements.",
     boardPosition: "The board maintains all assessments were discussed at open meetings and approved by board majorities, and that the funds were critical to acquire the golf course.",
     statutes: [
       { name: "F.S. § 720.303(2)(c)2", violation: "Mandatory 48-hour physical meeting notices for assessments" },
@@ -1443,8 +1495,8 @@ const IRREGULARITIES = [
     category: "governance",
     severity: "critical",
     source: "Final FS 2022 - V2.txt / plantation-governance-review-2026-06.txt Sec 7",
-    details: "The annual CPA audits, which faced severe ongoing delays, have been completed and brought up to date through 2024. While the independent auditor was forced to issue a 'Disclaimer of Opinion' for FY2022 due to unreconciled intercompany balances, subsequent audits have concluded. iRO CPA LLC successfully issued an unqualified ('clean') opinion on the 2023 financial audit on August 29, 2025, and the 2024 audit was completed in early 2026, restoring the association to statutory compliance. The 2025 audit is currently in progress, with a draft expected by mid-July 2026 and final issued by the end of July.",
-    boardPosition: "The board reports that audits are fully finalized through 2024 with unqualified clean opinions, and the 2025 audit is proceeding smoothly with an unqualified clean opinion expected by the end of July 2026 (marking the third consecutive year of clean audits).",
+    details: "The annual CPA audits, which faced severe ongoing delays, have been completed and brought up to date through 2024. iRO CPA completed both the 2023 and 2024 financial audits on February 13, 2026, restoring the association to statutory compliance. The 2025 audit is currently in progress, with the board transitioning focus to this next review.",
+    boardPosition: "The board reports that audits are fully finalized through 2024, and focus has successfully transitioned to the 2025 CPA audit.",
     statutes: [
       { name: "F.S. § 720.303(7)", violation: "Mandatory annual financial report deadline" },
       { name: "HB 1203", violation: "Failure to provide official audit records within statutory timelines" }
