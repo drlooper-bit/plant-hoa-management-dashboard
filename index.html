@@ -1354,6 +1354,20 @@ C. Combined Total<br>
 
 const IRREGULARITIES = [
   {
+    id: "consolidated-balance-sheet-june-2026",
+    title: "[Added: July 15, 2026] June 2026 Consolidated Balance Sheet Review",
+    category: "financial",
+    severity: "high",
+    source: "June 2026 Consolidated Balance Sheet (compiled 7-12-2026)",
+    details: "The Consolidated Balance Sheet for June 2026 reveals a significant asset contraction, with Total Assets dropping to \$4,505,250.19 (down \$948,211.60 from the \$5,453,461.79 audited FY2024 baseline). While Total Reserve Cash remains stable at \$1,398,753.42, the operating fund is burdened by a active net loss of -\$52,926.69 YTD and an operational deficit in the Golf Course Fund Balance of -\$127,402.00, demonstrating active pressure on reserves.",
+    boardPosition: "The board maintains that reserves are healthy and are being managed responsibly. They highlight that reserve cash has increased to nearly \$1.4M to fund planned capital expenditures and preserve property values.",
+    statutes: [
+      { name: "F.S. § 720.303(6)", violation: "Proper financial reporting and management of operational deficits" },
+      { name: "F.S. § 720.308", violation: "Segregation of master funds from separate commercial operations" }
+    ],
+    prompt: "How does the board plan to eliminate the -\$127,402.00 golf course operational deficit without using residential master funds? What caused the \$948,211.60 asset contraction since the FY2024 audit?"
+  },
+  {
     id: "cca-membership-vote",
     title: "[Added: July 8, 2026] Third Membership Vote on Capital Contribution Assessment",
     category: "governance",
