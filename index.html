@@ -780,7 +780,7 @@
     <div class="meta" style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
       <div>Investigator: <strong>Plantation Residents</strong> · Site Start Date: <strong>2026-06-29</strong></div>
       <div style="display: flex; align-items: center; gap: 10px;">
-        <div>Last Updated: <strong style="color: var(--accent);">2026-07-08</strong></div>
+        <div>Last Updated: <strong style="color: var(--accent);" id="last-updated-header"></strong></div>
         <div id="hit-counter" style="font-size: 11px; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px;">
           <span style="width: 6px; height: 6px; background: var(--ok); border-radius: 50%; display: inline-block;"></span>
           Visits: <strong id="hit-count" style="color: var(--text);">182</strong>
@@ -1242,7 +1242,7 @@ C. Combined Total<br>
       <h3 style="color: var(--accent); margin-top: 0; display: flex; align-items: center; gap: 8px;">
         ⚖️ Legal Disclaimer &amp; Terms of Use
       </h3>
-      <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;">Last Updated: July 2026</div>
+      <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;" id="last-updated-disclaimer"></div>
       
       <div style="color: var(--text-dim); line-height: 1.6; font-size: 13px; display: flex; flex-direction: column; gap: 14px;">
         <p><strong>Non-Affiliation Disclaimer:</strong> This website is an independent, resident-run platform established solely for the purpose of community information, discussion, and transparency. This site is not affiliated with, authorized by, sponsored by, or in any way officially connected to the Board of Directors of the Plantation at Leesburg Homeowners Association, Inc., its management company, or any of its subsidiaries or affiliates. The official website for the HOA is located at <a href="https://www.plantationatleesburg.com" target="_blank" style="color: var(--accent); text-decoration: none;">https://www.plantationatleesburg.com</a>.</p>
@@ -2311,6 +2311,18 @@ window.toggleNotesAccordion = function(element) {
     }, 10);
   }
 };
+
+// Auto Last Updated
+function setLastUpdated() {
+  const hdr = document.getElementById('last-updated-header');
+  const disc = document.getElementById('last-updated-disclaimer');
+  const label = 'Last Updated: ';
+  const d = new Date();
+  const date = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  if (hdr) hdr.textContent = date;
+  if (disc) disc.textContent = label + date;
+}
+setLastUpdated();
 
 // Initial Render
 renderIrregularities("all");
