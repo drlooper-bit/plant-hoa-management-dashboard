@@ -1372,14 +1372,53 @@ const IRREGULARITIES = [
     title: "[Priority: Top] June 2026 Consolidated Balance Sheet Review",
     category: "financial",
     severity: "high",
-    source: "June 2026 Consolidated Balance Sheet (compiled 7-12-2026)",
-    details: "The Consolidated Balance Sheet for June 2026 reveals a significant asset contraction, with Total Assets dropping to \$4,505,250.19 (down \$948,211.60 from the \$5,453,461.79 audited FY2024 baseline). While Total Reserve Cash remains stable at \$1,398,753.42, the operating fund is burdened by a active net loss of -\$52,926.69 YTD and an operational deficit in the Golf Course Fund Balance of -\$127,402.00, demonstrating active pressure on reserves.",
-    boardPosition: "The board maintains that reserves are healthy and are being managed responsibly. They highlight that reserve cash has increased to nearly \$1.4M to fund planned capital expenditures and preserve property values.",
+    source: "June 2026 Consolidated Balance Sheet (compiled 7-12-2026; modified WordPress 7-14) / April 2026 Consolidated Balance Sheet",
+    details: "The Consolidated Balance Sheet for June 2026 reveals a significant asset contraction, with Total Assets dropping to $4,505,250.19 (down $948,211.60 from the $5,453,461.79 audited FY2024 baseline and down $467,946 from the April 2026 figure of $4,973,196.16). While Total Reserve Cash remains stable at $1,398,753.42, the operating fund is burdened by an active net loss of -$52,926.69 YTD and an operational deficit in the Golf Course Fund Balance of -$127,402.00, demonstrating active pressure on reserves. The April 2026 balance sheet also shows long-term debt of $419,295.80 in Promissory Note Payable - Fustos.",
+    boardPosition: "The board maintains that reserves are healthy and are being managed responsibly. They highlight that reserve cash has increased to nearly $1.4M to fund planned capital expenditures and preserve property values.",
     statutes: [
       { name: "F.S. § 720.303(6)", violation: "Proper financial reporting and management of operational deficits" },
       { name: "F.S. § 720.308", violation: "Segregation of master funds from separate commercial operations" }
     ],
-    prompt: "How does the board plan to eliminate the -\$127,402.00 golf course operational deficit without using residential master funds? What caused the \$948,211.60 asset contraction since the FY2024 audit?"
+    prompt: "How does the board plan to eliminate the -$127,402.00 golf course operational deficit without using residential master funds? What caused the $948,211.60 asset contraction since the FY2024 audit?"
+  },
+  {
+    id: "ca-closed-minutes-03-20-2026",
+    title: "HOA BOD Closed Meeting Minutes March 20, 2026",
+    category: "governance",
+    severity: "medium",
+    source: "https://plantationatleesburg.com/wp-content/uploads/2026/05/03.20.2026-Approved-BOD-Mtg.-Min-CLOSED.pdf",
+    details: "Closed session minutes from the March 20, 2026 board meeting. The closed session was called to order at 8:00 AM EST to discuss a personnel matter. Board present: President Russ Roberson, Secretary/Treasurer Geoff Alpert, Director at Large Nancy Sheahan, Director at Large Gary Rushlo, and Vice President Jerry Tucker via telephone. No votes were taken in closed session. The meeting reconvened in open session at 9:11 AM and was adjourned at 9:13 AM.",
+    boardPosition: "The board maintains that closed sessions are used strictly for personnel matters and that no votes or financial decisions occurred during the closed portion.",
+    statutes: [
+      { name: "F.S. § 720.303(2)", violation: "Closed session notice and recordkeeping requirements" }
+    ],
+    prompt: "What specific personnel matter was discussed in closed session, and were any follow-up actions taken in open session?"
+  },
+  {
+    id: "march-2026-financials",
+    title: "March 2026 Financials",
+    category: "financial",
+    severity: "medium",
+    source: "https://plantationatleesburg.com/wp-content/uploads/2026/04/PH-March-26-financials.pdf",
+    details: "Public posting of March 2026 financial statements for Plantation at Leesburg. This document is part of the statutory financial record series posted by the board. The file is image-based/scanned PDF on the WordPress media server.",
+    boardPosition: "The board maintains that monthly financials are published promptly on the website.",
+    statutes: [
+      { name: "F.S. § 720.303(6)", violation: "Accurate and timely financial reporting" }
+    ],
+    prompt: "Can the March financial statements be extracted and compared against the prior-year budget for material variances?"
+  },
+  {
+    id: "february-2026-financials",
+    title: "February 2026 Financials",
+    category: "financial",
+    severity: "medium",
+    source: "https://plantationatleesburg.com/wp-content/uploads/2026/03/Pine-Hill-Fund.pdf",
+    details: "Public posting of February 2026 financial statements for Plantation at Leesburg. This document is part of the statutory financial record series posted by the board. The file is image-based/scanned PDF on the WordPress media server.",
+    boardPosition: "The board maintains that monthly financials are published promptly on the website.",
+    statutes: [
+      { name: "F.S. § 720.303(6)", violation: "Accurate and timely financial reporting" }
+    ],
+    prompt: "Can the February financial statements be extracted and compared against the prior-year budget for material variances?"
   },
   {
     id: "spa-revenue-gap-2026",
