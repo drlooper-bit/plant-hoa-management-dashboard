@@ -1354,8 +1354,22 @@ C. Combined Total<br>
 
 const IRREGULARITIES = [
   {
+    id: "cca-membership-vote",
+    title: "[Priority: Top] Third Membership Vote on Capital Contribution Assessment (CCA)",
+    category: "governance",
+    severity: "critical",
+    source: "July 8, 2026 Board Meeting Resolution / F.S. § 720.306",
+    details: "The board has approved a motion (5-0) to hold a third community-wide vote on the Capital Contribution Assessment (CCA), to close by October 30, 2026, as a single-issue election. The CCA would charge a one-time fee to new home buyers at closing (equivalent to 6 months of assessments, estimated at $990 based on past dockets) to build HOA capital reserves. Current homeowners are exempt. If passed originally, it would have generated approximately $297,000 to date.",
+    boardPosition: "The board maintains that the CCA is critical for the long-term health of reserves without placing a financial burden on current residents. They point out that strong reserves support property values and reduce the likelihood of special assessments.",
+    statutes: [
+      { name: "F.S. § 720.306", violation: "Requirements for association meetings and member voting" },
+      { name: "Bylaws & Covenants", violation: "Covenant amendment procedures for fee structures" }
+    ],
+    prompt: "How will the board encourage voter turnout to exceed the previous elections, and what are the budget contingency plans if the CCA fails a third time?"
+  },
+  {
     id: "consolidated-balance-sheet-june-2026",
-    title: "[Added: July 15, 2026] June 2026 Consolidated Balance Sheet Review",
+    title: "[Priority: Top] June 2026 Consolidated Balance Sheet Review",
     category: "financial",
     severity: "high",
     source: "June 2026 Consolidated Balance Sheet (compiled 7-12-2026)",
@@ -1369,7 +1383,7 @@ const IRREGULARITIES = [
   },
   {
     id: "spa-revenue-gap-2026",
-    title: "[Added: July 15, 2026] January-March 2026 SPA Revenue Recognition Gap",
+    title: "January-March 2026 SPA Revenue Recognition Gap",
     category: "financial",
     severity: "critical",
     source: "Plantation_HOA_TownCrier_Allegations_Supplement.txt Post 1 & 6",
@@ -1382,7 +1396,7 @@ const IRREGULARITIES = [
   },
   {
     id: "cranes-roost-irrigation-repair",
-    title: "[Added: July 15, 2026] Cranes Roost Golf Course Irrigation System Repair",
+    title: "Cranes Roost Golf Course Irrigation System Repair",
     category: "financial",
     severity: "high",
     source: "plantation-governance-review-2026-06.txt Sec 10-11",
@@ -1395,7 +1409,7 @@ const IRREGULARITIES = [
   },
   {
     id: "golf-cash-flow-projection",
-    title: "[Added: July 15, 2026] 2025 Golf Course Cash Flow Projection Validation",
+    title: "2025 Golf Course Cash Flow Projection Validation",
     category: "financial",
     severity: "high",
     source: "plantation-governance-review-2026-06.txt Sec 2-3 / Allegations Supplement",
@@ -1408,7 +1422,7 @@ const IRREGULARITIES = [
   },
   {
     id: "audit-methodology-change",
-    title: "[Added: July 15, 2026] Audit Methodology Change Justification",
+    title: "Audit Methodology Change Justification",
     category: "financial",
     severity: "medium",
     source: "Plantation_HOA_TownCrier_Allegations_Supplement.txt Post 1",
@@ -1418,20 +1432,6 @@ const IRREGULARITIES = [
       { name: "F.S. § 720.303(6)", violation: "Consistent application of accounting principles in audited statements" }
     ],
     prompt: "What is the detailed justification for changing the SPA revenue recognition methodology, and did the independent CPA firm approve it?"
-  },
-  {
-    id: "cca-membership-vote",
-    title: "[Added: July 8, 2026] Third Membership Vote on Capital Contribution Assessment",
-    category: "governance",
-    severity: "high",
-    source: "July 8, 2026 Board Meeting Resolution / F.S. § 720.306",
-    details: "The board has approved a motion (5-0) to hold a third community-wide vote on the Capital Contribution Assessment (CCA), to close by October 30, 2026, as a single-issue election. The CCA would charge a one-time fee to new home buyers at closing (equivalent to 6 months of assessments, estimated at \$990 based on past dockets) to build HOA capital reserves. Current homeowners are exempt. If passed originally, it would have generated approximately \$297,000 to date.",
-    boardPosition: "The board maintains that the CCA is critical for the long-term health of reserves without placing a financial burden on current residents. They point out that strong reserves support property values and reduce the likelihood of special assessments.",
-    statutes: [
-      { name: "F.S. § 720.306", violation: "Requirements for association meetings and member voting" },
-      { name: "Bylaws & Covenants", violation: "Covenant amendment procedures for fee structures" }
-    ],
-    prompt: "How will the board encourage voter turnout to exceed the previous elections, and what are the budget contingency plans if the CCA fails a third time?"
   },
   {
     id: "precedent-notice",
@@ -1700,7 +1700,7 @@ const IRREGULARITIES = [
   },
   {
     id: "hoa-delinquency-recovery",
-    title: "[Added: July 8, 2026] HOA Delinquency & Past-Due Debt Reduction",
+    title: "HOA Delinquency & Past-Due Debt Reduction",
     category: "financial",
     severity: "medium",
     source: "June 2026 Board Meeting Disclosures / Past Due Dues Reports",
@@ -1714,7 +1714,7 @@ const IRREGULARITIES = [
 
   {
     id: "otter-creek-bridge",
-    title: "[Added: July 8, 2026] Otter Creek Bridge Structural Decay & CapEx",
+    title: "Otter Creek Bridge Structural Decay & CapEx",
     category: "financial",
     severity: "high",
     source: "July 8, 2026 Reserve Vote / Universal Engineering Orlando Inspection",
@@ -1724,8 +1724,7 @@ const IRREGULARITIES = [
       { name: "F.S. § 720.303(6)", violation: "Proper stewardship and maintenance of common areas" }
     ],
     prompt: "Will the final engineering assessment consider repair and shoring options instead of complete replacement, and how will the $95,000 expenditure impact reserve health?"
-  },
-];
+  },];
 
 // Prepopulated comments database to show diverse resident perspectives
 const INITIAL_COMMENTS = {
