@@ -783,7 +783,7 @@
         <div>Last Updated: <strong style="color: var(--accent);" id="last-updated-header"></strong></div>
         <div id="hit-counter" style="font-size: 11px; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px;">
           <span style="width: 6px; height: 6px; background: var(--ok); border-radius: 50%; display: inline-block;"></span>
-          Visits: <strong id="hit-count" style="color: var(--text);">182</strong>
+          Visits: <strong id="hit-count" style="color: var(--text);">426</strong>
         </div>
       </div>
     </div>
@@ -1309,7 +1309,7 @@ C. Combined Total<br>
         
         if (isNaN(parsed)) {
           console.warn("KeyValue returned non-numeric data, using static fallback.");
-          hitCountEl.textContent = "182";
+          hitCountEl.textContent = "426";
           return;
         }
 
@@ -1347,7 +1347,7 @@ C. Combined Total<br>
       })
       .catch(err => {
         console.warn("KeyValue API offline or blocked, using static fallback:", err);
-        hitCountEl.textContent = "182";
+        hitCountEl.textContent = "426";
       });
   }
 })();
@@ -2411,7 +2411,11 @@ function setLastUpdated() {
   const hdr = document.getElementById('last-updated-header');
   const disc = document.getElementById('last-updated-disclaimer');
   const label = 'Last Updated: ';
-  const d = new Date();
+  
+  // Use document.lastModified to automatically get the file's deploy/modify time
+  const lastMod = new Date(document.lastModified);
+  const d = isNaN(lastMod.getTime()) ? new Date() : lastMod;
+  
   const date = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   if (hdr) hdr.textContent = date;
   if (disc) disc.textContent = label + date;
