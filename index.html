@@ -1388,6 +1388,20 @@ C. Combined Total<br>
 
 const IRREGULARITIES = [
   {
+    id: "cca-membership-vote",
+    title: "[Priority: Top] Third Membership Vote on Capital Contribution Assessment (CCA)",
+    category: "governance",
+    severity: "critical",
+    source: "July 8, 2026 Board Meeting Resolution / F.S. § 720.306",
+    details: "The board has approved a motion (5-0) to hold a third community-wide vote on the Capital Contribution Assessment (CCA), to close by October 30, 2026, as a single-issue election. The CCA would charge a one-time fee to new home buyers at closing (equivalent to 6 months of assessments, estimated at $990 based on past dockets) to build HOA capital reserves. Current homeowners are exempt. If passed originally, it would have generated approximately $297,000 to date.",
+    boardPosition: "The board maintains that the CCA is critical for the long-term health of reserves without placing a financial burden on current residents. They point out that strong reserves support property values and reduce the likelihood of special assessments.",
+    statutes: [
+      { name: "F.S. § 720.306", violation: "Requirements for association meetings and member voting" },
+      { name: "Bylaws & Covenants", violation: "Covenant amendment procedures for fee structures" }
+    ],
+    prompt: "How will the board encourage voter turnout to exceed the previous elections, and what are the budget contingency plans if the CCA fails a third time?"
+  },
+  {
     id: "steves-restaurant-closure",
     title: "[Priority: Top] Restaurant Operator Transition & Temporary Closure",
     category: "litigation",
@@ -1427,20 +1441,6 @@ const IRREGULARITIES = [
       { name: "F.S. § 720.303(10)", violation: "Statutory procedures governing the recall of homeowners association directors" }
     ],
     prompt: "What is the board's strategy if a recall petition successfully gathers the required majority signatures, and how will they ensure a transparent certification process?"
-  },
-  {
-    id: "cca-membership-vote",
-    title: "[Priority: Top] Third Membership Vote on Capital Contribution Assessment (CCA)",
-    category: "governance",
-    severity: "critical",
-    source: "July 8, 2026 Board Meeting Resolution / F.S. § 720.306",
-    details: "The board has approved a motion (5-0) to hold a third community-wide vote on the Capital Contribution Assessment (CCA), to close by October 30, 2026, as a single-issue election. The CCA would charge a one-time fee to new home buyers at closing (equivalent to 6 months of assessments, estimated at $990 based on past dockets) to build HOA capital reserves. Current homeowners are exempt. If passed originally, it would have generated approximately $297,000 to date.",
-    boardPosition: "The board maintains that the CCA is critical for the long-term health of reserves without placing a financial burden on current residents. They point out that strong reserves support property values and reduce the likelihood of special assessments.",
-    statutes: [
-      { name: "F.S. § 720.306", violation: "Requirements for association meetings and member voting" },
-      { name: "Bylaws & Covenants", violation: "Covenant amendment procedures for fee structures" }
-    ],
-    prompt: "How will the board encourage voter turnout to exceed the previous elections, and what are the budget contingency plans if the CCA fails a third time?"
   },
   {
     id: "consolidated-balance-sheet-june-2026",
