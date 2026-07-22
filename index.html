@@ -2084,7 +2084,12 @@ function renderIrregularities(filter = "all", searchQuery = "") {
           <h3>${item.category === "litigation" ? "Forensic Context" : "The Irregularity"}</h3>
           <p>${escapeHtml(item.details)}</p>
           
-          <h3>${item.category === "litigation" ? "Florida Legal Standard" : "Official Board Explanation"}</h3>
+          ${item.category === "litigation" ? `
+          <h3>Florida Legal Standard</h3>
+          <p style="font-style: italic; color: var(--text-dim);">${escapeHtml(item.legalStandard || "")}</p>
+          ` : ""}
+          
+          <h3>${item.category === "litigation" ? "Board Response" : "Official Board Explanation"}</h3>
           <p style="font-style: italic; color: var(--text-dim);">${escapeHtml(item.boardPosition)}</p>
         </div>
         ${statutesHtml}
