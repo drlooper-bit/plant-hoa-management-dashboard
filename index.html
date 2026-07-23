@@ -810,7 +810,7 @@
         <div>Last Updated: <strong style="color: var(--accent);" id="last-updated-header"></strong></div>
         <div id="hit-counter" style="font-size: 11px; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px;">
           <span style="width: 6px; height: 6px; background: var(--ok); border-radius: 50%; display: inline-block;"></span>
-          Visits: <strong id="hit-count" style="color: var(--text);">423</strong>
+          Visits: <strong id="hit-count" style="color: var(--text);">610</strong>
         </div>
       </div>
     </div>
@@ -1468,7 +1468,7 @@ C. Combined Total<br>
         
         if (isNaN(parsed)) {
           console.warn("KeyValue returned non-numeric data, using static fallback.");
-          hitCountEl.textContent = "423";
+          hitCountEl.textContent = "610";
           return;
         }
 
@@ -1506,7 +1506,7 @@ C. Combined Total<br>
       })
       .catch(err => {
         console.warn("KeyValue API offline or blocked, using static fallback:", err);
-        hitCountEl.textContent = "423";
+        hitCountEl.textContent = "610";
       });
   }
 })();
