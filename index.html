@@ -2413,30 +2413,15 @@ window.toggleArchive = function(irregularityId) {
 const RECALL_STORAGE_KEY = 'plant_hoa_recall_poll_data_v2';
 const RECALL_USER_VOTE_KEY = 'plant_hoa_user_recall_vote_v2';
 
-let recallPollData = {
-  yes: 0,
-  no: 0
-};
+// Real-Time Cloud-Synchronized HOA Board Recall Poll Engine
+const RECALL_USER_VOTE_KEY = 'plant_hoa_user_recall_vote_v3';
+const RECALL_CACHE_KEY = 'plant_hoa_recall_cache_v1';
+const RECALL_APP_KEY = '2q7ohpt5';
 
-function loadRecallPollData() {
-  try {
-    const stored = localStorage.getItem(RECALL_STORAGE_KEY);
-    if (stored) {
-      recallPollData = JSON.parse(stored);
-    } else {
-      localStorage.setItem(RECALL_STORAGE_KEY, JSON.stringify(recallPollData));
-    }
-  } catch (e) {
-    console.warn("localStorage read error for recall poll", e);
-  }
-}
+let recallPollData = { yes: 0, no: 0 };
 
-function renderRecallPoll() {
-  loadRecallPollData();
-  const yesCount = recallPollData.yes || 0;
-  const noCount = recallPollData.no || 0;
+function updatePollUI(yesCount, noCount) {
   const total = yesCount + noCount;
-
   const yesPct = total > 0 ? ((yesCount / total) * 100).toFixed(1) : 0;
   const noPct = total > 0 ? ((noCount / total) * 100).toFixed(1) : 0;
 
@@ -2453,7 +2438,7 @@ function renderRecallPoll() {
   if (noStat) noStat.textContent = `${noPct}% (${noCount.toLocaleString()} votes)`;
   if (totalLabel) totalLabel.textContent = `Total Community Votes: ${total.toLocaleString()}`;
 
-  // Check if user already voted
+  // Check if user has already voted on this device
   try {
     const userVote = localStorage.getItem(RECALL_USER_VOTE_KEY);
     if (userVote && voteMsg) {
@@ -2461,16 +2446,61 @@ function renderRecallPoll() {
       voteMsg.style.background = "rgba(77, 171, 247, 0.12)";
       voteMsg.style.border = "1px solid rgba(77, 171, 247, 0.3)";
       voteMsg.style.color = "var(--accent)";
-      voteMsg.textContent = `Your vote (${userVote.toUpperCase()}) has been recorded. Thank you for participating!`;
+      voteMsg.textContent = `Your vote (${userVote.toUpperCase()}) has been recorded on the cloud. Thank you for participating!`;
     }
   } catch (e) {}
+}
+
+function renderRecallPoll() {
+  // 1. Load local cache first for instant rendering
+  try {
+    const cached = localStorage.getItem(RECALL_CACHE_KEY);
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      recallPollData.yes = parsed.yes || 0;
+      recallPollData.no = parsed.no || 0;
+    }
+  } catch (e) {}
+
+  updatePollUI(recallPollData.yes, recallPollData.no);
+
+  // 2. Fetch live cloud totals from KeyValue API
+  const getYesUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${RECALL_APP_KEY}/recall_yes_votes`;
+  const getNoUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${RECALL_APP_KEY}/recall_no_votes`;
+
+  Promise.all([
+    fetch(getYesUrl).then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch(getNoUrl).then(r => r.ok ? r.json() : null).catch(() => null)
+  ]).then(([yesData, noData]) => {
+    if (yesData !== null) {
+      const parsedYes = parseInt(String(yesData).replace(/"/g, '').trim(), 10);
+      if (!isNaN(parsedYes) && parsedYes >= 0) {
+        recallPollData.yes = Math.max(parsedYes, recallPollData.yes);
+      }
+    }
+    if (noData !== null) {
+      const parsedNo = parseInt(String(noData).replace(/"/g, '').trim(), 10);
+      if (!isNaN(parsedNo) && parsedNo >= 0) {
+        recallPollData.no = Math.max(parsedNo, recallPollData.no);
+      }
+    }
+
+    try {
+      localStorage.setItem(RECALL_CACHE_KEY, JSON.stringify(recallPollData));
+    } catch (e) {}
+
+    updatePollUI(recallPollData.yes, recallPollData.no);
+  }).catch(err => {
+    console.warn("Could not sync live poll totals from server:", err);
+  });
 }
 
 window.castRecallVote = function(option) {
   try {
     const existingVote = localStorage.getItem(RECALL_USER_VOTE_KEY);
+    const voteMsg = document.getElementById("recall-vote-msg");
+
     if (existingVote) {
-      const voteMsg = document.getElementById("recall-vote-msg");
       if (voteMsg) {
         voteMsg.style.display = "block";
         voteMsg.style.background = "rgba(255, 192, 72, 0.12)";
@@ -2481,15 +2511,42 @@ window.castRecallVote = function(option) {
       return;
     }
 
-    if (option === 'yes') {
-      recallPollData.yes += 1;
-    } else if (option === 'no') {
-      recallPollData.no += 1;
-    }
+    const keyName = option === 'yes' ? 'recall_yes_votes' : 'recall_no_votes';
+    const getUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${RECALL_APP_KEY}/${keyName}`;
 
-    localStorage.setItem(RECALL_STORAGE_KEY, JSON.stringify(recallPollData));
-    localStorage.setItem(RECALL_USER_VOTE_KEY, option);
-    renderRecallPoll();
+    fetch(getUrl)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        let currentServerCount = (option === 'yes' ? recallPollData.yes : recallPollData.no) || 0;
+        if (data !== null) {
+          const parsed = parseInt(String(data).replace(/"/g, '').trim(), 10);
+          if (!isNaN(parsed) && parsed >= 0) {
+            currentServerCount = Math.max(parsed, currentServerCount);
+          }
+        }
+
+        const newCount = currentServerCount + 1;
+        if (option === 'yes') recallPollData.yes = newCount;
+        else recallPollData.no = newCount;
+
+        localStorage.setItem(RECALL_USER_VOTE_KEY, option);
+        localStorage.setItem(RECALL_CACHE_KEY, JSON.stringify(recallPollData));
+        updatePollUI(recallPollData.yes, recallPollData.no);
+
+        const setUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${RECALL_APP_KEY}/${keyName}/${newCount}`;
+        fetch(setUrl, { method: 'POST' }).catch(err => {
+          console.warn("Cloud vote post error:", err);
+        });
+      })
+      .catch(err => {
+        console.warn("Error fetching server count before voting:", err);
+        if (option === 'yes') recallPollData.yes += 1;
+        else recallPollData.no += 1;
+        localStorage.setItem(RECALL_USER_VOTE_KEY, option);
+        localStorage.setItem(RECALL_CACHE_KEY, JSON.stringify(recallPollData));
+        updatePollUI(recallPollData.yes, recallPollData.no);
+      });
+
   } catch (e) {
     console.error("Error submitting recall vote:", e);
   }
