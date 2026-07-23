@@ -6,31 +6,44 @@
 <title>HOA Board Recall — Full Process Preview</title>
 <style>
   :root {
-    --bg: #0f1115;
-    --card-bg: #161b22;
-    --border-color: #30363d;
-    --text: #e6edf3;
-    --text-dim: #b1bac4;
-    --accent: #ffd279;
-    --danger: #ff6b6b;
-    --success: #4caf84;
-    --info: #79c0ff;
+    --primary: #1E40AF;
+    --secondary: #3B82F6;
+    --background: #F1F5F9;
+    --card-bg: #FFFFFF;
+    --text-primary: #1E293B;
+    --text-secondary: #64748B;
+    --success: #10B981;
+    --warning: #EF4444;
+    --border: #E2E8F0;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    padding: 20px;
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 24px;
     line-height: 1.6;
+    font-size: 17px;
   }
   .container { max-width: 960px; margin: 0 auto; }
-  .recall-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
+  h1, h2, h3, h4 { color: var(--primary); }
+  a { color: var(--primary); }
+  a:hover { color: var(--secondary); }
+  header {
+    background-color: var(--primary);
+    color: white;
+    padding: 18px 20px;
     border-radius: 12px;
-    padding: 24px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  .recall-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
   }
   .card-header {
     display: flex;
@@ -38,7 +51,7 @@
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
     gap: 10px;
   }
@@ -52,41 +65,36 @@
     letter-spacing: .4px;
   }
   .badge-critical {
-    background: rgba(255, 107, 107, 0.12);
-    color: var(--danger);
-    border: 1px solid rgba(255, 107, 107, 0.4);
+    background: #FEF2F2;
+    color: var(--warning);
+    border: 1px solid #F5C6C2;
   }
-  h3 {
-    font-size: 16px;
-    margin: 24px 0 12px;
-    color: var(--accent);
-  }
-  p { color: var(--text-dim); margin: 10px 0; }
-  strong { color: var(--text); }
-  .phase-list { margin: 16px 0; }
+  h3 { font-size: 16px; margin: 24px 0 12px; color: var(--primary); }
+  p { color: var(--text-secondary); margin: 10px 0; }
+  strong { color: var(--text-primary); }
   .phase-item {
     padding: 16px;
     margin-bottom: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border-left: 3px solid var(--accent);
+    background: var(--background);
+    border-left: 3px solid var(--primary);
     border-radius: 6px;
   }
-  .phase-item strong { display: block; margin-bottom: 6px; }
+  .phase-item strong { display: block; margin-bottom: 6px; color: var(--primary); }
   .vote-options label {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 10px 6px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid var(--border);
   }
   .vote-options label:last-child { border-bottom: none; }
   .volunteer-box {
     margin: 20px 0;
     padding: 16px;
-    background: rgba(255,255,255,0.04);
+    background: var(--card-bg);
     border-radius: 8px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
   }
   .volunteer-box label {
     display: flex;
@@ -94,42 +102,56 @@
     gap: 10px;
     cursor: pointer;
   }
-  #recall-submit {
+  .btn-primary {
     margin-top: 16px;
     padding: 12px 20px;
-    background: var(--accent);
-    color: #0f1115;
+    background: var(--primary);
+    color: white;
     border: 0;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 700;
     font-size: 14px;
   }
-  #recall-submit:hover { filter: saturate(1.15); }
-  #recall-submit:disabled {
-    opacity: .5;
-    cursor: not-allowed;
-    filter: none;
-  }
-  #recall-error {
-    color: var(--danger);
-    margin-top: 10px;
+  .btn-primary:hover { background: #1E3A8A; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: .5; cursor: not-allowed; filter: none; transform: none; }
+  .btn-primary-secondary {
+    padding: 10px 16px;
+    background: var(--card-bg);
+    color: var(--primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
     font-size: 13px;
   }
+  .btn-primary-secondary:hover { border-color: var(--secondary); color: var(--secondary); }
+  .btn-danger {
+    padding: 6px 10px;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .btn-danger:hover { border-color: var(--warning); color: var(--warning); }
+  #recall-error { color: var(--warning); margin-top: 10px; font-size: 13px; }
   #recall-thankyou {
     padding: 20px;
-    background: rgba(76, 175, 132, 0.1);
-    border: 1px solid rgba(76, 175, 132, 0.4);
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
     border-radius: 8px;
     margin-bottom: 20px;
     font-weight: 600;
+    color: #065F46;
   }
   #recall-totals {
     margin-top: 30px;
     padding: 20px;
-    background: rgba(255,255,255,0.03);
+    background: var(--background);
     border-radius: 8px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
   }
   .totals-grid {
     display: grid;
@@ -142,45 +164,33 @@
     font-size: 22px;
     display: block;
     margin-bottom: 4px;
-    color: var(--accent);
+    color: var(--primary);
   }
   .disclaimer {
-    color: #bd8181;
+    color: #7f3434;
     font-style: italic;
     padding: 16px;
-    background: rgba(255, 107, 107, 0.06);
-    border-left: 3px solid var(--danger);
+    background: #FEF2F2;
+    border-left: 5px solid var(--warning);
     border-radius: 6px;
   }
-  .workflow-section {
-    margin-top: 24px;
-    padding: 20px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-  }
+  .workflow-section { margin-top: 24px; padding: 20px; background: var(--background); border-radius: 8px; border: 1px solid var(--border); }
   .workflow-section h3 { margin-top: 0; }
-  .step-list {
-    list-style: none;
-    padding: 0;
-    margin: 12px 0;
-  }
+  .step-list { list-style: none; padding: 0; margin: 12px 0; }
   .step-list li {
     padding: 10px 0 10px 30px;
     position: relative;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
   }
   .step-list li:last-child { border-bottom: none; }
   .step-list li::before {
     content: attr(data-step);
     position: absolute;
-    left: 0;
-    top: 10px;
-    width: 22px;
-    height: 22px;
-    background: var(--accent);
-    color: #0f1115;
+    left: 0; top: 10px;
+    width: 22px; height: 22px;
+    background: var(--primary);
+    color: white;
     border-radius: 50%;
     font-size: 11px;
     font-weight: 700;
@@ -191,20 +201,19 @@
   .envelope-diagram {
     margin: 16px 0;
     padding: 20px;
-    background: rgba(255,255,255,0.03);
+    background: var(--background);
     border-radius: 8px;
     text-align: center;
-    border: 1px dashed var(--border-color);
+    border: 1px dashed var(--border);
   }
   .envelope {
     display: inline-block;
-    width: 140px;
-    height: 90px;
+    width: 140px; height: 90px;
     background: #f5f0e6;
     border-radius: 4px;
     position: relative;
     margin: 8px;
-    box-shadow: 0 3px 8px rgba(0,0,0,.35);
+    box-shadow: 0 3px 8px rgba(0,0,0,.25);
   }
   .envelope::after {
     content: '';
@@ -212,7 +221,7 @@
     top: 0; left: 0; right: 0;
     height: 45%;
     background: #e8e0cc;
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    clip-path: polygon(0 0,100% 0,50% 100%);
     border-radius: 4px 4px 0 0;
   }
   .envelope-label {
@@ -228,90 +237,66 @@
     letter-spacing: 2px;
     z-index: 1;
   }
-  .security-grid {
+  .security-grid, .blind-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 10px;
     margin: 12px 0;
   }
-  .security-item {
+  .security-item, .blind-item {
     padding: 12px;
-    background: rgba(255,255,255,0.03);
+    background: var(--background);
     border-radius: 6px;
-    border-left: 2px solid var(--success);
+    border-left: 2px solid var(--primary);
   }
-  .blind-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 10px;
-    margin: 12px 0;
-  }
-  .blind-item {
-    padding: 12px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 6px;
-    border-left: 2px solid var(--info);
-  }
-  .section-divider {
-    border: 0;
-    border-top: 1px solid var(--border-color);
-    margin: 30px 0;
-  }
+  .blind-item { border-left-color: var(--secondary); }
+  .section-divider { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
   .notes-box {
     margin-top: 18px;
     padding: 14px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border-color);
+    background: var(--background);
+    border: 1px solid var(--border);
     border-radius: 8px;
   }
-  .notes-box input,
-  .notes-box textarea {
+  .notes-box input, .notes-box textarea {
     width: 100%;
     padding: 10px 12px;
-    background: var(--bg);
-    border: 1px solid var(--border-color);
-    color: var(--text);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
     border-radius: 6px;
     font-family: inherit;
     font-size: 13px;
   }
   .notes-box textarea { resize: vertical; min-height: 80px; }
-  .notes-list {
-    margin-top: 12px;
-    display: grid;
-    gap: 10px;
-  }
+  .notes-list { margin-top: 12px; display: grid; gap: 10px; }
   .note-card {
     padding: 12px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 8px;
   }
   .note-meta {
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    color: var(--text-dim);
+    color: var(--text-secondary);
     font-size: 12px;
     margin-bottom: 6px;
   }
-  .note-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 8px;
-  }
+  .note-actions { display: flex; gap: 10px; margin-top: 8px; }
   .ghost-btn {
     background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-dim);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
     padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 12px;
   }
-  .ghost-btn:hover { border-color: var(--accent); color: var(--text); }
-  .ghost-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
-  @media (max-width: 600px) {
+  .ghost-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .ghost-btn.danger:hover { border-color: var(--warning); color: var(--warning); }
+  @media (max-width: 640px) {
     .totals-grid { grid-template-columns: 1fr; }
     .security-grid, .blind-grid { grid-template-columns: 1fr; }
     .card-header { flex-direction: column; align-items: flex-start; }
@@ -320,105 +305,73 @@
 </head>
 <body>
   <div class="container">
-
-    <!-- HEADER -->
-    <div class="recall-card">
-      <div class="card-header">
-        <h2>Why a Recall of the Current HOA Board Is Necessary</h2>
+    <header>
+      <div class="card-header" style="border-bottom:0; padding-bottom:0; margin-bottom:0;">
+        <h2 style="color:white; margin:0;">Why a Recall of the Current HOA Board Is Necessary</h2>
         <span class="badge badge-critical">Active Process</span>
       </div>
+    </header>
 
+    <div class="recall-card">
       <p>Homeowners at The Plantation at Leesburg deserve transparent, accountable, and competent leadership — especially when our financial security and community standards are at stake.</p>
-
       <p>According to the data and documentation presented on this HOA Irregularities Hub:</p>
-
       <p><strong>Reserve Fund Discrepancies:</strong> Bank statements reveal a $135,000 decrease in reserves, while the board claimed a $70,000 increase. This contradiction raises serious questions about financial reporting and stewardship. The board inherited reserves at a critically low 12% adequacy level, leaving the community vulnerable to future special assessments.</p>
-
       <p><strong>Active Litigation Risks:</strong> The association faces two ongoing lawsuits (Fredericks and Frisillo matters) related to special assessments, exposing homeowners to potential uninsured financial liabilities.</p>
-
       <p><strong>Persistent Compliance Issues:</strong> There are currently 9 unresolved red flags involving statutory compliance and ledger irregularities that have not been adequately addressed.</p>
-
       <p><strong>Operational and Regulatory Concerns:</strong> Reports indicate that Steve’s Bar and Grill operated using the HOA’s liquor license in what appears to be an illegal manner, suggesting inadequate oversight and potential misuse of association resources.</p>
-
       <p><strong>Recent Leadership Failure:</strong> On July 17, 2026, HOA Vice President Gerald Tucker was arrested and charged with five counts of aggravated battery with a deadly weapon following an incident in our community. The board has allowed him to remain in his position, raising profound concerns about judgment, safety, and accountability.</p>
-
       <p>Taken together, these issues demonstrate a clear and ongoing pattern of poor governance, lack of transparency, and failure to protect homeowner interests. Under Florida Statute § 720.303(10), we have the right to recall board members with or without cause when such failures occur.</p>
-
       <p>This dashboard serves as a central resource to document these concerns, gauge community support, and organize a responsible transition to new leadership that prioritizes fiscal responsibility, compliance, and the best interests of our 2,820-home community.</p>
     </div>
 
-    <!-- TRANSITION PLAN -->
     <div class="recall-card">
       <h3>📋 The Step-by-Step Transition Plan</h3>
       <p>We are following a careful, phased approach based on the statute and official guidance:</p>
-
-      <div class="phase-list">
-        <div class="phase-item">
-          <strong>Phase 1: Digital Straw Poll (Current Phase)</strong>
-          <p>Tracking resident interest here on the dashboard. No physical ballots or formal action will begin until we confirm sufficient support. One-time voting codes will be supplied to each resident via a sealed envelope containing their unique code, distributed by the village captain volunteer.</p>
-        </div>
-        <div class="phase-item">
-          <strong>Phase 2: Volunteer & Block Captain Organization (30 days)</strong>
-          <p>For a community of 2,820 homes, a successful recall requires at least 1,411 valid signatures (a majority). Over the next 30 days we will recruit block captains and confirm household coverage so that Phase 3 can launch with full distribution capacity.</p>
-        </div>
-        <div class="phase-item">
-          <strong>Phase 3: 120-Day Signature Collection</strong>
-          <p>Once launched, we will circulate legally compliant Written Recall Agreements (using forms aligned with DBPR guidelines). Ballots must be properly completed and signed by authorized parcel owners (voting certificates may be required in some cases).</p>
-        </div>
-        <div class="phase-item">
-          <strong>Phase 4: Official Statutory Service</strong>
-          <p>Completed agreements will be served on the board (typically via process server or certified mail to the president, secretary, or registered agent). The board then has exactly 5 full business days to hold a meeting and decide whether to certify the recall. If they reject it, they must promptly file for arbitration with the Division of Florida Condominiums, Timeshares, and Mobile Homes. Recalled directors must turn over records promptly.</p>
-        </div>
+      <div class="phase-item">
+        <strong>Phase 1: Digital Straw Poll (Current Phase)</strong>
+        <p>Tracking resident interest here on the dashboard. No physical ballots or formal action will begin until we confirm sufficient support. One-time voting codes will be supplied to each resident via a sealed envelope containing their unique code, distributed by the village captain volunteer.</p>
+      </div>
+      <div class="phase-item">
+        <strong>Phase 2: Volunteer & Block Captain Organization (30 days)</strong>
+        <p>For a community of 2,820 homes, a successful recall requires at least 1,411 valid signatures. Over the next 30 days we will recruit block captains and confirm household coverage so that Phase 3 can launch with full distribution capacity.</p>
+      </div>
+      <div class="phase-item">
+        <strong>Phase 3: 120-Day Signature Collection</strong>
+        <p>Once launched, we will circulate legally compliant Written Recall Agreements aligned with DBPR guidelines. Ballots must be properly completed and signed by authorized parcel owners.</p>
+      </div>
+      <div class="phase-item">
+        <strong>Phase 4: Official Statutory Service</strong>
+        <p>Completed agreements will be served on the board. The board has exactly 5 full business days to certify the recall. If rejected, they must promptly file for arbitration with the Division of Florida Condominiums, Timeshares, and Mobile Homes.</p>
       </div>
     </div>
 
-    <!-- STRAW POLL -->
     <div class="recall-card">
       <h3>🗳️ Cast Your Vote: Community Straw Poll</h3>
       <p>Your input on this informal dashboard helps us understand community alignment. This does not constitute an official statutory ballot. To participate, enter the unique code you received from your village captain inside your sealed envelope.</p>
-
       <div id="recall-vote-area">
-        <div id="recall-thankyou" style="display:none;">
-          Thank you. Your vote has been recorded. Please do not vote again.
-        </div>
-
+        <div id="recall-thankyou" style="display:none;">Thank you. Your vote has been recorded. Please do not vote again.</div>
         <div id="recall-form-area">
-          <div style="margin: 16px 0; padding: 14px; background: rgba(255,255,255,0.04); border-radius: 8px; border: 1px solid var(--border-color);">
-            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--text);">Your voting code</label>
-            <input type="text" id="recall-code" placeholder="Enter 8-character code" autocomplete="off" style="
-              width: 100%;
-              padding: 12px;
-              background: rgba(0,0,0,0.3);
-              border: 1px solid var(--border-color);
-              border-radius: 6px;
-              color: var(--text);
-              font-family: 'Courier New', monospace;
-              font-size: 16px;
-              letter-spacing: 3px;
-              text-transform: uppercase;
-            ">
-            <p style="font-size: 12px; margin-top: 6px; color: var(--text-dim);">This code is unique to your household. It does not identify you personally.</p>
+          <div style="margin: 16px 0; padding: 14px; background: var(--background); border-radius: 8px; border: 1px solid var(--border);">
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Your voting code</label>
+            <input type="text" id="recall-code" placeholder="Enter 8-character code" autocomplete="off" style="width: 100%; padding: 12px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); font-family: 'Courier New', monospace; font-size: 16px; letter-spacing: 3px; text-transform: uppercase;">
+            <p style="font-size: 12px; margin-top: 6px; color: var(--text-secondary);">This code is unique to your household. It does not identify you personally.</p>
           </div>
-
           <p style="margin-top: 16px;"><strong>Select your position:</strong></p>
           <div class="vote-options">
             <label><input type="radio" name="recall-vote" value="YES"> <strong>YES</strong> – I support initiating a formal written recall process to replace current board leadership.</label>
             <label><input type="radio" name="recall-vote" value="NO"> <strong>NO</strong> – I prefer to maintain the current board until the standard December annual election.</label>
             <label><input type="radio" name="recall-vote" value="UNDECIDED"> <strong>UNDECIDED</strong> – I want more detailed financial information and a clear slate of potential replacement candidates first.</label>
           </div>
-
           <div class="volunteer-box">
             <label>
               <input type="checkbox" id="recall-volunteer">
               <span>I am willing to serve as a block captain or volunteer to help distribute and collect official legal materials in my area.</span>
             </label>
           </div>
-
-          <button type="button" id="recall-submit">Submit</button>
+          <button type="button" id="recall-submit" class="btn-primary">Submit</button>
           <p id="recall-error" style="display: none;"></p>
         </div>
       </div>
-
       <div id="recall-totals">
         <h3>Live Results</h3>
         <p><em>Tallies will appear here once voting begins.</em></p>
@@ -428,40 +381,34 @@
           <div><strong id="t-undecided">0</strong>UNDECIDED</div>
         </div>
       </div>
+    </div>
 
+    <div class="recall-card">
       <h3>📝 Notes</h3>
       <p>Add public notes or comments related to this recall effort.</p>
       <div class="notes-box">
         <input type="text" id="note-author" placeholder="Your name / village (can leave blank)">
         <textarea id="note-text" placeholder="Share an observation, question, or update relevant to the recall process."></textarea>
         <div style="margin-top: 10px; display: flex; gap: 10px;">
-          <button id="note-submit" type="button">Add Note</button>
-          <span id="note-status" style="font-size: 12px; color: var(--text-dim);"></span>
+          <button id="note-submit" type="button" class="btn-primary-secondary">Add Note</button>
+          <span id="note-status" style="font-size: 12px; color: var(--text-secondary);"></span>
         </div>
         <div id="notes-out" class="notes-list"></div>
       </div>
     </div>
 
-    <!-- DISCLAIMER -->
     <div class="recall-card">
       <h3>⚠️ Important Legal Disclaimer</h3>
       <p class="disclaimer">This dashboard is an independent community communication platform run by homeowners. It is intended solely as an informal straw poll and planning tool. Responses here do not count as formal votes under Florida Statute Chapter 720. Any official recall will use only physical, properly executed Written Recall Agreements as required by law. We encourage all residents to review the statute and governing documents directly. This communication does not constitute legal advice.</p>
     </div>
 
-    <hr class="section-divider">
-
-    <!-- ENVELOPE PROCESS -->
     <div class="recall-card">
       <h3>📨 How Your Voting Code Was Delivered</h3>
       <p>Each household received one sealed envelope from their village captain. Every envelope looks identical — none are marked by address or household. Inside is a unique code that identifies your household for this straw poll without revealing your identity.</p>
-
       <div class="envelope-diagram">
-        <div class="envelope">
-          <div class="envelope-label">CODE</div>
-        </div>
-        <p style="margin-top: 12px; font-size: 13px; color: var(--text-dim);">Identical exterior — unique code inside</p>
+        <div class="envelope"><div class="envelope-label">CODE</div></div>
+        <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Identical exterior — unique code inside</p>
       </div>
-
       <div class="workflow-section">
         <h3>Distribution Workflow for Village Captains</h3>
         <ol class="step-list">
@@ -474,7 +421,6 @@
       </div>
     </div>
 
-    <!-- SECURITY -->
     <div class="recall-card">
       <h3>🔒 Security Properties</h3>
       <div class="security-grid">
@@ -487,7 +433,6 @@
         <div class="security-item"><strong>Leak containment</strong><br>If a code is exposed, only that one household’s vote is affected.</div>
         <div class="security-item"><strong>Per-browser dedup</strong><br>localStorage prevents repeat submissions from the same browser.</div>
       </div>
-
       <h3 style="margin-top: 20px;">🕵️ What Stays Unknown to the System</h3>
       <div class="blind-grid">
         <div class="blind-item">Which code belongs to which parcel</div>
@@ -497,124 +442,68 @@
     </div>
 
   </div>
-
-<script>
-  const VOTE_STORAGE_KEY = 'plant_hoa_recall_voted';
-  const NOTE_STORAGE_KEY = 'plant_hoa_recall_notes';
-  const SUBMIT = document.getElementById('recall-submit');
-  const ERROR = document.getElementById('recall-error');
-  const THANKS = document.getElementById('recall-thankyou');
-  const FORM = document.getElementById('recall-form-area');
-
-  function updateTotals(data) {
-    document.getElementById('t-yes').textContent = data.YES || 0;
-    document.getElementById('t-no').textContent = data.NO || 0;
-    document.getElementById('t-undecided').textContent = data.UNDECIDED || 0;
-  }
-
-  const localTotals = { YES: 0, NO: 0, UNDECIDED: 0 };
-  updateTotals(localTotals);
-
-  SUBMIT.addEventListener('click', () => {
-    const code = document.getElementById('recall-code').value.trim().toUpperCase();
-    const selected = document.querySelector('input[name="recall-vote"]:checked');
-    const volunteer = document.getElementById('recall-volunteer').checked;
-
-    ERROR.style.display = 'none';
-
-    if (!code || code.length < 4) {
-      ERROR.textContent = 'Please enter your voting code.';
-      ERROR.style.display = 'block';
-      return;
-    }
-    if (!selected) {
-      ERROR.textContent = 'Please select YES, NO, or UNDECIDED.';
-      ERROR.style.display = 'block';
-      return;
-    }
-
-    if (localStorage.getItem(VOTE_STORAGE_KEY)) {
-      THANKS.style.display = 'block';
-      FORM.style.display = 'none';
-      return;
-    }
-
-    localStorage.setItem(VOTE_STORAGE_KEY, JSON.stringify({ vote: selected.value, volunteer, ts: Date.now() }));
-    localTotals[selected.value] = (localTotals[selected.value] || 0) + 1;
-    updateTotals(localTotals);
-
-    THANKS.style.display = 'block';
-    FORM.style.display = 'none';
-  });
-
-  function escapeHtml(text) {
-    return text.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-  }
-
-  function loadRecallNotes() {
-    const out = document.getElementById('notes-out');
-    const notes = JSON.parse(localStorage.getItem(NOTE_STORAGE_KEY) || '[]');
-    if (!notes.length) {
-      out.innerHTML = '<div style="color: var(--text-muted); font-style: italic;">No notes yet.</div>';
-      return;
-    }
-    const likeKey = 'recall_note_likes';
-    const liked = JSON.parse(localStorage.getItem(likeKey) || '[]');
-    out.innerHTML = notes.map((n, i) => `
-      <div class="note-card">
-        <div class="note-meta"><span>${escapeHtml(n.author || 'Anonymous')}</span><span>${escapeHtml(n.date)}</span></div>
-        <p style="margin:0; color: var(--text-dim);">${escapeHtml(n.text)}</p>
-        <div class="note-actions">
-          <button class="ghost-btn" onclick="toggleRecallLike(${i}, this)" ${liked.includes(i) ? 'disabled' : ''}>${liked.includes(i) ? 'Liked' : 'Like'}</button>
-          <span class="like-count" style="color: var(--text-muted); font-size: 12px;">${n.likes || 0} likes</span>
-          <button class="ghost-btn danger" onclick="deleteRecallNote(${i})">Delete</button>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  window.toggleRecallLike = function(index, btn) {
-    const notes = JSON.parse(localStorage.getItem(NOTE_STORAGE_KEY) || '[]');
-    const likeKey = 'recall_note_likes';
-    const liked = JSON.parse(localStorage.getItem(likeKey) || '[]');
-    if (liked.includes(index)) return;
-    liked.push(index);
-    localStorage.setItem(likeKey, JSON.stringify(liked));
-    notes[index].likes = (notes[index].likes || 0) + 1;
-    localStorage.setItem(NOTE_STORAGE_KEY, JSON.stringify(notes));
-    loadRecallNotes();
-  };
-
-  window.deleteRecallNote = function(index) {
-    if (!confirm('Delete this note?')) return;
-    const notes = JSON.parse(localStorage.getItem(NOTE_STORAGE_KEY) || '[]');
-    notes.splice(index, 1);
-    localStorage.setItem(NOTE_STORAGE_KEY, JSON.stringify(notes));
-    loadRecallNotes();
-  };
-
-  document.getElementById('note-submit').addEventListener('click', () => {
-    const author = document.getElementById('note-author').value.trim();
-    const text = document.getElementById('note-text').value.trim();
-    const status = document.getElementById('note-status');
-    if (!text) {
-      status.textContent = 'Please enter a note.';
-      status.style.color = 'var(--danger)';
-      return;
-    }
-    const notes = JSON.parse(localStorage.getItem(NOTE_STORAGE_KEY) || '[]');
-    const now = new Date();
-    const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-    notes.unshift({ author: author || 'Anonymous', text, date: dateStr, likes: 0 });
-    localStorage.setItem(NOTE_STORAGE_KEY, JSON.stringify(notes));
-    document.getElementById('note-author').value = '';
-    document.getElementById('note-text').value = '';
-    status.textContent = 'Note saved.';
-    status.style.color = 'var(--success)';
-    loadRecallNotes();
-  });
-
-  loadRecallNotes();
-</script>
+  <script>
+    function $(id){return document.getElementById(id);}
+    function escapeHtml(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    window.submitRecallNote = function(){
+      var authorEl = $('note-author'), textEl = $('note-text'), status = $('note-status');
+      var author = authorEl ? authorEl.value.trim() : '';
+      var text = textEl ? textEl.value.trim() : '';
+      if (!text) { status.textContent = 'Please enter a note.'; status.style.color = 'var(--warning)'; return; }
+      var notes = JSON.parse(localStorage.getItem('plant_hoa_recall_notes') || '[]');
+      var now = new Date();
+      var dateStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+      notes.unshift({ author: author || 'Anonymous', text: text, date: dateStr, likes: 0 });
+      localStorage.setItem('plant_hoa_recall_notes', JSON.stringify(notes));
+      if (authorEl) authorEl.value = '';
+      if (textEl) textEl.value = '';
+      status.textContent = 'Note saved.';
+      status.style.color = 'var(--success)';
+      window.loadRecallNotes();
+    };
+    window.loadRecallNotes = function(){
+      var out = $('notes-out');
+      if (!out) return;
+      var notes = JSON.parse(localStorage.getItem('plant_hoa_recall_notes') || '[]');
+      var likeKey = 'recall_note_likes';
+      var liked = JSON.parse(localStorage.getItem(likeKey) || '[]');
+      if (!notes.length) { out.innerHTML = "<div style='color: var(--text-secondary); font-style: italic;'>No notes yet.</div>"; return; }
+      out.innerHTML = notes.map(function(n, i){
+        var isLiked = liked.includes(i);
+        return '<div class="note-card"><div class="note-meta"><span>' + escapeHtml(n.author || 'Anonymous') + '</span><span>' + escapeHtml(n.date) + '</span></div><p style="margin:0; color: var(--text-secondary);">' + escapeHtml(n.text) + '</p><div class="note-actions"><button class="ghost-btn" onclick="window.toggleRecallLike(' + i + ', this)" ' + (isLiked ? 'disabled' : '') + '>' + (isLiked ? 'Liked' : 'Like') + '</button><span class="like-count" style="color: var(--text-secondary); font-size: 12px;">' + (n.likes || 0) + ' likes</span><button class="btn-danger" onclick="window.deleteRecallNote(' + i + ')">Delete</button></div></div>';
+      }).join('');
+    };
+    window.toggleRecallLike = function(index){
+      var notes = JSON.parse(localStorage.getItem('plant_hoa_recall_notes') || '[]');
+      var liked = JSON.parse(localStorage.getItem('recall_note_likes') || '[]');
+      if (liked.includes(index)) return;
+      liked.push(index);
+      localStorage.setItem('recall_note_likes', JSON.stringify(liked));
+      notes[index].likes = (notes[index].likes || 0) + 1;
+      localStorage.setItem('plant_hoa_recall_notes', JSON.stringify(notes));
+      window.loadRecallNotes();
+    };
+    window.deleteRecallNote = function(index){
+      if (!confirm('Delete this note?')) return;
+      var notes = JSON.parse(localStorage.getItem('plant_hoa_recall_notes') || '[]');
+      notes.splice(index, 1);
+      localStorage.setItem('plant_hoa_recall_notes', JSON.stringify(notes));
+      window.loadRecallNotes();
+    };
+    $('note-submit').addEventListener('click', window.submitRecallNote);
+    $('recall-submit').addEventListener('click', function(){
+      var code = $('recall-code').value.trim().toUpperCase();
+      var selected = document.querySelector('input[name="recall-vote"]:checked');
+      var error = $('recall-error');
+      if (!code || code.length < 4) { error.textContent = 'Please enter your voting code.'; error.style.display = 'block'; return; }
+      if (!selected) { error.textContent = 'Please select YES, NO, or UNDECIDED.'; error.style.display = 'block'; return; }
+      error.style.display = 'none';
+      if (localStorage.getItem('plant_hoa_recall_voted')) { $('recall-thankyou').style.display = 'block'; $('recall-form-area').style.display = 'none'; return; }
+      localStorage.setItem('plant_hoa_recall_voted', JSON.stringify({ vote: selected.value, volunteer: !!$('recall-volunteer').checked, ts: Date.now() }));
+      $('recall-thankyou').style.display = 'block';
+      $('recall-form-area').style.display = 'none';
+    });
+    window.loadRecallNotes();
+  </script>
 </body>
 </html>
