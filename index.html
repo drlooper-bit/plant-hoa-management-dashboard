@@ -810,7 +810,7 @@
         <div>Last Updated: <strong style="color: var(--accent);" id="last-updated-header"></strong></div>
         <div id="hit-counter" style="font-size: 11px; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px;">
           <span style="width: 6px; height: 6px; background: var(--ok); border-radius: 50%; display: inline-block;"></span>
-          Visits: <strong id="hit-count" style="color: var(--text);">610</strong>
+          Visits: <strong id="hit-count" style="color: var(--text);">616</strong>
         </div>
       </div>
     </div>
@@ -1423,93 +1423,8 @@ C. Combined Total<br>
   </footer>
 </div>
 
+<script src="hit-counter.js"></script>
 <script>
-
-// Fetch and display hit count (new visitors only)
-(function() {
-  const hitCountEl = document.getElementById("hit-count");
-  if (hitCountEl) {
-    const storageKey = "has_visited_plant_hoa_dashboard";
-    let hasVisited = false;
-
-    // Check localStorage
-    try {
-      if (localStorage.getItem(storageKey)) {
-        hasVisited = true;
-      }
-    } catch (e) {
-      console.warn("localStorage accessibility error:", e);
-    }
-
-    // Check Cookie fallback
-    if (!hasVisited) {
-      try {
-        if (document.cookie.split(';').some((item) => item.trim().startsWith(storageKey + '='))) {
-          hasVisited = true;
-        }
-      } catch (e) {
-        console.warn("Cookie accessibility error:", e);
-      }
-    }
-
-    const appKey = "2q7ohpt5";
-    const getUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/${appKey}/visits`;
-
-    fetch(getUrl)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error("HTTP error " + res.status);
-        }
-        return res.json();
-      })
-      .then(data => {
-        const cleaned = String(data).replace(/"/g, '').trim();
-        const parsed = parseInt(cleaned);
-        
-        if (isNaN(parsed)) {
-          console.warn("KeyValue returned non-numeric data, using static fallback.");
-          hitCountEl.textContent = "610";
-          return;
-        }
-
-        let count = parsed;
-
-        if (!hasVisited) {
-          const newCount = count + 1;
-          const setUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${appKey}/visits/${newCount}`;
-          
-          fetch(setUrl, {
-            method: 'POST',
-            headers: { 'Content-Length': '0' }
-          })
-            .then(updateRes => {
-              if (updateRes.ok) {
-                hitCountEl.textContent = newCount.toLocaleString();
-                try {
-                  localStorage.setItem(storageKey, "true");
-                } catch (e) {}
-                try {
-                  const expires = new Date();
-                  expires.setFullYear(expires.getFullYear() + 1);
-                  document.cookie = `${storageKey}=true; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
-                } catch (e) {}
-              } else {
-                hitCountEl.textContent = count.toLocaleString();
-              }
-            })
-            .catch(() => {
-              hitCountEl.textContent = count.toLocaleString();
-            });
-        } else {
-          hitCountEl.textContent = count.toLocaleString();
-        }
-      })
-      .catch(err => {
-        console.warn("KeyValue API offline or blocked, using static fallback:", err);
-        hitCountEl.textContent = "610";
-      });
-  }
-})();
 
 const IRREGULARITIES = [
   {
