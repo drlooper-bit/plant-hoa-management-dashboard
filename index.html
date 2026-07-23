@@ -257,7 +257,7 @@
     font-size: 18px;
     font-weight: 700;
     margin: 0;
-    color: #fff;
+    color: var(--text);
   }
   .title-area .source-tag {
     font-size: 11.5px;
@@ -370,7 +370,7 @@
     margin: 0;
     font-size: 13.5px;
     font-weight: 500;
-    color: #fff;
+    color: var(--text);
   }
 
   /* Forum Comments / Notes Section */
@@ -473,7 +473,7 @@
   }
   .comment-author {
     font-weight: 600;
-    color: #fff;
+    color: var(--text);
     font-size: 12.5px;
   }
   .comment-stance {
@@ -766,7 +766,7 @@
   }
   .notes-content h4 {
     margin: 12px 0 6px 0;
-    color: #fff;
+    color: var(--text);
     font-size: 13px;
   }
   .notes-content h4:first-of-type {
@@ -1337,7 +1337,7 @@ C. Combined Total<br>
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 16px;">
           <div>
             <span style="background: rgba(255, 107, 107, 0.15); color: var(--err); border: 1px solid rgba(255, 107, 107, 0.3); font-size: 10.5px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 12px; letter-spacing: 0.05em;">Community Vote</span>
-            <h3 style="font-family: var(--font-heading); font-size: 20px; margin: 10px 0 0 0; color: #ffffff;">
+            <h3 style="font-family: var(--font-heading); font-size: 20px; margin: 10px 0 0 0; color: var(--text);">
               Should we recall the HOA Board completely?
             </h3>
           </div>
@@ -1349,10 +1349,10 @@ C. Combined Total<br>
 
         <!-- Voting Options Buttons -->
         <div id="recall-vote-actions" style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
-          <button type="button" onclick="castRecallVote('yes')" style="flex: 1; min-width: 200px; padding: 14px 20px; background: rgba(255, 107, 107, 0.12); border: 2px solid var(--err); border-radius: 10px; color: #ffffff; font-family: var(--font-heading); font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;">
+          <button type="button" onclick="castRecallVote('yes')" style="flex: 1; min-width: 200px; padding: 14px 20px; background: rgba(255, 107, 107, 0.12); border: 2px solid var(--err); border-radius: 10px; color: var(--err); font-family: var(--font-heading); font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;">
             <span>👍 YES — Recall the Board</span>
           </button>
-          <button type="button" onclick="castRecallVote('no')" style="flex: 1; min-width: 200px; padding: 14px 20px; background: rgba(121, 210, 166, 0.12); border: 2px solid var(--ok); border-radius: 10px; color: #ffffff; font-family: var(--font-heading); font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;">
+          <button type="button" onclick="castRecallVote('no')" style="flex: 1; min-width: 200px; padding: 14px 20px; background: rgba(121, 210, 166, 0.12); border: 2px solid var(--ok); border-radius: 10px; color: #065F46; font-family: var(--font-heading); font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;">
             <span>👎 NO — Keep Current Board</span>
           </button>
         </div>
@@ -1371,7 +1371,7 @@ C. Combined Total<br>
           <div style="margin-bottom: 16px;">
             <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
               <span style="color: var(--err); font-weight: 600;">YES — Recall Board</span>
-              <span style="font-weight: 700; color: #ffffff;" id="recall-yes-stat">0% (0 votes)</span>
+              <span style="font-weight: 700; color: var(--text);" id="recall-yes-stat">0% (0 votes)</span>
             </div>
             <div style="width: 100%; height: 16px; background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; border: 1px solid var(--border);">
               <div id="recall-yes-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #ff6b6b, #ff8787); transition: width 0.4s ease;"></div>
