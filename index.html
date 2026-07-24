@@ -2317,21 +2317,22 @@ window.toggleReplyLike = function(replyKey, buttonEl) {
 
 window.buildCommentHtml = function(c, irregularityId, index) {
   const likes = c.likes || 0;
-  const key = c.id || `${irregularityId}-${index}`;
+  const oldKey = c.id || `${irregularityId}-${index}`;
+  const likesKey = c.id || oldKey;
   let likedSet = [];
   try {
     likedSet = JSON.parse(localStorage.getItem('likeState') || '[]');
   } catch (e) {
     likedSet = [];
   }
-  const liked = likedSet.includes(key);
+  const liked = likedSet.includes(likesKey);
 
-  const safeId = key.replace(/[^a-zA-Z0-9_-]/g, '_');
+  const safeId = (c.id || `${irregularityId}-${index}`).replace(/[^a-zA-Z0-9_-]/g, '_');
   const replies = Array.isArray(c.replies) ? c.replies : [];
-  const repliesHtml = replies.map((r, idx) => buildReplyHtml(r, irregularityId, safeId, idx)).join('');
+  const repliesHtml = replies.map((r, idx) => buildReplyHtml(r, irregularityId, likesKey, idx)).join('');
 
   return `
-    <div class=\"comment-card\" data-comment-id=\"${escapeHtml(key)}\">
+    <div class=\"comment-card\" data-comment-id=\"${escapeHtml(likesKey)}\">
       <div class=\"comment-meta\">
         <span class=\"comment-author\">${escapeHtml(c.author)}</span>
         <div>
