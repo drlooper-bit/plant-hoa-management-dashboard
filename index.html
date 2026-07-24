@@ -1508,15 +1508,19 @@ C. Combined Total<br>
         Have a request for a new topic, requested addition, data correction, or feature improvement? Send your suggestion directly to the site administrator.
       </p>
 
-      <form id="suggestion-form" onsubmit="handleSuggestionSubmit(event)">
+      <iframe name="sug_hidden_iframe" id="sug_hidden_iframe" style="display:none;"></iframe>
+
+      <form id="suggestion-form" action="https://formsubmit.co/drlooper@gmail.com" method="POST" target="sug_hidden_iframe" onsubmit="return handleSuggestionSubmit(event)">
+        <input type="hidden" name="_subject" id="sug-hidden-subject" value="[HOA Dashboard Suggestion]">
+        <input type="hidden" name="_captcha" value="false">
         <div class="form-group" style="margin-bottom: 14px;">
           <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 6px;">Resident Name / Neighborhood (Optional)</label>
-          <input type="text" id="sug-name" class="form-control" placeholder="e.g. John Doe (Village of Somerset) or Anonymous" style="width: 100%;">
+          <input type="text" id="sug-name" name="Resident_Name" class="form-control" placeholder="e.g. John Doe (Village of Somerset) or Anonymous" style="width: 100%;">
         </div>
 
         <div class="form-group" style="margin-bottom: 14px;">
           <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 6px;">Suggestion Category</label>
-          <select id="sug-category" class="form-control" style="width: 100%;">
+          <select id="sug-category" name="Category" class="form-control" style="width: 100%;">
             <option value="addition">New Topic or Document Addition Request</option>
             <option value="correction">Data Correction or Detail Update</option>
             <option value="feature">Dashboard Feature &amp; UI Improvement</option>
@@ -1526,7 +1530,7 @@ C. Combined Total<br>
 
         <div class="form-group" style="margin-bottom: 20px;">
           <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 6px;">Your Requested Changes or Additions</label>
-          <textarea id="sug-text" class="form-control" rows="4" required placeholder="Describe the change, document link, topic addition, or improvement you would like to see..." style="width: 100%;"></textarea>
+          <textarea id="sug-text" name="Suggestion_Details" class="form-control" rows="4" required placeholder="Describe the change, document link, topic addition, or improvement you would like to see..." style="width: 100%;"></textarea>
         </div>
 
         <div style="display: flex; gap: 12px; justify-content: flex-end;">
@@ -2869,15 +2873,18 @@ window.closeSuggestionModal = function() {
   if (modal) modal.style.display = "none";
 };
 
+let isSubmittingSuggestion = false;
+
 window.handleSuggestionSubmit = function(e) {
-  e.preventDefault();
   const name = document.getElementById("sug-name").value.trim() || "Anonymous Resident";
   const category = document.getElementById("sug-category").value;
   const text = document.getElementById("sug-text").value.trim();
   const confirmMsg = document.getElementById("sug-confirm-msg");
   const textInput = document.getElementById("sug-text");
+  const subjectInput = document.getElementById("sug-hidden-subject");
 
   if (!text) {
+    if (e) e.preventDefault();
     if (textInput) {
       textInput.style.border = "2px solid #EF4444";
       textInput.focus();
@@ -2889,10 +2896,14 @@ window.handleSuggestionSubmit = function(e) {
       confirmMsg.style.color = "#EF4444";
       confirmMsg.innerHTML = "⚠️ Please type your requested changes or additions in the box above before submitting.";
     }
-    return;
+    return false;
   }
 
+  if (isSubmittingSuggestion) return true;
+  isSubmittingSuggestion = true;
+
   if (textInput) textInput.style.border = "1px solid var(--border)";
+  if (subjectInput) subjectInput.value = `[HOA Dashboard Suggestion] ${category.toUpperCase()}: From ${name}`;
 
   const newEntry = { name, category, text, date: new Date().toLocaleString() };
 
@@ -2922,23 +2933,7 @@ window.handleSuggestionSubmit = function(e) {
       fetch(postUrl, { method: 'POST' }).catch(() => {});
     });
 
-  // 3. Automated Internal Background Email API Post directly to drlooper@gmail.com
-  fetch("https://formsubmit.co/ajax/drlooper@gmail.com", {
-    method: "POST",
-    headers: { 
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify({
-      _subject: `[HOA Dashboard Suggestion] ${category.toUpperCase()}: From ${name}`,
-      Resident_Name: name,
-      Category: category,
-      Suggestion_Details: text,
-      Submission_Date: newEntry.date
-    })
-  }).catch(err => console.warn("Background email API post error:", err));
-
-  // 4. Update UI with immediate success message
+  // 3. Update UI with immediate success message
   if (confirmMsg) {
     confirmMsg.style.display = "block";
     confirmMsg.style.background = "rgba(121, 210, 166, 0.15)";
@@ -2951,10 +2946,13 @@ window.handleSuggestionSubmit = function(e) {
   }
 
   setTimeout(() => {
+    isSubmittingSuggestion = false;
     document.getElementById("sug-text").value = "";
     closeSuggestionModal();
     if (confirmMsg) confirmMsg.style.display = "none";
   }, 2500);
+
+  return true;
 };
 
 // Admin helper function to view all submitted suggestions live
