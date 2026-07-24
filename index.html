@@ -1541,7 +1541,7 @@ C. Combined Total<br>
 
   <!-- Footer -->
   <footer>
-    Plantation at Leesburg HOA Irregularities Hub · Generated June 2026
+    Plantation at Leesburg HOA Irregularities Hub · Generated June 2026 · <a href="javascript:void(0)" onclick="viewSuggestions()" style="color: var(--text-muted); text-decoration: underline; font-size: 11px;">View Resident Suggestions Log</a>
   </footer>
 </div>
 
@@ -2878,14 +2878,35 @@ window.handleSuggestionSubmit = function(e) {
 
   if (!text) return;
 
-  // Save suggestion to localStorage
+  const newEntry = { name, category, text, date: new Date().toLocaleString() };
+
+  // 1. Save to local cache
   try {
     const existing = JSON.parse(localStorage.getItem("plant_hoa_suggestions") || "[]");
-    existing.push({ name, category, text, date: new Date().toISOString() });
+    existing.push(newEntry);
     localStorage.setItem("plant_hoa_suggestions", JSON.stringify(existing));
   } catch (err) {}
 
-  // Trigger mailto draft to drlooper@gmail.com
+  // 2. Sync to Cloud API (2q7ohpt5/resident_suggestions)
+  const sugApiUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/2q7ohpt5/resident_suggestions`;
+  fetch(sugApiUrl)
+    .then(r => r.ok ? r.json() : null)
+    .catch(() => null)
+    .then(raw => {
+      let list = [];
+      if (raw) {
+        try {
+          list = JSON.parse(typeof raw === 'string' ? raw : JSON.stringify(raw));
+        } catch (e) {
+          if (Array.isArray(raw)) list = raw;
+        }
+      }
+      list.push(newEntry);
+      const postUrl = `https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/2q7ohpt5/resident_suggestions/${encodeURIComponent(JSON.stringify(list))}`;
+      fetch(postUrl, { method: 'POST' }).catch(() => {});
+    });
+
+  // 3. Trigger mailto draft to drlooper@gmail.com
   const subject = encodeURIComponent(`[HOA Dashboard Suggestion] ${category.toUpperCase()}: From ${name}`);
   const body = encodeURIComponent(`Resident: ${name}\nCategory: ${category}\n\nRequested Changes / Additions:\n${text}`);
   const mailtoUrl = `mailto:drlooper@gmail.com?subject=${subject}&body=${body}`;
@@ -2904,6 +2925,24 @@ window.handleSuggestionSubmit = function(e) {
     closeSuggestionModal();
     if (confirmMsg) confirmMsg.style.display = "none";
   }, 2500);
+};
+
+// Admin helper function to view all submitted suggestions live
+window.viewSuggestions = function() {
+  const sugApiUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/2q7ohpt5/resident_suggestions`;
+  fetch(sugApiUrl)
+    .then(r => r.json())
+    .then(data => {
+      console.log("=== RESIDENT SUGGESTIONS & IMPROVEMENTS LOG ===");
+      let items = [];
+      try { items = typeof data === 'string' ? JSON.parse(data) : data; } catch(e){}
+      console.table(items);
+      alert(`Found ${items.length} suggestions stored on the cloud. Press F12 -> Console to view details.`);
+    })
+    .catch(err => {
+      console.error("Error fetching suggestions:", err);
+      alert("Could not load cloud suggestions. Check browser console.");
+    });
 };
 
 // Initial Render
