@@ -821,9 +821,14 @@
 
   <!-- Community Portal Purpose Introduction Banner -->
   <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98)); border: 1px solid var(--border-hover); border-radius: 16px; padding: 24px 28px; margin: 20px 0 24px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.35); color: #F8FAFC;">
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;">
-      <span style="background: rgba(77, 171, 247, 0.15); color: var(--accent); border: 1px solid rgba(77, 171, 247, 0.3); font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 4px 10px; border-radius: 12px; letter-spacing: 0.06em;">Community Information &amp; Communication Portal</span>
-      <span style="color: #94A3B8; font-size: 12.5px; font-weight: 500;">Serving all 2,820 Homes in The Plantation at Leesburg</span>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <span style="background: rgba(77, 171, 247, 0.15); color: var(--accent); border: 1px solid rgba(77, 171, 247, 0.3); font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 4px 10px; border-radius: 12px; letter-spacing: 0.06em;">Community Information &amp; Communication Portal</span>
+        <span style="color: #94A3B8; font-size: 12.5px; font-weight: 500;">Serving all 2,820 Homes in The Plantation at Leesburg</span>
+      </div>
+      <button type="button" onclick="openSuggestionModal()" style="background: rgba(77, 171, 247, 0.2); color: #60A5FA; border: 1px solid rgba(96, 165, 250, 0.4); padding: 7px 16px; border-radius: 20px; font-family: var(--font-heading); font-size: 12.5px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+        <span>💡 Resident Suggestions &amp; Additions</span>
+      </button>
     </div>
     
     <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: #FFFFFF; margin: 0 0 12px 0; line-height: 1.3;">
@@ -1486,6 +1491,51 @@ C. Combined Total<br>
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- Resident Suggestion Modal -->
+  <div id="suggestion-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 999999; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: var(--bg-card); border: 1px solid var(--border-hover); border-radius: 16px; max-width: 580px; width: 100%; padding: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative;">
+      <button type="button" onclick="closeSuggestionModal()" style="position: absolute; top: 18px; right: 20px; background: transparent; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer;">✕</button>
+
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+        <span style="font-size: 22px;">💡</span>
+        <h3 style="font-family: var(--font-heading); font-size: 19px; margin: 0; color: var(--text);">Submit Dashboard Suggestion or Improvement</h3>
+      </div>
+
+      <p style="font-size: 13px; color: var(--text-dim); margin: 0 0 20px 0; line-height: 1.5;">
+        Have a request for a new topic, requested addition, data correction, or feature improvement? Send your suggestion directly to the site administrator.
+      </p>
+
+      <form id="suggestion-form" onsubmit="handleSuggestionSubmit(event)">
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 6px;">Resident Name / Neighborhood (Optional)</label>
+          <input type="text" id="sug-name" class="form-control" placeholder="e.g. John Doe (Village of Somerset) or Anonymous" style="width: 100%;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 6px;">Suggestion Category</label>
+          <select id="sug-category" class="form-control" style="width: 100%;">
+            <option value="addition">New Topic or Document Addition Request</option>
+            <option value="correction">Data Correction or Detail Update</option>
+            <option value="feature">Dashboard Feature &amp; UI Improvement</option>
+            <option value="general">General Resident Feedback</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 6px;">Your Requested Changes or Additions</label>
+          <textarea id="sug-text" class="form-control" rows="4" required placeholder="Describe the change, document link, topic addition, or improvement you would like to see..." style="width: 100%;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+          <button type="button" onclick="closeSuggestionModal()" class="submit-btn" style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim);">Cancel</button>
+          <button type="submit" class="submit-btn" style="background: var(--accent); color: #fff;">Send Suggestion</button>
+        </div>
+      </form>
+
+      <div id="sug-confirm-msg" style="display: none; margin-top: 16px; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 600; text-align: center; background: rgba(121,210,166,0.15); border: 1px solid rgba(121,210,166,0.3); color: var(--ok);"></div>
     </div>
   </div>
 
@@ -2806,6 +2856,54 @@ window.shareSite = function() {
       prompt('Copy this link:', url);
     }
   }
+};
+
+// Resident Suggestion Modal Handlers
+window.openSuggestionModal = function() {
+  const modal = document.getElementById("suggestion-modal");
+  if (modal) modal.style.display = "flex";
+};
+
+window.closeSuggestionModal = function() {
+  const modal = document.getElementById("suggestion-modal");
+  if (modal) modal.style.display = "none";
+};
+
+window.handleSuggestionSubmit = function(e) {
+  e.preventDefault();
+  const name = document.getElementById("sug-name").value.trim() || "Anonymous Resident";
+  const category = document.getElementById("sug-category").value;
+  const text = document.getElementById("sug-text").value.trim();
+  const confirmMsg = document.getElementById("sug-confirm-msg");
+
+  if (!text) return;
+
+  // Save suggestion to localStorage
+  try {
+    const existing = JSON.parse(localStorage.getItem("plant_hoa_suggestions") || "[]");
+    existing.push({ name, category, text, date: new Date().toISOString() });
+    localStorage.setItem("plant_hoa_suggestions", JSON.stringify(existing));
+  } catch (err) {}
+
+  // Trigger mailto draft to drlooper@gmail.com
+  const subject = encodeURIComponent(`[HOA Dashboard Suggestion] ${category.toUpperCase()}: From ${name}`);
+  const body = encodeURIComponent(`Resident: ${name}\nCategory: ${category}\n\nRequested Changes / Additions:\n${text}`);
+  const mailtoUrl = `mailto:drlooper@gmail.com?subject=${subject}&body=${body}`;
+
+  if (confirmMsg) {
+    confirmMsg.style.display = "block";
+    confirmMsg.textContent = "Thank you! Your suggestion has been recorded and an email draft opened for drlooper@gmail.com.";
+  }
+
+  setTimeout(() => {
+    window.location.href = mailtoUrl;
+  }, 400);
+
+  setTimeout(() => {
+    document.getElementById("sug-text").value = "";
+    closeSuggestionModal();
+    if (confirmMsg) confirmMsg.style.display = "none";
+  }, 2500);
 };
 
 // Initial Render
