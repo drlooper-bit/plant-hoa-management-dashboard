@@ -2880,14 +2880,14 @@ window.handleSuggestionSubmit = function(e) {
 
   const newEntry = { name, category, text, date: new Date().toLocaleString() };
 
-  // 1. Save to local cache
+  // 1. Save to local browser cache
   try {
     const existing = JSON.parse(localStorage.getItem("plant_hoa_suggestions") || "[]");
     existing.push(newEntry);
     localStorage.setItem("plant_hoa_suggestions", JSON.stringify(existing));
   } catch (err) {}
 
-  // 2. Sync to Cloud API (2q7ohpt5/resident_suggestions)
+  // 2. Sync to Central Cloud Database (2q7ohpt5/resident_suggestions)
   const sugApiUrl = `https://keyvalue.immanuel.co/api/KeyVal/GetValue/2q7ohpt5/resident_suggestions`;
   fetch(sugApiUrl)
     .then(r => r.ok ? r.json() : null)
@@ -2906,25 +2906,36 @@ window.handleSuggestionSubmit = function(e) {
       fetch(postUrl, { method: 'POST' }).catch(() => {});
     });
 
-  // 3. Trigger mailto draft to drlooper@gmail.com
-  const subject = encodeURIComponent(`[HOA Dashboard Suggestion] ${category.toUpperCase()}: From ${name}`);
-  const body = encodeURIComponent(`Resident: ${name}\nCategory: ${category}\n\nRequested Changes / Additions:\n${text}`);
-  const mailtoUrl = `mailto:drlooper@gmail.com?subject=${subject}&body=${body}`;
+  // 3. Automated Background Email API Post directly to drlooper@gmail.com
+  fetch("https://formsubmit.co/ajax/drlooper@gmail.com", {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      _subject: `[HOA Dashboard Suggestion] ${category.toUpperCase()}: From ${name}`,
+      Resident_Name: name,
+      Category: category,
+      Suggestion_Details: text,
+      Submission_Date: newEntry.date
+    })
+  }).catch(err => console.warn("Background email API post error:", err));
 
+  // 4. Update UI with immediate success message
   if (confirmMsg) {
     confirmMsg.style.display = "block";
-    confirmMsg.textContent = "Thank you! Your suggestion has been recorded and an email draft opened for drlooper@gmail.com.";
+    confirmMsg.innerHTML = `
+      ✓ <strong>Suggestion Submitted!</strong> Thank you for your feedback.<br>
+      <span style="font-size: 11px; color: var(--text-dim); font-weight: normal;">Recorded to central cloud database and dispatched to drlooper@gmail.com.</span>
+    `;
   }
-
-  setTimeout(() => {
-    window.location.href = mailtoUrl;
-  }, 400);
 
   setTimeout(() => {
     document.getElementById("sug-text").value = "";
     closeSuggestionModal();
     if (confirmMsg) confirmMsg.style.display = "none";
-  }, 2500);
+  }, 3000);
 };
 
 // Admin helper function to view all submitted suggestions live
