@@ -2219,6 +2219,7 @@ window.toggleLike = function(irregularityId, commentIndex, buttonEl) {
     likedSet = [];
   }
 
+  const likelyOldKey = `${irregularityId}-${commentIndex}`;
   if (likedSet.includes(key)) {
     return;
   }
@@ -2227,6 +2228,9 @@ window.toggleLike = function(irregularityId, commentIndex, buttonEl) {
   saveForumData();
 
   likedSet.push(key);
+  if (likelyOldKey !== key && !likedSet.includes(likelyOldKey)) {
+    likedSet.push(likelyOldKey);
+  }
   localStorage.setItem('likeState', JSON.stringify(likedSet));
 
   const countSpan = buttonEl.parentElement ? buttonEl.parentElement.querySelector('.like-count') : null;
