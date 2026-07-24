@@ -2240,6 +2240,81 @@ window.toggleLike = function(irregularityId, commentIndex, buttonEl) {
   buttonEl.style.cursor = 'not-allowed';
 };
 
+window.toggleReplyForm = function(safeId) {
+  const form = document.getElementById(`reply-form-${safeId}`);
+  if (!form) return;
+  const isHidden = form.style.display === 'none';
+  form.style.display = isHidden ? 'block' : 'none';
+};
+
+window.submitReply = function(irregularityId, commentIndex, safeId) {
+  const nameInput = document.getElementById(`reply-name-${safeId}`);
+  const stanceInput = document.getElementById(`reply-stance-${safeId}`);
+  const textInput = document.getElementById(`reply-text-${safeId}`);
+
+  if (!textInput || !textInput.value.trim()) {
+    alert('Please enter your reply text.');
+    return;
+  }
+
+  const author = nameInput ? nameInput.value.trim() : 'Anonymous Resident';
+  const stance = stanceInput ? stanceInput.value : 'neutral';
+  const text = textInput.value.trim();
+
+  const now = new Date();
+  const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+  const reply = { author, stance, text, date: dateStr, likes: 0 };
+
+  const comments = forumNotes[irregularityId] || [];
+  const comment = comments[commentIndex];
+  if (!comment) return;
+
+  if (!Array.isArray(comment.replies)) {
+    comment.replies = [];
+  }
+  comment.replies.push(reply);
+  saveForumData();
+
+  if (textInput) textInput.value = '';
+
+  if (irregularityId === 'golf-recovery-plan') {
+    renderGolfRecoveryComments();
+  } else if (irregularityId === 'hoa-meeting-july-8-2026') {
+    renderMeetingsComments();
+  } else {
+    renderIrregularities(activeTab, document.getElementById('search-box').value);
+  }
+};
+
+window.toggleReplyLike = function(replyKey, buttonEl) {
+  let likedSet = [];
+  try {
+    likedSet = JSON.parse(localStorage.getItem('likeState') || '[]');
+  } catch (e) {
+    likedSet = [];
+  }
+
+  if (likedSet.includes(replyKey)) {
+    return;
+  }
+
+  likedSet.push(replyKey);
+  localStorage.setItem('likeState', JSON.stringify(likedSet));
+
+  const card = buttonEl.closest('[data-comment-id]');
+  const countSpan = card ? card.querySelector('.like-count') : null;
+  if (countSpan) {
+    const current = parseInt(countSpan.textContent.replace(/[^0-9]/g, ''), 10) || 0;
+    countSpan.textContent = `${current + 1} like${current === 1 ? '' : 's'}`;
+  }
+
+  buttonEl.disabled = true;
+  buttonEl.textContent = 'Liked';
+  buttonEl.style.opacity = '0.6';
+  buttonEl.style.cursor = 'not-allowed';
+};
+
 window.buildCommentHtml = function(c, irregularityId, index) {
   const likes = c.likes || 0;
   const key = c.id || `${irregularityId}-${index}`;
@@ -2251,19 +2326,67 @@ window.buildCommentHtml = function(c, irregularityId, index) {
   }
   const liked = likedSet.includes(key);
 
+  const safeId = key.replace(/[^a-zA-Z0-9_-]/g, '_');
+  const replies = Array.isArray(c.replies) ? c.replies : [];
+  const repliesHtml = replies.map((r, idx) => buildReplyHtml(r, irregularityId, safeId, idx)).join('');
+
   return `
-    <div class="comment-card">
-      <div class="comment-meta">
-        <span class="comment-author">${escapeHtml(c.author)}</span>
+    <div class=\"comment-card\" data-comment-id=\"${escapeHtml(key)}\">
+      <div class=\"comment-meta\">
+        <span class=\"comment-author\">${escapeHtml(c.author)}</span>
         <div>
-          <span class="comment-stance stance-${escapeHtml(c.stance)}">${escapeHtml(c.stance)}</span>
-          <span class="comment-date" style="margin-left: 8px;">${escapeHtml(c.date)}</span>
+          <span class=\"comment-stance stance-${escapeHtml(c.stance)}\">${escapeHtml(c.stance)}</span>
+          <span class=\"comment-date\" style=\"margin-left: 8px;\">${escapeHtml(c.date)}</span>
         </div>
       </div>
-      <p class="comment-text">${escapeHtml(c.text)}</p>
-      <div class="like-row">
-        <button type="button" class="like-button" onclick="toggleLike('${irregularityId}', ${index}, this)" ${liked ? 'disabled' : ''}>${liked ? 'Liked' : 'Like'}</button>
-        <span class="like-count">${likes} like${likes === 1 ? '' : 's'}</span>
+      <p class=\"comment-text\">${escapeHtml(c.text)}</p>
+      <div class=\"like-row\">
+        <button type=\"button\" class=\"like-button\" onclick=\"toggleLike('${irregularityId}', ${index}, this)\" ${liked ? 'disabled' : ''}>${liked ? 'Liked' : 'Like'}</button>
+        <span class=\"like-count\">${likes} like${likes === 1 ? '' : 's'}</span>
+        <button type=\"button\" class=\"reply-toggle\" onclick=\"toggleReplyForm('${safeId}')\" style=\"margin-left: 10px; background: none; border: none; color: var(--accent); font-weight: 700; cursor: pointer; font-size: 12px;\">Reply</button>
+      </div>
+      <div class=\"reply-form\" id=\"reply-form-${safeId}\" style=\"display: none; margin-top: 10px; padding: 10px; border-left: 2px solid var(--border);\">
+        <input id=\"reply-name-${safeId}\" placeholder=\"RESIDENT NAME / NEIGHBORHOOD\" style=\"width: 100%; padding: 8px; margin-bottom: 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-input); color: var(--text);\" />
+        <select id=\"reply-stance-${safeId}\" style=\"width: 100%; padding: 8px; margin-bottom: 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-input); color: var(--text);\">
+          <option value=\"concerned\">Concerned Resident</option>
+          <option value=\"skeptical\">Skeptical Watchdog</option>
+          <option value=\"neutral\">Neutral Inquirer</option>
+          <option value=\"supportive\">Supportive of Board</option>
+        </select>
+        <textarea id=\"reply-text-${safeId}\" rows=\"2\" placeholder=\"Write a reply...\" style=\"width: 100%; padding: 8px; margin-bottom: 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-input); color: var(--text);\"></textarea>
+        <button type=\"button\" onclick=\"submitReply('${irregularityId}', ${index}, '${safeId}')\" style=\"background: var(--accent); color: #fff; border: none; padding: 8px 12px; border-radius: 8px; font-weight: 700; cursor: pointer;\">Submit Reply</button>
+      </div>
+      <div class=\"replies-list\" id=\"replies-${safeId}\" style=\"margin-top: 10px;\">
+        ${repliesHtml}
+      </div>
+    </div>
+  `;
+};
+
+window.buildReplyHtml = function(r, irregularityId, parentKey, replyIndex) {
+  const likes = r.likes || 0;
+  const replyKey = `${parentKey}__reply_${replyIndex}`;
+  let likedSet = [];
+  try {
+    likedSet = JSON.parse(localStorage.getItem('likeState') || '[]');
+  } catch (e) {
+    likedSet = [];
+  }
+  const liked = likedSet.includes(replyKey);
+
+  return `
+    <div class=\"comment-card\" style=\"margin-left: 12px; border-left: 2px solid var(--border);\" data-comment-id=\"${escapeHtml(replyKey)}\">
+      <div class=\"comment-meta\">
+        <span class=\"comment-author\">${escapeHtml(r.author)}</span>
+        <div>
+          <span class=\"comment-stance stance-${escapeHtml(r.stance)}\">${escapeHtml(r.stance)}</span>
+          <span class=\"comment-date\" style=\"margin-left: 8px;\">${escapeHtml(r.date)}</span>
+        </div>
+      </div>
+      <p class=\"comment-text\">${escapeHtml(r.text)}</p>
+      <div class=\"like-row\">
+        <button type=\"button\" class=\"like-button\" onclick=\"toggleReplyLike('${replyKey}', this)\" ${liked ? 'disabled' : ''}>${liked ? 'Liked' : 'Like'}</button>
+        <span class=\"like-count\">${likes} like${likes === 1 ? '' : 's'}</span>
       </div>
     </div>
   `;
